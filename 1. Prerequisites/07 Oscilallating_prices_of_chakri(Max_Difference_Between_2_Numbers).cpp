@@ -27,6 +27,8 @@ Sample Input 0:
 Sample Output 0:
 8*/
 
+// Time:- O(N)
+// Space:- O(1)
 
 #include<bits/stdc++.h>
 using namespace std;

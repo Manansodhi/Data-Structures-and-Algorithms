@@ -1,5 +1,1 @@
-No of Teams formed : 5 No of left Villagers : 8
-No of Teams formed : 17 No of left Villagers : 1
-No of Teams formed : 10 No of left Villagers : 4
-No of Teams formed : 6 No of left Villagers : 8
-No of Teams formed : 13 No of left Villagers : 8
+8

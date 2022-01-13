@@ -120,7 +120,7 @@ using namespace std;
 
 
 //OSCILATING PRICES OF CHAKRI
-int maxProfit(int arr[], int n){
+int maxProfit(int arr[], int arr_size){
 	int max_diff = arr[1] - arr[0];
 	int min_element = arr[0];
 	for (int i = 1; i < arr_size; i++) {
