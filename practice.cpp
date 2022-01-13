@@ -119,6 +119,22 @@ using namespace std;
 // }
 
 
+//OSCILATING PRICES OF CHAKRI
+int maxProfit(int arr[], int n){
+	int max_diff = arr[1] - arr[0];
+	int min_element = arr[0];
+	for (int i = 1; i < arr_size; i++) {
+		if (arr[i] - min_element > max_diff) {
+			max_diff = arr[i] - min_element;
+		}
+		if (arr[i] < min_element) {
+			min_element = arr[i];
+		}
+	}
+	return max_diff;
+}
+
+
 
 
 int main() {
@@ -190,39 +206,63 @@ int main() {
 // 	}
 // 	targetMarble(value, noMarbles, target);
 
+// //TARGET MARBLES
+// 	int n, t;
+// 	cin >> n >> t;
+// 	int* arr = new int[n];
+// 	for (int i = 0; i < n; i++)
+// 	{
+// 		cin >> arr[i];
+// 	}
+// 	for (int i = 0; i < n; i++)
+// 	{
 
-	int n, t;
-	cin >> n >> t;
+// 		int sum = 0;
+// 		int number = i;
+// 		vector<int>v;
+
+// 		while ((sum != t) && (number < n))
+// 		{
+// 			sum += arr[number];
+// 			v.push_back(arr[number]);
+// 			number += 1;
+// 		}
+// 		if (sum == t)
+// 		{
+// 			cout << "true" << endl;
+// 			for (int j = 0; j < v.size(); j++)
+// 			{
+// 				cout << v[j] << " ";
+// 			}
+// 			return 0;
+// 		}
+// 	}
+// 	cout << "false";
+// }
+
+// //PRE4
+// 	int noVillagers;
+// 	int noTeams = 0, leftVillagers = 0; 
+// 	cin >> noVillagers;
+// 	int player[noVillagers];
+// 	for (int i = 0; i < noVillagers; i++){
+// 		cin >> player[i];
+// 	}
+// 	for (int i = 0,end = noVillagers; i < (noVillagers/2); i++,end--){
+// 		noTeams = ((player[i]+player[end-1])/10);
+// 		leftVillagers = ((player[i]+player[end-1])%10);
+// 		cout << "No of Teams formed : " << noTeams <<" " << "No of left Villagers : " << leftVillagers << endl;
+// 	}
+
+
+//OSCILATING PRICES OF CHAKRI
+	int n;
+	cin >> n;
 	int* arr = new int[n];
-	for (int i = 0; i < n; i++)
-	{
+	for (int i = 0; i < n; i++) {
 		cin >> arr[i];
 	}
-	for (int i = 0; i < n; i++)
-	{
+	cout << maxProfit(arr, n) << endl;
 
-		int sum = 0;
-		int number = i;
-		vector<int>v;
-
-		while ((sum != t) && (number < n))
-		{
-			sum += arr[number];
-			v.push_back(arr[number]);
-			number += 1;
-		}
-		if (sum == t)
-		{
-			cout << "true" << endl;
-			for (int j = 0; j < v.size(); j++)
-			{
-				cout << v[j] << " ";
-			}
-			return 0;
-		}
-	}
-	cout << "false";
+ 	return 0;
 }
-
-//  	return 0;
-// }
