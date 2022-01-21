@@ -1,7 +1,11 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-int maxSubArraySum(int arr[], int size){
+//KADANE's ALGORITHM DP APPROCH
+//TIME:- O(n)
+//This work also well when we have all negative numbers
+
+int kadane(int arr[], int size){
 	int best_sum = arr[0], curr_sum = arr[0];
 	for (int i = 1; i < size; i++){
 		curr_sum = max (arr[i], curr_sum + arr[i]);
@@ -24,7 +28,7 @@ int main(int argc, char const *argv[])
 		cin >> arr[i];
 	} 
 
-	cout << maxSubArraySum(arr, size) << endl;
+	cout << kadane(arr, size) << endl;
 
 
 	return 0;

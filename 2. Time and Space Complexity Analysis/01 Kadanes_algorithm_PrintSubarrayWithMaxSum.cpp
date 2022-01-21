@@ -1,6 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//KADANE'S ALGORITHM (LARGEST SUM SUBARRAY)
+//Time:- O(n)
+//this doesnot work when we have all negative numbers
+
 int largest_sum_subarray(int *arr, int n) {
     int curr_max_sum = 0;
     int best_sum_so_far = 0;
