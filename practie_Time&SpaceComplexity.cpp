@@ -19,17 +19,41 @@ using namespace std;
 // 	return best_sum;
 // }
 
-//KADANE's ALGORITHM DP APPROCH
-//TIME:- O(n)
+// //KADANE's ALGORITHM DP APPROCH
+// //TIME:- O(n)
+// //This work also well when we have all negative numbers
+// int kadane(int * arr, int n) {
+// 	int current_sum = arr[0];
+// 	int best_sum = arr[0];
+// 	for (int i = 1; i < n; i++) {
+// 		current_sum = max(arr[i], current_sum + arr[i]);
+// 		best_sum = max(best_sum, current_sum);
+// 	}
+// 	return best_sum;
+// }
 
-int kadane(int * arr, int n) {
-	int current_sum = arr[0];
-	int best_sum = arr[0];
-	for(int i=1;i<n;i++){
-		current_sum = max(arr[i],current_sum+arr[i]);
-		best_sum=max(best_sum,current_sum);
+//PRINTING SUBARRAY WITH MAXIMUM SUM
+void kadane(int * arr, int n) {
+	int best_sum = 0, current_sum = 0, start = 0, end = 0, s = 0;
+	for(int i =0;i<n;i++){
+		current_sum +=arr[i];
+		if(current_sum>best_sum){
+			best_sum=current_sum;
+			start=s;
+			end=i;
+		}
+		if(current_sum<0){
+			current_sum=0;
+			s=i+1;
+		}
 	}
-	return best_sum;
+	cout<<"Maximum Contignous sum is " << best_sum<<endl;
+	int size = end-start+1;
+	for(int i=0;i<size;i++){
+		cout<<arr[start]<<", ";
+		start++;
+	}
+
 }
 
 
@@ -47,7 +71,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		cin >> arr[i];
 	}
-	cout << kadane(arr, n) << endl;
-
+	//cout << kadane(arr, n) << endl;
+	kadane(arr, n);
 	return 0;
 }

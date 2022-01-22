@@ -22,8 +22,12 @@ int largest_sum_subarray(int *arr, int n) {
             s = i + 1;
         }
     }
-     cout << "starting index " << start << endl;
-     cout << "Ending Index " << end << endl;
+    cout<<"Maximum Contignous sum is " << best_sum<<endl;
+    int size = end-start+1;
+    for(int i=0;i<size;i++){
+        cout<<arr[start]<<", ";
+        start++;
+    }
     return best_sum_so_far;
 }
 
