@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
 // //KADANE'S ALGORITHM (LARGEST SUM SUBARRAY)
 // //Time:- O(n)
@@ -31,7 +32,7 @@ using namespace std;
 // 	}
 // 	return best_sum;
 // }
- 
+
 
 // //PRINTING SUBARRAY WITH MAXIMUM SUM
 // void kadane(int * arr, int n) {
@@ -58,61 +59,109 @@ using namespace std;
 // }
 
 
-//DIVIDE AND CONQUER APPROCH
-//Time O(nLogn)
-// 1. divide array in 2 halfes
-// 2. return the max of following
-// 	2.1 Max subarray sum in left half (make recursive call)
-// 	2.2 Max subarray sum in right half (make recursive call)
-// 	2.3 Max subarray sum such that the subarray crosses the midpoint-> can do in linear time
-// 	find the max sum starting from mid point and ending at some poinrt to the left of the mid ,
-// 	then find maximum sum staring from mid+1 and ending at some point to the right of mid+1.
-// 	finally return max of leftSum, rightSum, leftSum+rightSmum
+// //DIVIDE AND CONQUER APPROCH
+// //Time O(nLogn)
+// // 1. divide array in 2 halfes
+// // 2. return the max of following
+// // 	2.1 Max subarray sum in left half (make recursive call)
+// // 	2.2 Max subarray sum in right half (make recursive call)
+// // 	2.3 Max subarray sum such that the subarray crosses the midpoint-> can do in linear time
+// // 	find the max sum starting from mid point and ending at some poinrt to the left of the mid ,
+// // 	then find maximum sum staring from mid+1 and ending at some point to the right of mid+1.
+// // 	finally return max of leftSum, rightSum, leftSum+rightSmum
 
-int max(int a, int b) {
-	return (a > b) ? a : b;
-}
+// int max(int a, int b) {
+// 	return (a > b) ? a : b;
+// }
 
-int max(int a, int b, int c) {
-	return (max(max(a, b), c));
-}
+// int max(int a, int b, int c) {
+// 	return (max(max(a, b), c));
+// }
 
-int maxCrossingSum(int arr[], int l, int m, int h) {
-	int sum = 0;
-	int left_sum = INT_MIN;
-	for (int i = m; i >= l; i--) {
-		sum += arr[i];
-		if (sum > left_sum) {
-			left_sum = sum;
+// int maxCrossingSum(int arr[], int l, int m, int h) {
+// 	int sum = 0;
+// 	int left_sum = INT_MIN;
+// 	for (int i = m; i >= l; i--) {
+// 		sum += arr[i];
+// 		if (sum > left_sum) {
+// 			left_sum = sum;
+// 		}
+// 	}
+
+// 	sum = 0;
+// 	int right_sum = INT_MIN;
+// 	for (int i = m + 1; i <= h; i++) {
+// 		sum += arr[i];
+// 		if (right_sum < sum) {
+// 			right_sum = sum;
+// 		}
+// 	}
+
+// 	return (max(left_sum, right_sum, (left_sum + right_sum)));
+// }
+
+// int maxSubArraySum(int * arr, int l, int h) {
+// 	if (l == h) {
+// 		return arr[l];
+// 	}
+// 	int m = (l + h) / 2;
+
+//     /* Return maximum of following three possible cases
+//             a) Maximum subarray sum in left half
+//             b) Maximum subarray sum in right half
+//             c) Maximum subarray sum such that the subarray
+//        crosses the midpoint */
+
+// 	return (max(maxSubArraySum(arr, l, m), maxSubArraySum(arr, m + 1, h), maxCrossingSum(arr, l, m, h)));
+// }
+
+
+//K_concatenation
+//Time: O(n)
+
+ll kadane(int * arr, int n) {
+	ll curr_sum = 0;
+	ll best_sum = INT_MIN;
+	for (int i = 0; i < n; i++) {
+		curr_sum += arr[i];
+		best_sum = max(curr_sum, best_sum);
+		if (curr_sum < 0) {
+			curr_sum = 0;
 		}
 	}
-
-	sum = 0;
-	int right_sum = INT_MIN;
-	for (int i = m + 1; i <= h; i++) {
-		sum += arr[i];
-		if (right_sum < sum) {
-			right_sum = sum;
-		}
-	}
-
-	return (max(left_sum, right_sum, (left_sum + right_sum)));
+	return best_sum;
 }
 
-int maxSubArraySum(int * arr, int l, int h) {
-	if (l == h) {
-		return arr[l];
+ll kCon(int * arr, int n, int k) {
+	ll kadaneSum = kadane(arr, n);
+	if (k == 1) {
+		return kadaneSum;
 	}
-	int m = (l + h) / 2;
-	
-    /* Return maximum of following three possible cases
-            a) Maximum subarray sum in left half
-            b) Maximum subarray sum in right half
-            c) Maximum subarray sum such that the subarray
-       crosses the midpoint */
-	
-	return (max(maxSubArraySum(arr, l, m), maxSubArraySum(arr, m + 1, h), maxCrossingSum(arr, l, m, h)));
+	ll curr_prefix_sum = 0, curr_suffix_sum = 0;
+	ll best_prefix_sum = INT_MIN;
+	ll best_suffix_sum = INT_MIN;
+
+	for (int i = 0; i < n; i++) {
+		curr_prefix_sum += arr[i];
+		best_prefix_sum = max(curr_prefix_sum, best_prefix_sum);
+	}
+	ll total_sum = curr_prefix_sum;
+
+	for (int i = n - 1; i >= 0; i--) {
+		curr_suffix_sum += arr[i];
+		best_suffix_sum = max(best_suffix_sum, curr_suffix_sum);
+	}
+	ll ans ;
+	if (total_sum >= 0) {
+		ans = max((best_suffix_sum + (total_sum * (k - 2)) + best_prefix_sum), kadaneSum);
+	}
+	else {
+		ans = max(best_prefix_sum + best_suffix_sum, kadaneSum);
+	}
+	return ans;
+
 }
+
 
 
 int main() {
@@ -140,6 +189,20 @@ int main() {
 		cin >> arr[i];
 	}
 
-	cout << maxSubArraySum(arr, 0, upper-1) << endl;
+	cout << maxSubArraySum(arr, 0, upper - 1) << endl;
+	
+    // int t;
+	// cin >> t;
+	// while (t--) {
+	// 	int size, k;
+	// 	cin >> size >> k;
+	// 	int * arr = new int[size];
+	// 	for (int i = 0; i < size; i++) {
+	// 		cin >> arr[i];
+	// 	}
+	// 	cout << kCon(arr, size, k) << endl;
+	// }
+
+
 	return 0;
 }
