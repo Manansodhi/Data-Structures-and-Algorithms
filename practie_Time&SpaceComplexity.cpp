@@ -189,30 +189,79 @@ typedef long long ll;
 // }
 
 
-//MAX BENDING PRODUCT EXPLAIN
-//TIME :- O(N)
-//SPACE :- O(1)
+// //MAX BENDING PRODUCT EXPLAIN
+// //TIME :- O(N)
+// //SPACE :- O(1)
 
-void mind_bending(int * arr, int n){
-	long *product = new long int[n];
-	long lp = 1;
-	for (int i = 0; i < n; i++) {
-		product[i] = lp;
-		lp = lp * arr[i];
-	}
+// void mind_bending(int * arr, int n){
+// 	long *product = new long int[n];
+// 	long lp = 1;
+// 	for (int i = 0; i < n; i++) {
+// 		product[i] = lp;
+// 		lp = lp * arr[i];
+// 	}
 
-	long rp = 1;
-	for (int i = n - 1; i >= 0; i--) {
-		product[i] = product[i] * rp;
-		rp = rp * arr[i];
-	}
+// 	long rp = 1;
+// 	for (int i = n - 1; i >= 0; i--) {
+// 		product[i] = product[i] * rp;
+// 		rp = rp * arr[i];
+// 	}
 
-	for (int i = 0; i < n; i++) {
-		cout << product[i] << " ";
-	}
-	cout << endl;
-}
+// 	for (int i = 0; i < n; i++) {
+// 		cout << product[i] << " ";
+// 	}
+// 	cout << endl;
+// }
 
+
+// //ASSIGNMENT QUESTIONS
+// // DUPLICATE IN  ARRAY
+// // 1. Naive Approch
+
+// //   0 - (n-2) <= values of elements => total (n-1) elements
+// //   campare each element of array with remaining n-1, n-2, ....., 1 elements
+// //   TIME :- O(n^2)
+// //   Space :- O(1)
+
+// // 2. Sorting Approch
+// //    sort the array in O(log n) and then compare two consective elements if they are same return that it
+// //    will take O(n)
+// //    TIME :- O(log n)
+// //    Space :- O(1)
+
+// // 3. Optimized Approch
+// //    find sum of all elements of array in O(n) time and then also find the sum of first (n-2) natural numbers 
+// //    becoz we know that we have elements of array btw 0 - (n-2) it will take O(1)time direct formula   
+// //    TIME :- O(n)
+// //    Space :- O(1) 
+
+// int duplicate_in_array(int * arr, int size){
+// 	//TIME- O(n)
+// 	int sum  =0 ;
+// 	for(int i = 0;i<n;i++){
+// 		sum = sum +arr[i];
+// 	}
+// 	return (sum - ((size-2)*(size-1)/2));
+// }
+
+
+//TRIPLET SUM
+// 1. BRUTE FORCE APPROCH
+// TIME O(N^3)
+
+int Triplet_sum(int * arr, int size, int sum) {
+    int count = 0;
+    for (int i = 0; i < size - 2; i++) {
+        for (int j = i + 1; j < size - 1; j++) {
+            for (int k = j + 1; k < size; k++) {
+                if (arr[i] + arr[j] + arr[k] == sum) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+ }
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -256,7 +305,13 @@ int main() {
 
 	//cout << maxProductSubArray(arr,n) << endl;
 
-	mind_bending(arr, n);
+	// mind_bending(arr, n);
+
+	// cout << duplicate_in_array(arr, size) << endl;
+
+	 int sum ;
+     cin >> sum;
+     cout << Triplet_sum(arr, n, sum) << endl;
 
 	return 0;
 }

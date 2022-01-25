@@ -66,6 +66,7 @@ using namespace std;
    Space :- O(1)
 
 */
+
 int duplicate_in_array(int * arr, int size){
 	//TIME- O(n)
 	int sum  =0 ;

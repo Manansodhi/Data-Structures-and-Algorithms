@@ -23,7 +23,7 @@ Time Limit: 1 sec
 Sample Input 1:
 1
 7
-1 2 3 4 5 6 7 
+1 2 3 4 5 6 7
 12
 Sample Output 1:
 5
@@ -31,7 +31,7 @@ Sample Output 1:
 Sample Input 2:
 2
 7
-1 2 3 4 5 6 7 
+1 2 3 4 5 6 7
 19
 9
 2 -5 8 -6 0 5 10 11 -3
@@ -45,3 +45,49 @@ Since there doesn't exist any triplet with sum equal to 19 for the first query, 
 For the second query, we have 5 triplets in total that sum up to 10. They are, (2, 8, 0), (2, 11, -3), (-5, 5, 10), (8, 5, -3) and (-6, 5, 11)
 
 */
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+/*
+1. BRUTE FORCE APPROCH
+TIME O(N^3)
+*/
+int Triplet_sum(int * arr, int size, int sum) {
+    int count = 0;
+    for (int i = 0; i < size - 2; i++) {
+        for (int j = i + 1; j < size - 1; j++) {
+            for (int k = j + 1; k < size; k++) {
+                if (arr[i] + arr[j] + arr[k] == sum) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+
+
+int main() {
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int size;
+        cin >> size;
+        int arr[size];
+        for (int i = 0; i < size; i++) {
+            cin >> arr[i];
+        }
+        int sum ;
+        cin >> sum
+        cout << Triplet_sum(arr, size, sum) << endl;
+    }
+    return 0;
+}
