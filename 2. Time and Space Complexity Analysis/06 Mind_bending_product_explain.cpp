@@ -1,6 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// INPUT 1
+// N 
+// 5
+// 10 3 5 6 2 
+// OUTPUT 1
+// 180 600 360 300 900
+// INPUT 2
+// 2 
+// OUTPUT 2
+// 12 20
+// TIME :- O(N)
+// SPACE :- O(1)
+
 void Max_Product(int arr[], int n){
     long * p = new long int[n];
     long lp =1;
