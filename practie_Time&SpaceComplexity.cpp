@@ -163,31 +163,55 @@ typedef long long ll;
 // }
 
 
-// MAXIMUM PRODUCT SUBARRAY
-//TIME :- O(n)
-//SPACE:- O(1)
+// // MAXIMUM PRODUCT SUBARRAY
+// //TIME :- O(n)
+// //SPACE:- O(1)
 
-int maxProductSubArray(int * arr, int size){
-	int max_ending_here = 1, min_ending_here = 1, max_so_far = 0;
-	for(int i = 0;i<size;i++){
-		if(arr[i]>0){
-			max_ending_here = max_ending_here*arr[i];
-			min_ending_here = min(1,min_ending_here*arr[i]);
-		}
-		else if (arr[i] < 0){
-			int temp = min_ending_here;
-			min_ending_here = max_ending_here * arr[i];
-			max_ending_here = max(1,temp*arr[i]);
-		}
-		else{
-			max_ending_here = 1;
-			min_ending_here = 1;
-		}
-		max_so_far = max(max_so_far,max_ending_here);
+// int maxProductSubArray(int * arr, int size){
+// 	int max_ending_here = 1, min_ending_here = 1, max_so_far = 0;
+// 	for(int i = 0;i<size;i++){
+// 		if(arr[i]>0){
+// 			max_ending_here = max_ending_here*arr[i];
+// 			min_ending_here = min(1,min_ending_here*arr[i]);
+// 		}
+// 		else if (arr[i] < 0){
+// 			int temp = min_ending_here;
+// 			min_ending_here = max_ending_here * arr[i];
+// 			max_ending_here = max(1,temp*arr[i]);
+// 		}
+// 		else{
+// 			max_ending_here = 1;
+// 			min_ending_here = 1;
+// 		}
+// 		max_so_far = max(max_so_far,max_ending_here);
+// 	}
+// 	return  max_so_far;
+// }
+
+
+//MAX BENDING PRODUCT EXPLAIN
+//TIME :- O(N)
+//SPACE :- O(1)
+
+void mind_bending(int * arr, int n){
+	long *product = new long int[n];
+	long lp = 1;
+	for (int i = 0; i < n; i++) {
+		product[i] = lp;
+		lp = lp * arr[i];
 	}
-	return  max_so_far;
-}
 
+	long rp = 1;
+	for (int i = n - 1; i >= 0; i--) {
+		product[i] = product[i] * rp;
+		rp = rp * arr[i];
+	}
+
+	for (int i = 0; i < n; i++) {
+		cout << product[i] << " ";
+	}
+	cout << endl;
+}
 
 
 int main() {
@@ -216,8 +240,8 @@ int main() {
 	// }
 
 	// cout << maxSubArraySum(arr, 0, upper - 1) << endl;
-	
-    // int t;
+
+	// int t;
 	// cin >> t;
 	// while (t--) {
 	// 	int size, k;
@@ -230,7 +254,9 @@ int main() {
 	// }
 
 
-	cout << maxProductSubArray(arr,n) << endl;
+	//cout << maxProductSubArray(arr,n) << endl;
+
+	mind_bending(arr, n);
 
 	return 0;
 }
