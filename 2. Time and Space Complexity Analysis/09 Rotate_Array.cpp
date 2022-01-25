@@ -43,8 +43,75 @@ Sample Output 2:
 #include<bits/stdc++.h>
 using namespace std;
 
+// //1. Approch Naive
+// //TIME :- O(N*D) = O(10^12) =>TLE 
+
+// void Rotate_Array_left_By_D_position(int * arr, int size, int d){
+//     int temp;
+//     while(d--){
+//         temp = arr[0];
+//         for(int i = 0; i < size; i++){
+//             arr[i] = arr[i+1];
+//         }
+//         arr[size-1] = k;
+        
+//     }
+//     arr[size-1] = temp;
+//     for(int i =0;i <size;i++){
+//         cout << arr[i] <<" " ;
+//     }
+//     cout << endl;
+// }
 
 
+//2. Approch 
+// Every element will be displaced from its current position by d position
+//Time :- O(N)
+//Space :- O(d)
+void Rotate_Array_left_By_D_position(int *arr, int size, int d){
+    int temp[d];
+    for(int i = 0; i <d;i++){
+        temp[i] = arr[i];
+    }
+
+    for(int i = 0; i < size-d;i++){
+        arr[i] = arr[i+d];
+    }
+    for(int i = size-d,j=0; i< size;i++,j++){
+        arr[i] = temp[j];
+    }
+     for(int i =0;i <size;i++){
+        cout << arr[i] <<" " ;
+    }
+    cout << endl;
+}
+
+
+//3. Approch By Reversing the array twice
+//Time :- O(N)
+//Space :- O(1)
+
+void rotator(int *arr, int low, int high){
+    while(low<high){
+        swap(arr[low],arr[high]);
+        low++;
+        high--;
+    }
+}
+
+void Rotate_Array_left_By_D_position(int* arr, int size,int d){
+    if(d>=size && size!=0)
+        d = d%size; // like the array size is 5 and d=8 so array doesnot get changed in first 5 reverse but effectively get reversed in 3 so (d%size)
+    else if(size==0)
+        return;
+    rotator(arr,0,size-1);
+    rotator(arr, size-d, size-1);
+    rotator(arr, 0, size-d-1);
+    for(int i =0;i <size;i++){
+        cout << arr[i] <<" " ;
+    }
+    cout << endl;    
+}
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -61,9 +128,9 @@ int main() {
         for (int i = 0; i < size; i++) {
             cin >> arr[i];
         }
-        int X ;
-        cin >> X;
-        cout << Triplet_sum(arr, size, X) << endl;
+        int d;
+        cin >> d;
+        Rotate_Array_left_By_D_position(arr, size, d);
     }
     return 0;
 }

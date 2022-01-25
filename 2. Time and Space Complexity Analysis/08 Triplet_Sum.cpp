@@ -53,6 +53,7 @@ using namespace std;
 /*
 Approch 1 :- BRUTE FORCE APPROCH
 TIME O(N^3)
+SPACE O(1)
 */
 int Triplet_sum(int * arr, int size, int X) {
     int count = 0;
@@ -70,6 +71,7 @@ int Triplet_sum(int * arr, int size, int X) {
 
 /*
 Approch 2:- Sorting -> 2 pointer technique 
+SPACE :- O(1)
 TIME :- O(N^2) => Only 2 nested loop traversing array. 2 pointer technique takes O(N)
 Two pointer technique take linear time better than nested loop
  1. sort 

@@ -230,10 +230,10 @@ typedef long long ll;
 // //    Space :- O(1)
 
 // // 3. Optimized Approch
-// //    find sum of all elements of array in O(n) time and then also find the sum of first (n-2) natural numbers 
-// //    becoz we know that we have elements of array btw 0 - (n-2) it will take O(1)time direct formula   
+// //    find sum of all elements of array in O(n) time and then also find the sum of first (n-2) natural numbers
+// //    becoz we know that we have elements of array btw 0 - (n-2) it will take O(1)time direct formula
 // //    TIME :- O(n)
-// //    Space :- O(1) 
+// //    Space :- O(1)
 
 // int duplicate_in_array(int * arr, int size){
 // 	//TIME- O(n)
@@ -247,7 +247,7 @@ typedef long long ll;
 
 // //TRIPLET SUM
 // // 1. BRUTE FORCE APPROCH
-// // TIME O(N^3)
+// // TIME O(N^3)  SPACE O(1)
 
 // int Triplet_sum(int * arr, int size, int sum) {
 //     int count = 0;
@@ -263,28 +263,138 @@ typedef long long ll;
 //     return count;
 //  }
 
+// // Approch 2:- Sorting -> 2 pointer technique 
+// // SPACE :- O(1)
+// // TIME :- O(N^2) => Only 2 nested loop traversing array. 2 pointer technique takes O(N)
+// // Two pointer technique take linear time better than nested loop
+// //  1. sort 
+// //  2. fix 1rst element of triplet  = arr[i]
+// //  3. fix 2 pointer ,at (i+1) amd (n-1) position and look at the sum of triplet
+// //    3.1 if sum is smaller than X then increment the pointer
+// //    3.2 else if the sum is bigger decrease the end pointer to reduce the sum 
+// //    3.3 else sum of 2 pointer is equal to X(required sum) then print the triplet 
 
- int Triplet_sum(int * arr, int size, int X){
-    int count = 0;
-    sort(arr,arr+size);
-    int start, end;
-    for(int i =0;i<size-2;i++){
-        start=i+1;
-        end = size-1;
-        while(start < end){
-            if(arr[i]+arr[start]+arr[end] >X){
-                end;
-            }
-            else if(arr[i]+arr[start]+arr[end]<X){
-                start++;
-            }
-            else{
-                count++;
-            }
-        }
+// int Triplet_sum(int * arr, int size, int X) {
+// 	int count = 0;
+// 	sort(arr, arr + size);
+// 	int start, end;
+// 	for (int i = 0; i < size - 2; i++) {
+// 		start = i + 1;
+// 		end = size - 1;
+// 		while (start < end) {
+// 			if (arr[i] + arr[start] + arr[end] > X) {
+// 				end;
+// 			}
+// 			else if (arr[i] + arr[start] + arr[end] < X) {
+// 				start++;
+// 			}
+// 			else {
+// 				count++;
+// 			}
+// 		}
+// 	}
+// 	return count;
+// }
+
+// int pairSum(int * arr, int start , int end, int num) {
+// 	int count = 0;
+// 	while (start < end) {
+// 		if (arr[start] + arr[end] > num) {
+// 			end--;
+// 		}
+// 		else if ( arr[start] + arr[end] < num) {
+// 			start++;
+// 		}
+// 		else {
+// 			int startElement = arr[start];
+// 			int endElement = arr[end];
+
+// 			if (startElement == endElement) {
+// 				int totalElementsFromStartToEnd = (end - start) + 1;
+// 				count += (totalElementsFromStartToEnd * (totalElementsFromStartToEnd -1) / 2);
+// 				return count ;
+// 			}
+// 		}
+// 	}
+// }
+
+
+// int Triplet_sum(int * arr, int size, int X) {
+// 	sort(arr, arr + size);
+// 	int count = 0;
+// 	for (int  i = 0; i < size; i++) {
+// 		int pairSumfor = X - arr[i];
+// 		int numPairs = pairSum(arr, (i + 1), (size - 1), pairSumfor);
+// 		count += numPairs;
+// 	}
+// 	return count;
+// }
+
+
+// //1. Approch Naive
+// //TIME :- O(N*D) = O(10^12) =>TLE 
+// void Rotate_Array_left_By_D_position(int * arr, int size, int d){
+//     int temp;
+//     while(d--){
+//     	temp = arr[0];
+//         for(int i = 0; i < size; i++){
+//             arr[i] = arr[i+1];
+//         }
+//         arr[size-1] = k;
+//         O()
+//     }
+//     arr[size-1] = temp;
+//     for(int i =0;i <size;i++){
+//         cout << arr[i] <<" " ;
+//     }
+//     cout << endl;
+// }
+
+// //2. Approch 
+// // Every element will be displaced from its current position by d position
+// //Time :- O(N)
+// //Space :- O(d)
+// void Rotate_Array_left_By_D_position(int *arr, int size, int d){
+//     int temp[d];
+//     for(int i = 0; i <d;i++){
+//         temp[i] = arr[i];
+//     }
+
+//     for(int i = 0; i < size-d;i++){
+//         arr[i] = arr[i+d];
+//     }
+//     for(int i = size-d,j=0; i< size;i++,j++){
+//         arr[i] = temp[j];
+//     }
+//      for(int i =0;i <size;i++){
+//         cout << arr[i] <<" " ;
+//     }
+//     cout << endl;
+// }
+
+
+
+//3. Approch By Reversing the array twice
+
+void rotator(int *arr, int low, int high){
+    while(low<high){
+        swap(arr[low],arr[high]);
+        low++;
+        high--;
     }
-    return count;
 }
+
+void Rotate_Array_left_By_D_position(int* arr, int size,int d){
+    d = d%size; // like the array size is 5 and d=8 so array doesnot get changed in first 5 reverse but effectively get reversed in 3 so (d%size)
+    rotator(arr,0,size-d-1);
+    rotator(arr, size-d, size-1);
+    rotator(arr, 0, size-1);
+     for(int i =0;i <size;i++){
+        cout << arr[i] <<" " ;
+    }
+    cout << endl;    
+}
+
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -294,12 +404,12 @@ int main() {
 
 
 
-	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++) {
-		cin >> arr[i];
-	}
+	// int n;
+	// cin >> n;
+	// int arr[n];
+	// for (int i = 0; i < n; i++) {
+	// 	cin >> arr[i];
+	// }
 	//cout << kadane(arr, n) << endl;
 	//kadane(arr, n);
 
@@ -332,9 +442,25 @@ int main() {
 
 	// cout << duplicate_in_array(arr, size) << endl;
 
-	 int X ;
-     cin >> X;
-     cout << Triplet_sum(arr, n, X) << endl;
+	// int X ;
+	// cin >> X;
+	// cout << Triplet_sum(arr, n, X) << endl;
+
+
+	int t;
+    cin >> t;
+
+    while (t--) {
+        int size;
+        cin >> size;
+        int arr[size];
+        for (int i = 0; i < size; i++) {
+            cin >> arr[i];
+        }
+        int d;
+        cin >> d;
+        Rotate_Array_left_By_D_position(arr, size, d);
+    }
 
 	return 0;
 }
