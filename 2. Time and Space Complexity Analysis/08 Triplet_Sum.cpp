@@ -51,15 +51,15 @@ For the second query, we have 5 triplets in total that sum up to 10. They are, (
 using namespace std;
 
 /*
-1. BRUTE FORCE APPROCH
+Approch 1 :- BRUTE FORCE APPROCH
 TIME O(N^3)
 */
-int Triplet_sum(int * arr, int size, int sum) {
+int Triplet_sum(int * arr, int size, int X) {
     int count = 0;
     for (int i = 0; i < size - 2; i++) {
         for (int j = i + 1; j < size - 1; j++) {
             for (int k = j + 1; k < size; k++) {
-                if (arr[i] + arr[j] + arr[k] == sum) {
+                if (arr[i] + arr[j] + arr[k] == X) {
                     count++;
                 }
             }
@@ -67,6 +67,82 @@ int Triplet_sum(int * arr, int size, int sum) {
     }
     return count;
 }
+
+/*
+Approch 2:- Sorting -> 2 pointer technique 
+TIME :- O(N^2) => Only 2 nested loop traversing array. 2 pointer technique takes O(N)
+Two pointer technique take linear time better than nested loop
+ 1. sort 
+ 2. fix 1rst element of triplet  = arr[i]
+ 3. fix 2 pointer ,at (i+1) amd (n-1) position and look at the sum of triplet
+   3.1 if sum is smaller than X then increment the pointer
+   3.2 else if the sum is bigger decrease the end pointer to reduce the sum 
+   3.3 else sum of 2 pointer is equal to X(required sum) then print the triplet 
+*/
+
+int tripletSum(int * arr, int size, int X){
+    int count = 0;
+    sort(arr,arr+size);
+    int start, end;
+    for(int i =0;i<size-2;i++){
+         if(i==0 || (i>0 && arr[i]!=arr[i-1])){
+            start=i+1;
+            end = size-1;
+            while(start < end){
+                if(arr[i]+arr[start]+arr[end] >X){
+                    end--;
+                 }
+                else if(arr[i]+arr[start]+arr[end]<X){
+                    start++;
+                }
+                else{
+                    count++;
+                    while(start<end && arr[start]==arr[start+1])
+                    start++;
+                    while(start<end && arr[end] == arr[end-1])
+                    end--;
+                    end--;start++;
+                }
+            }
+         }
+    }
+    return count;
+}
+
+
+ // vector<vector<int>> threeSum(vector<int>& num) {
+ //        vector<vector<int>> res; 
+ //        sort(num.begin(), num.end()); 
+        
+ //        // moves for a
+ //        for (int i = 0; i < (int)(num.size())-2; i++) {
+            
+ //            if (i == 0 || (i > 0 && num[i] != num[i-1])) {
+                
+ //                int lo = i+1, hi = (int)(num.size())-1, sum = 0 - num[i];
+                
+ //                while (lo < hi) {
+ //                    if (num[lo] + num[hi] == sum) {
+                        
+ //                        vector<int> temp; 
+ //                        temp.push_back(num[i]); 
+ //                        temp.push_back(num[lo]); 
+ //                        temp.push_back(num[hi]); 
+ //                        res.push_back(temp);
+                        
+ //                        while (lo < hi && num[lo] == num[lo+1]) lo++;
+ //                        while (lo < hi && num[hi] == num[hi-1]) hi--;
+                        
+ //                        lo++; hi--;
+ //                    } 
+ //                    else if (num[lo] + num[hi] < sum) lo++;
+ //                    else hi--;
+ //               }
+ //            }
+ //        }
+ //        return res;
+ //    }
+
 
 
 
@@ -85,9 +161,9 @@ int main() {
         for (int i = 0; i < size; i++) {
             cin >> arr[i];
         }
-        int sum ;
-        cin >> sum
-        cout << Triplet_sum(arr, size, sum) << endl;
+        int X ;
+        cin >> X;
+        cout << Triplet_sum(arr, size, X) << endl;
     }
     return 0;
 }

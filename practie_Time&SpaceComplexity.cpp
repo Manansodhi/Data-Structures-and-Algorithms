@@ -245,23 +245,46 @@ typedef long long ll;
 // }
 
 
-//TRIPLET SUM
-// 1. BRUTE FORCE APPROCH
-// TIME O(N^3)
+// //TRIPLET SUM
+// // 1. BRUTE FORCE APPROCH
+// // TIME O(N^3)
 
-int Triplet_sum(int * arr, int size, int sum) {
+// int Triplet_sum(int * arr, int size, int sum) {
+//     int count = 0;
+//     for (int i = 0; i < size - 2; i++) {
+//         for (int j = i + 1; j < size - 1; j++) {
+//             for (int k = j + 1; k < size; k++) {
+//                 if (arr[i] + arr[j] + arr[k] == sum) {
+//                     count++;
+//                 }
+//             }
+//         }
+//     }
+//     return count;
+//  }
+
+
+ int Triplet_sum(int * arr, int size, int X){
     int count = 0;
-    for (int i = 0; i < size - 2; i++) {
-        for (int j = i + 1; j < size - 1; j++) {
-            for (int k = j + 1; k < size; k++) {
-                if (arr[i] + arr[j] + arr[k] == sum) {
-                    count++;
-                }
+    sort(arr,arr+size);
+    int start, end;
+    for(int i =0;i<size-2;i++){
+        start=i+1;
+        end = size-1;
+        while(start < end){
+            if(arr[i]+arr[start]+arr[end] >X){
+                end;
+            }
+            else if(arr[i]+arr[start]+arr[end]<X){
+                start++;
+            }
+            else{
+                count++;
             }
         }
     }
     return count;
- }
+}
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -309,9 +332,9 @@ int main() {
 
 	// cout << duplicate_in_array(arr, size) << endl;
 
-	 int sum ;
-     cin >> sum;
-     cout << Triplet_sum(arr, n, sum) << endl;
+	 int X ;
+     cin >> X;
+     cout << Triplet_sum(arr, n, X) << endl;
 
 	return 0;
 }
