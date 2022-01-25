@@ -1,6 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
+
+// INPUT 
+// N K
+// 2 3
+// ARRAY ELEMENTS
+// 1 2
+// OUTPUT 1
+// 9
+// INPUT 2
+// 3 2
+// 1 -2 1
+// OUTPUT 2
+// 2
+// TIME :- O(N)
+// SPACE :- O(1)
+
 ll largest_sum_subarray(int *arr, int n){
     ll curr_max_sum = 0;
     ll best_sum_so_far = 0;

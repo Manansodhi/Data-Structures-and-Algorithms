@@ -116,50 +116,76 @@ typedef long long ll;
 // }
 
 
-//K_concatenation
-//Time: O(n)
+// //K_concatenation
+// //Time: O(n)
 
-ll kadane(int * arr, int n) {
-	ll curr_sum = 0;
-	ll best_sum = INT_MIN;
-	for (int i = 0; i < n; i++) {
-		curr_sum += arr[i];
-		best_sum = max(curr_sum, best_sum);
-		if (curr_sum < 0) {
-			curr_sum = 0;
+// ll kadane(int * arr, int n) {
+// 	ll curr_sum = 0;
+// 	ll best_sum = INT_MIN;
+// 	for (int i = 0; i < n; i++) {
+// 		curr_sum += arr[i];
+// 		best_sum = max(curr_sum, best_sum);
+// 		if (curr_sum < 0) {
+// 			curr_sum = 0;
+// 		}
+// 	}
+// 	return best_sum;
+// }
+
+// ll kCon(int * arr, int n, int k) {
+// 	ll kadaneSum = kadane(arr, n);
+// 	if (k == 1) {
+// 		return kadaneSum;
+// 	}
+// 	ll curr_prefix_sum = 0, curr_suffix_sum = 0;
+// 	ll best_prefix_sum = INT_MIN;
+// 	ll best_suffix_sum = INT_MIN;
+
+// 	for (int i = 0; i < n; i++) {
+// 		curr_prefix_sum += arr[i];
+// 		best_prefix_sum = max(curr_prefix_sum, best_prefix_sum);
+// 	}
+// 	ll total_sum = curr_prefix_sum;
+
+// 	for (int i = n - 1; i >= 0; i--) {
+// 		curr_suffix_sum += arr[i];
+// 		best_suffix_sum = max(best_suffix_sum, curr_suffix_sum);
+// 	}
+// 	ll ans ;
+// 	if (total_sum >= 0) {
+// 		ans = max((best_suffix_sum + (total_sum * (k - 2)) + best_prefix_sum), kadaneSum);
+// 	}
+// 	else {
+// 		ans = max(best_prefix_sum + best_suffix_sum, kadaneSum);
+// 	}
+// 	return ans;
+
+// }
+
+
+// MAXIMUM PRODUCT SUBARRAY
+//TIME :- O(n)
+//SPACE:- O(1)
+
+int maxProductSubArray(int * arr, int size){
+	int max_ending_here = 1, min_ending_here = 1, max_so_far = 0;
+	for(int i = 0;i<size;i++){
+		if(arr[i]>0){
+			max_ending_here = max_ending_here*arr[i];
+			min_ending_here = min(1,min_ending_here*arr[i]);
 		}
+		else if (arr[i] < 0){
+			int temp = min_ending_here;
+			min_ending_here = max_ending_here * arr[i];
+			max_ending_here = max(1,temp*arr[i]);
+		}
+		else{
+			max_ending_here = 1;
+			min_ending_here = 1;
+		}
+		max_so_far = max(max_so_far,max_ending_here);
 	}
-	return best_sum;
-}
-
-ll kCon(int * arr, int n, int k) {
-	ll kadaneSum = kadane(arr, n);
-	if (k == 1) {
-		return kadaneSum;
-	}
-	ll curr_prefix_sum = 0, curr_suffix_sum = 0;
-	ll best_prefix_sum = INT_MIN;
-	ll best_suffix_sum = INT_MIN;
-
-	for (int i = 0; i < n; i++) {
-		curr_prefix_sum += arr[i];
-		best_prefix_sum = max(curr_prefix_sum, best_prefix_sum);
-	}
-	ll total_sum = curr_prefix_sum;
-
-	for (int i = n - 1; i >= 0; i--) {
-		curr_suffix_sum += arr[i];
-		best_suffix_sum = max(best_suffix_sum, curr_suffix_sum);
-	}
-	ll ans ;
-	if (total_sum >= 0) {
-		ans = max((best_suffix_sum + (total_sum * (k - 2)) + best_prefix_sum), kadaneSum);
-	}
-	else {
-		ans = max(best_prefix_sum + best_suffix_sum, kadaneSum);
-	}
-	return ans;
-
+	return  max_so_far;
 }
 
 
@@ -172,24 +198,24 @@ int main() {
 
 
 
-	// int n;
-	// cin >> n;
-	// int arr[n];
-	// for (int i = 0; i < n; i++) {
-	// 	cin >> arr[i];
-	// }
+	int n;
+	cin >> n;
+	int arr[n];
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
 	//cout << kadane(arr, n) << endl;
 	//kadane(arr, n);
 
 
-	int upper ;
-	cin >> upper;
-	int * arr = new int [upper];
-	for (int i = 0; i < upper; i++) {
-		cin >> arr[i];
-	}
+	// int upper ;
+	// cin >> upper;
+	// int * arr = new int [upper];
+	// for (int i = 0; i < upper; i++) {
+	// 	cin >> arr[i];
+	// }
 
-	cout << maxSubArraySum(arr, 0, upper - 1) << endl;
+	// cout << maxSubArraySum(arr, 0, upper - 1) << endl;
 	
     // int t;
 	// cin >> t;
@@ -203,6 +229,8 @@ int main() {
 	// 	cout << kCon(arr, size, k) << endl;
 	// }
 
+
+	cout << maxProductSubArray(arr,n) << endl;
 
 	return 0;
 }

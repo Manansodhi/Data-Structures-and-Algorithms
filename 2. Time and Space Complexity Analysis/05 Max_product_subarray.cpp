@@ -1,6 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//INPUT 1
+// 5
+// 6 -3 1 -10 2 
+// OUTPUT 1 -> 360
+// INPUT 2 
+// 5
+// 6 -3 -10 0 2
+// OUTPUT 2 -> 180
+// TIME O(N)   SPACE O(1)
 int Max_Product_Subarray(int arr[], int n){
     int max_ending_here = 1;
     int min_ending_here = 1;
