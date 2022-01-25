@@ -67,7 +67,12 @@ using namespace std;
 
 */
 int duplicate_in_array(int * arr, int size){
-
+	//TIME- O(n)
+	int sum  =0 ;
+	for(int i = 0;i<n;i++){
+		sum = sum +arr[i];
+	}
+	return (sum - ((size-2)*(size-1)/2));
 }
 
 
