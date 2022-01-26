@@ -418,45 +418,49 @@ typedef long long ll;
 
 
 
-//TWO DUPLICATE ELEMENT
-bool hasBitSet(int n, int x) {
-	int tem = n & (1<<x);
-	return tem!=0;
-}
+// //TWO DUPLICATE ELEMENT
+// // TIME :- O(N)
+// // SPACE :- O(1)
 
-void Two_Duplicate_Element(int * arr, int size){
-	int all = 0;
-	int ans[2] = {0,0}; // for storing only 2 duplicate element
-	for(int i=0; i<size; i++){
-		cin >> arr[i];
-		all ^= arr[i];
-	}
-	
-	/*assert(all != 0); 
-	 This while loop is used to find the right most bit position (Turned ON bit(=1)). if hasSetBit() returns 0 means ki 0th
-	 position per nahi h right most bit toh k++ kiya and 1rst position per check karega (=1) and it goes on untill it find
-	  right most bit*/
 
-	int k = 0;
-	while( hasBitSet(all, k) == 0 ) k++;
+// bool hasBitSet(int n, int x) {
+// 	int tem = n & (1<<x);
+// 	return tem!=0;
+// }
 
-	//int rightbit = all & ~(all-1);
+// void Two_Duplicate_Element(int * arr, int size){
+// 	int all = 0;
+// 	int ans[2] = {0,0}; // for storing only 2 duplicate element
+// 	for(int i=0; i<size; i++){
+// 		cin >> arr[i];
+// 		all ^= arr[i];
+// 	}
 	
-	//parition array into two sets: kth bit on v/s off
-	for (int i=0; i<size; i++) {
-		/*"hasBitSet(arr[i], k)" es se bacically ham kya kar rahe h ki Element ka phele right most bit nikal rahe h by (1<<k)
-		   esme hame jo position choose kari thi right most bit usko left sift kar diya or fir AND(&) operation se pata chal 
-		   ki agar voh dono same h toh hasBitSet() 1 return karega or voh ans[1] m chala jayega element nahi toh ans[0] m 
-		   jayega voh element or sath hi sath XOR operation bhi hoti rahegi har element ki. jase element 6 ->110 and 
-		   k = 0 (becoz ALL = 4^1= 5=101 toh right most bit 0 position per hi milgayi) h toh "hasBitSet(arr[i], k)" 
-		   => hasBitSet(6, 0) => n&(1<<k) => (6&(1<<0))=> (6&1) => (110 & 001)=> 2!=0 toh ye return karega 1. ans[1] ^= arr[i]
-		   toh jo dono 6 hoge voh ans ke 1 partition m jayege or sath sath m jo bhi element partition m ayega uska sath m XOR
-		   bhi hota rahega */
-		ans[hasBitSet(arr[i], k)] ^= arr[i];
-	}
+// 	/*assert(all != 0); 
+// 	 This while loop is used to find the right most bit position (Turned ON bit(=1)). if hasSetBit() returns 0 means ki 0th
+// 	 position per nahi h right most bit toh k++ kiya and 1rst position per check karega (=1) and it goes on untill it find
+// 	  right most bit*/
+
+// 	int k = 0;
+// 	while( hasBitSet(all, k) == 0 ) k++;
+
+// 	//int rightbit = all & ~(all-1);
 	
-	cout << ans[0] << " " << ans[1] << endl;;
-}
+// 	//parition array into two sets: kth bit on v/s off
+// 	for (int i=0; i<size; i++) {
+// 		"hasBitSet(arr[i], k)" es se bacically ham kya kar rahe h ki Element ka phele right most bit nikal rahe h by (1<<k)
+// 		   esme hame jo position choose kari thi right most bit usko left sift kar diya or fir AND(&) operation se pata chal 
+// 		   ki agar voh dono same h toh hasBitSet() 1 return karega or voh ans[1] m chala jayega element nahi toh ans[0] m 
+// 		   jayega voh element or sath hi sath XOR operation bhi hoti rahegi har element ki. jase element 6 ->110 and 
+// 		   k = 0 (becoz ALL = 4^1= 5=101 toh right most bit 0 position per hi milgayi) h toh "hasBitSet(arr[i], k)" 
+// 		   => hasBitSet(6, 0) => n&(1<<k) => (6&(1<<0))=> (6&1) => (110 & 001)=> 2!=0 toh ye return karega 1. ans[1] ^= arr[i]
+// 		   toh jo dono 6 hoge voh ans ke 1 partition m jayege or sath sath m jo bhi element partition m ayega uska sath m XOR
+// 		   bhi hota rahega 
+// 		ans[hasBitSet(arr[i], k)] ^= arr[i];
+// 	}
+	
+// 	cout << ans[0] << " " << ans[1] << endl;;
+// }
 
 
 
