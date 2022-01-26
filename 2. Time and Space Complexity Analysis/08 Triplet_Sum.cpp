@@ -70,80 +70,81 @@ int Triplet_sum(int * arr, int size, int X) {
 }
 
 /*
-Approch 2:- Sorting -> 2 pointer technique 
+Approch 2:- Sorting -> 2 pointer technique
 SPACE :- O(1)
 TIME :- O(N^2) => Only 2 nested loop traversing array. 2 pointer technique takes O(N)
 Two pointer technique take linear time better than nested loop
- 1. sort 
+ 1. sort
  2. fix 1rst element of triplet  = arr[i]
  3. fix 2 pointer ,at (i+1) amd (n-1) position and look at the sum of triplet
    3.1 if sum is smaller than X then increment the pointer
-   3.2 else if the sum is bigger decrease the end pointer to reduce the sum 
-   3.3 else sum of 2 pointer is equal to X(required sum) then print the triplet 
+   3.2 else if the sum is bigger decrease the end pointer to reduce the sum
+   3.3 else sum of 2 pointer is equal to X(required sum) then print the triplet
 */
 
-int tripletSum(int * arr, int size, int X){
+int tripletSum(int * arr, int size, int X) {
     int count = 0;
-    sort(arr,arr+size);
+    sort(arr, arr + size);
     int start, end;
-    for(int i =0;i<size-2;i++){
-         if(i==0 || (i>0 && arr[i]!=arr[i-1])){
-            start=i+1;
-            end = size-1;
-            while(start < end){
-                if(arr[i]+arr[start]+arr[end] >X){
+    for (int i = 0; i < size - 2; i++) {
+        if (i == 0 || (i > 0 && arr[i] != arr[i - 1])) {
+            start = i + 1;
+            end = size - 1;
+            while (start < end) {
+                if (arr[i] + arr[start] + arr[end] > X) {
                     end--;
-                 }
-                else if(arr[i]+arr[start]+arr[end]<X){
+                }
+                else if (arr[i] + arr[start] + arr[end] < X) {
                     start++;
                 }
-                else{
+                else {
                     count++;
-                    while(start<end && arr[start]==arr[start+1])
-                    start++;
-                    while(start<end && arr[end] == arr[end-1])
-                    end--;
-                    end--;start++;
+                    while (start < end && arr[start] == arr[start + 1])
+                        start++;
+                    while (start < end && arr[end] == arr[end - 1])
+                        end--;
+                    end--; start++;
                 }
             }
-         }
+        }
     }
     return count;
 }
 
+/*Using STL*/
 
- // vector<vector<int>> threeSum(vector<int>& num) {
- //        vector<vector<int>> res; 
- //        sort(num.begin(), num.end()); 
-        
- //        // moves for a
- //        for (int i = 0; i < (int)(num.size())-2; i++) {
-            
- //            if (i == 0 || (i > 0 && num[i] != num[i-1])) {
-                
- //                int lo = i+1, hi = (int)(num.size())-1, sum = 0 - num[i];
-                
- //                while (lo < hi) {
- //                    if (num[lo] + num[hi] == sum) {
-                        
- //                        vector<int> temp; 
- //                        temp.push_back(num[i]); 
- //                        temp.push_back(num[lo]); 
- //                        temp.push_back(num[hi]); 
- //                        res.push_back(temp);
-                        
- //                        while (lo < hi && num[lo] == num[lo+1]) lo++;
- //                        while (lo < hi && num[hi] == num[hi-1]) hi--;
-                        
- //                        lo++; hi--;
- //                    } 
- //                    else if (num[lo] + num[hi] < sum) lo++;
- //                    else hi--;
- //               }
- //            }
- //        }
- //        return res;
- //    }
+vector<vector<int>> threeSum(vector<int>& num) {
+       vector<vector<int>> res;
+       sort(num.begin(), num.end());
+
+       // moves for a
+       for (int i = 0; i < (int)(num.size())-2; i++) {
+
+           if (i == 0 || (i > 0 && num[i] != num[i-1])) {
+
+               int lo = i+1, hi = (int)(num.size())-1, sum = 0 - num[i];
+
+               while (lo < hi) {
+                   if (num[lo] + num[hi] == sum) {
+
+                       vector<int> temp;
+                       temp.push_back(num[i]);
+                       temp.push_back(num[lo]);
+                       temp.push_back(num[hi]);
+                       res.push_back(temp);
+
+                       while (lo < hi && num[lo] == num[lo+1]) lo++;
+                       while (lo < hi && num[hi] == num[hi-1]) hi--;
+
+                       lo++; hi--;
+                   }
+                   else if (num[lo] + num[hi] < sum) lo++;
+                   else hi--;
+              }
+           }
+       }
+       return res;
+   }
 
 
 
