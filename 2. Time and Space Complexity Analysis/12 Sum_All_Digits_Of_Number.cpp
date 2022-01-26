@@ -1,6 +1,4 @@
 /*
-Sum me Up
-Send Feedback
 There will be ‘t’ test cases having an integer. You have to sum up all the digits of this integer. For e.g. For 6754, the answer will be 6 + 7 + 5 + 4 = 22.
 
 Input Format:
