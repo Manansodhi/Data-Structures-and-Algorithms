@@ -263,16 +263,16 @@ typedef long long ll;
 //     return count;
 //  }
 
-// // Approch 2:- Sorting -> 2 pointer technique 
+// // Approch 2:- Sorting -> 2 pointer technique
 // // SPACE :- O(1)
 // // TIME :- O(N^2) => Only 2 nested loop traversing array. 2 pointer technique takes O(N)
 // // Two pointer technique take linear time better than nested loop
-// //  1. sort 
+// //  1. sort
 // //  2. fix 1rst element of triplet  = arr[i]
 // //  3. fix 2 pointer ,at (i+1) amd (n-1) position and look at the sum of triplet
 // //    3.1 if sum is smaller than X then increment the pointer
-// //    3.2 else if the sum is bigger decrease the end pointer to reduce the sum 
-// //    3.3 else sum of 2 pointer is equal to X(required sum) then print the triplet 
+// //    3.2 else if the sum is bigger decrease the end pointer to reduce the sum
+// //    3.3 else sum of 2 pointer is equal to X(required sum) then print the triplet
 
 // int Triplet_sum(int * arr, int size, int X) {
 // 	int count = 0;
@@ -332,7 +332,7 @@ typedef long long ll;
 
 
 // //1. Approch Naive
-// //TIME :- O(N*D) = O(10^12) =>TLE 
+// //TIME :- O(N*D) = O(10^12) =>TLE
 // void Rotate_Array_left_By_D_position(int * arr, int size, int d){
 //     int temp;
 //     while(d--){
@@ -350,7 +350,7 @@ typedef long long ll;
 //     cout << endl;
 // }
 
-// //2. Approch 
+// //2. Approch
 // // Every element will be displaced from its current position by d position
 // //Time :- O(N)
 // //Space :- O(d)
@@ -402,9 +402,9 @@ typedef long long ll;
 // //ONE DUPLICATE ELEMENT
 //  // Using XOR Operator (bitwise Operator)
 //  //    Properties of XOR operator
-//  //    X^X = 0 
+//  //    X^X = 0
 //  //    X^0 = X
-//  //   Time :- O(N) 
+//  //   Time :- O(N)
 //  //   Space :- O(1)
 
 // int One_Duplicate_Element(int * arr, int size){
@@ -435,8 +435,8 @@ typedef long long ll;
 // 		cin >> arr[i];
 // 		all ^= arr[i];
 // 	}
-	
-// 	/*assert(all != 0); 
+
+// 	/*assert(all != 0);
 // 	 This while loop is used to find the right most bit position (Turned ON bit(=1)). if hasSetBit() returns 0 means ki 0th
 // 	 position per nahi h right most bit toh k++ kiya and 1rst position per check karega (=1) and it goes on untill it find
 // 	  right most bit*/
@@ -445,23 +445,104 @@ typedef long long ll;
 // 	while( hasBitSet(all, k) == 0 ) k++;
 
 // 	//int rightbit = all & ~(all-1);
-	
+
 // 	//parition array into two sets: kth bit on v/s off
 // 	for (int i=0; i<size; i++) {
 // 		"hasBitSet(arr[i], k)" es se bacically ham kya kar rahe h ki Element ka phele right most bit nikal rahe h by (1<<k)
-// 		   esme hame jo position choose kari thi right most bit usko left sift kar diya or fir AND(&) operation se pata chal 
-// 		   ki agar voh dono same h toh hasBitSet() 1 return karega or voh ans[1] m chala jayega element nahi toh ans[0] m 
-// 		   jayega voh element or sath hi sath XOR operation bhi hoti rahegi har element ki. jase element 6 ->110 and 
-// 		   k = 0 (becoz ALL = 4^1= 5=101 toh right most bit 0 position per hi milgayi) h toh "hasBitSet(arr[i], k)" 
+// 		   esme hame jo position choose kari thi right most bit usko left sift kar diya or fir AND(&) operation se pata chal
+// 		   ki agar voh dono same h toh hasBitSet() 1 return karega or voh ans[1] m chala jayega element nahi toh ans[0] m
+// 		   jayega voh element or sath hi sath XOR operation bhi hoti rahegi har element ki. jase element 6 ->110 and
+// 		   k = 0 (becoz ALL = 4^1= 5=101 toh right most bit 0 position per hi milgayi) h toh "hasBitSet(arr[i], k)"
 // 		   => hasBitSet(6, 0) => n&(1<<k) => (6&(1<<0))=> (6&1) => (110 & 001)=> 2!=0 toh ye return karega 1. ans[1] ^= arr[i]
 // 		   toh jo dono 6 hoge voh ans ke 1 partition m jayege or sath sath m jo bhi element partition m ayega uska sath m XOR
-// 		   bhi hota rahega 
+// 		   bhi hota rahega
 // 		ans[hasBitSet(arr[i], k)] ^= arr[i];
 // 	}
-	
+
 // 	cout << ans[0] << " " << ans[1] << endl;;
 // }
 
+
+// PAIR SUM TO ZERO
+// 1. Approch Naive
+// Time :- O(N^2)
+// search for a number which sum gives 0 with every element of array
+
+
+// // 2. Approch Optimize
+// // Time :- O(N logN)
+// // Here we store the frequency of each element in map which will take O(log N) time and then we will traverse the whole array
+// //  once to find the element from map which when sum with array element give 0 sum and reduce the frequency from map
+
+
+// // 3. Using HashMap
+// // Time :- O(N)
+// // Space :- O(N)
+// // In this we are traversing whole array once and we are making pair and maintaing the frequency of each element in hashmap both
+// //  at same time
+
+// int Pair_Sum_To_Zero(int *arr, int size){
+// 	unordered_map<int, int>freq;
+// 	int pairCount = 0;
+// 	for(int i =0;i<size;i++){
+// 		int complement = -arr[i];
+// 		if(freq.find(complement) != freq.end()){
+// 			pairCount +=freq[complement];
+// 		}
+// 		++freq[arr[i]];
+// 	}
+// 	return pairCount;
+// }
+
+// // 2 APPROCH
+//  void Pair_Sum_To_Zero(int * arr, int size){
+//  	unordered_map<int,int>m1;
+//  	for(int i=0;i<size;i++){
+//  		if(m1[0-arr[i]]==0){
+//  			m1[arr[i]]++;
+//  		}
+//  		else{
+//  			m1[arr[i]]++;
+//  		}
+//  	}
+//  	unordered_map<int,int>::iterator it = m1.begin();
+//  	while(it!=m1.end()){
+//  		int total=0;
+//  		int left = it->second;
+//  		int right = m1[-it->first];
+//  		total=left*right;
+//  		while(total>0){
+//  			cout <<min(it->first,-it->first)<<" "<<max(it->first,-it->first)<<endl;
+//  			total--;
+//  		}
+//  		m1[it->first]=0;
+//  		m1[-it->first]=0;
+//  		it++;
+//  	}
+//  }
+
+
+// 3 APPROCH
+
+void Pair_Sum_To_Zero(int * arr, int size) {
+	sort(arr, arr + size);
+	int starting_position_of_positive_elements = 0;
+	while (arr[starting_position_of_positive_elements] < 0) {
+		starting_position_of_positive_elements++;
+	}
+	map<int, int> m;
+	for (int i = starting_position_of_positive_elements; i < size; i++) {
+		m[arr[i]++];
+	}
+	for (int i = 0; i < starting_position_of_positive_elements;  i++) {
+		int temp = m[-arr[i]];
+		if (temp > 0) {
+			while (temp--) {
+				cout << arr[i] << " " << -arr[i] << endl;
+			}
+		}
+	}
+}
 
 
 
@@ -517,24 +598,27 @@ int main() {
 
 
 	int t;
-    cin >> t;
+	cin >> t;
 
-    while (t--) {
-        int size;
-        cin >> size;
-        int arr[size];
-        for (int i = 0; i < size; i++) {
-            cin >> arr[i];
-        }
- //        int d;
- //        cin >> d;
- //        Rotate_Array_left_By_D_position(arr, size, d);
- //    }
-	
+	while (t--) {
+		int size;
+		cin >> size;
+		int arr[size];
+		for (int i = 0; i < size; i++) {
+			cin >> arr[i];
+		}
+//        int d;
+//        cin >> d;
+//        Rotate_Array_left_By_D_position(arr, size, d);
+//    }
 
-         //cout << One_Duplicate_Element(arr, size) << endl;
-         Two_Duplicate_Element(arr, size);
-     }
+
+		//cout << One_Duplicate_Element(arr, size) << endl;
+		//Two_Duplicate_Element(arr, size);
+
+		//cout << Pair_Sum_To_Zero(arr, size) << endl;
+		Pair_Sum_To_Zero(arr, size);
+	}
 
 
 	return 0;
