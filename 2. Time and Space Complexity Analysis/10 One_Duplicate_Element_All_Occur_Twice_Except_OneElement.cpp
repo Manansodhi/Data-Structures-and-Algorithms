@@ -48,15 +48,6 @@ using namespace std;
    Time :- O(N^2)
 */
 
-int find_Unique_Element(int * arr, int size){
-	for(int i=0;i<size;i++)
-		for(int j=i+1;j<size;j++){
-			if(arr[i]==arr[j]){
-
-			}
-		}
-}
-
 
 /*
 using Sorting and then checking consecutive elements in the array
@@ -84,7 +75,7 @@ Space :- O(N)
    Time :- O(N) 
    Space :- O(1)
 */
-int find_Unique_Element(int * arr, int size){
+int One_Duplicate_Element(int * arr, int size){
 	int all = 0;
 	for(int i=0; i<size; i++){
 		cin >> arr[i];
@@ -112,7 +103,7 @@ int main() {
             cin >> arr[i];
         }
 
-        find_Unique_Element(arr, size);
+         cout << One_Duplicate_Element(arr, size) << endl;
     }
     return 0;
 }
