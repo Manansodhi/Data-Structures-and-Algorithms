@@ -374,27 +374,35 @@ typedef long long ll;
 
 
 
-//3. Approch By Reversing the array twice
+// //3. Approch By Reversing the array twice
 
-void rotator(int *arr, int low, int high){
-    while(low<high){
-        swap(arr[low],arr[high]);
-        low++;
-        high--;
-    }
+// void rotator(int *arr, int low, int high) {
+//     while (low < high) {
+//         swap(arr[low], arr[high]);
+//         low++;
+//         high--;
+//     }
+// }
+
+// void Rotate_Array_left_By_D_position(int* arr, int size, int d) {
+//     if (d >= size && size != 0)
+//         d = d % size; // like the array size is 5 and d=8 so array doesnot get changed in first 5 reverse but effectively get reversed in 3 so (d%size)
+//     else if (size == 0)
+//         return;
+//     rotator(arr, 0, size - 1);
+//     rotator(arr, size - d, size - 1);
+//     rotator(arr, 0, size - d - 1);
+//     for (int i = 0; i < size; i++) {
+//         cout << arr[i] << " " ;
+//     }
+//     cout << endl;
+// }
+
+
+bool hasBitSet(int n, int x) {
+	int tem = n & (1<<x);
+	return tem!=0;
 }
-
-void Rotate_Array_left_By_D_position(int* arr, int size,int d){
-    d = d%size; // like the array size is 5 and d=8 so array doesnot get changed in first 5 reverse but effectively get reversed in 3 so (d%size)
-    rotator(arr,0,size-d-1);
-    rotator(arr, size-d, size-1);
-    rotator(arr, 0, size-1);
-     for(int i =0;i <size;i++){
-        cout << arr[i] <<" " ;
-    }
-    cout << endl;    
-}
-
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -447,20 +455,23 @@ int main() {
 	// cout << Triplet_sum(arr, n, X) << endl;
 
 
-	int t;
-    cin >> t;
+	// int t;
+ //    cin >> t;
 
-    while (t--) {
-        int size;
-        cin >> size;
-        int arr[size];
-        for (int i = 0; i < size; i++) {
-            cin >> arr[i];
-        }
-        int d;
-        cin >> d;
-        Rotate_Array_left_By_D_position(arr, size, d);
-    }
+ //    while (t--) {
+ //        int size;
+ //        cin >> size;
+ //        int arr[size];
+ //        for (int i = 0; i < size; i++) {
+ //            cin >> arr[i];
+ //        }
+ //        int d;
+ //        cin >> d;
+ //        Rotate_Array_left_By_D_position(arr, size, d);
+ //    }
+	int n,x;
+	cin>>n>>x;
+	cout<<hasBitSet(n,x)<<endl;
 
 	return 0;
 }
