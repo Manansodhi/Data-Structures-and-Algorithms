@@ -1,7 +1,9 @@
 /*
 Longest Consecutive Sequence
 
-You are given an array of unique integers that contain numbers in random order. You have to find the longest possible sequence of consecutive numbers using the numbers from given array. You need to return the output array which contains starting and ending element. If the length of the longest possible sequence is one, then the output array must contain only single element.
+You are given an array of unique integers that contain numbers in random order. You have to find the longest possible sequence 
+of consecutive numbers using the numbers from given array. You need to return the output array which contains starting and ending
+ element. If the length of the longest possible sequence is one, then the output array must contain only single element.
 Note:
 1. Best solution takes O(n) time.
 2. If two sequences are of equal length, then return the sequence starting with the number whose occurrence is earlier in the array.
@@ -11,7 +13,8 @@ The first line of input contains an integer, that denotes the value of the size 
 The following line contains n space separated integers, that denote the value of the elements of the array.
 
 Output format:
-The first and only line of output contains starting and ending element of the longest consecutive sequence. If the length of longest consecutive sequence, then just print the starting element.
+The first and only line of output contains starting and ending element of the longest consecutive sequence. If the length of longest
+consecutive sequence, then just print the starting element.
 
 Constraints :
 0 <= n <= 10^6
@@ -32,7 +35,9 @@ Sample Input 2 :
 Sample Output 2 :
 7 9
 
-Explanation: Sequence should be of consecutive numbers. Here we have 2 sequences with same length i.e. [1, 2, 3] and [7, 8, 9], but we should select [7, 8, 9] because the starting point of [7, 8, 9] comes first in input array and therefore, the output will be 7 9, as we have to print starting and ending element of the longest consecutive sequence.
+Explanation: Sequence should be of consecutive numbers. Here we have 2 sequences with same length i.e. [1, 2, 3] and [7, 8, 9], 
+but we should select [7, 8, 9] because the starting point of [7, 8, 9] comes first in input array and therefore, the output will be
+ 7 9, as we have to print starting and ending element of the longest consecutive sequence.
 
 Sample Input 3 :
 7
