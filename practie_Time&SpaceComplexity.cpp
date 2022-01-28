@@ -522,28 +522,109 @@ typedef long long ll;
 //  }
 
 
-// 3 APPROCH
+// // 3 APPROCH
 
-void Pair_Sum_To_Zero(int * arr, int size) {
-	sort(arr, arr + size);
-	int starting_position_of_positive_elements = 0;
-	while (arr[starting_position_of_positive_elements] < 0) {
-		starting_position_of_positive_elements++;
+// void Pair_Sum_To_Zero(int * arr, int size) {
+// 	sort(arr, arr + size);
+// 	int starting_position_of_positive_elements = 0;
+// 	while (arr[starting_position_of_positive_elements] < 0) {
+// 		starting_position_of_positive_elements++;
+// 	}
+// 	map<int, int> m;
+// 	for (int i = starting_position_of_positive_elements; i < size; i++) {
+// 		m[arr[i]++];
+// 	}
+// 	for (int i = 0; i < starting_position_of_positive_elements;  i++) {
+// 		int temp = m[-arr[i]];
+// 		if (temp > 0) {
+// 			while (temp--) {
+// 				cout << arr[i] << " " << -arr[i] << endl;
+// 			}
+// 		}
+// 	}
+// }
+
+
+// // Longest Consecutive Sequence
+// // 1. Approch Using Sorting
+// // Time:- O(N log N)
+// // Space:- O(1)
+
+// int Longest_Consecutive_Sequence(int * arr, int size) {
+// 	if (size == 0) {
+// 		return 0;
+// 	}
+// 	sort(arr, arr + size);
+// 	int ans = 1;
+// 	int previous = arr[0];
+// 	int curr = 1;
+// 	for (int i = 1; i < size; i++) {
+// 		if (arr[i] == previous + 1) {
+// 			curr++;
+// 		}
+// 		else if (arr[i] != previous) {
+// 			curr = 1;
+// 		}
+// 		previous = arr[i];
+// 		ans = max(ans, curr);
+// 	}
+// 	return ans;
+// }
+
+vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
+	unordered_map<int, bool>visiedElements;
+	unordered_map<int, int> elementToIndexMapping;
+
+	for (int i = 0; i < size; i++) {
+		elementToIndexMapping[arr[i]] = i;
+
+		if (visiedElements.count(arr[i]) == 0) {
+			visiedElements[arr[i]] = true;
+		}
 	}
-	map<int, int> m;
-	for (int i = starting_position_of_positive_elements; i < size; i++) {
-		m[arr[i]++];
-	}
-	for (int i = 0; i < starting_position_of_positive_elements;  i++) {
-		int temp = m[-arr[i]];
-		if (temp > 0) {
-			while (temp--) {
-				cout << arr[i] << " " << -arr[i] << endl;
+	vector<int> longestSequence;
+
+	int globalMaxSequenceLength = 1;
+	int globalMinStartIndex = 0;
+
+	for (int i = 0; i < size; i++) {
+		int num = arr[i];
+		int currentMinStartIndex = i;
+		int count = 0; int tempNum = num;
+
+		//Forward Propagation
+		while (visiedElements.count(tempNum) == 1 && visiedElements[tempNum] == true) {
+			visiedElements[tempNum] = false;
+			count++;
+			tempNum++;
+		}
+
+		//Backward Propagation
+		tempNum = num - 1;
+		while (visiedElements.count(tempNum) == 1 && visiedElements[tempNum] == true) {
+			visiedElements[tempNum] = false;
+			count++;
+			currentMinStartIndex = elementToIndexMapping[tempNum];
+			tempNum--;
+		}
+		if (count > globalMaxSequenceLength) {
+			globalMaxSequenceLength = count;
+			globalMinStartIndex = currentMinStartIndex;
+		}
+		else if (count == globalMaxSequenceLength) {
+			if (currentMinStartIndex < globalMinStartIndex) {
+				globalMinStartIndex = currentMinStartIndex;
 			}
 		}
 	}
-}
 
+	int globalStartNum = arr[globalMinStartIndex];
+	longestSequence.push_back(globalStartNum);
+	if (globalMaxSequenceLength > 1) {
+		longestSequence.push_back(globalStartNum + globalMaxSequenceLength - 1);
+	}
+	return longestSequence;
+}
 
 
 int main() {
@@ -607,6 +688,7 @@ int main() {
 		for (int i = 0; i < size; i++) {
 			cin >> arr[i];
 		}
+
 //        int d;
 //        cin >> d;
 //        Rotate_Array_left_By_D_position(arr, size, d);
@@ -617,7 +699,16 @@ int main() {
 		//Two_Duplicate_Element(arr, size);
 
 		//cout << Pair_Sum_To_Zero(arr, size) << endl;
-		Pair_Sum_To_Zero(arr, size);
+		//Pair_Sum_To_Zero(arr, size);
+
+		//cout << Longest_Consecutive_Sequence(arr, size) << endl;
+		//Longest_Consecutive_Sequence(arr, size);
+		vector<int> ans = Longest_Consecutive_Sequence(arr, size);
+		for (auto i = ans.begin(); i != ans.end(); ++i) {
+			cout << *i << " ";
+		}
+		cout << endl;
+
 	}
 
 
