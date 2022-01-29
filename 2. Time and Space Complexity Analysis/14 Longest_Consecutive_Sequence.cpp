@@ -161,19 +161,20 @@ Explanation: Sequence should be of consecutive numbers. Here we have 2 sequences
 */
 
 /*
+Optimized Approch
 Time:- O(N)
 Space:- O(N)
 */
 
 vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
-	unordered_map<int, bool>visiedElements;
+	unordered_map<int, bool>visitedElements;
 	unordered_map<int, int>elementToIndexMapping;
 
 	for (int i = 0; i < size; i++) {
 		elementToIndexMapping[arr[i]] = i;
 
-		if (visiedElements.count(arr[i]) == 0) {
-			visiedElements[arr[i]] = true;
+		if (visitedElements.count(arr[i]) == 0) {
+			visitedElements[arr[i]] = true;
 		}
 	}
 	vector<int> longestSequence;

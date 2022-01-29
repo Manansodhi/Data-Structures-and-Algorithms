@@ -572,76 +572,141 @@ typedef long long ll;
 // }
 
 
-// 2. Approch Using HashMap
+// // 2. Approch Using HashMap
+// // Time:- O(N)
+// // Space:- O(N)
+
+// vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
+// 	vector<pair<int, int>> pairs_vector;
+// 	//In Vector first element of each pair is start and second element is the max_length
+// 	map<int, bool>m;
+// 	for (int i = 0; i < size; i++) {
+// 		m[arr[i]] = true;
+// 	}
+
+// 	int max_length=0,start=0;
+// 	for(int i=0;i<size;i++){
+// 		int curr_len=1;
+// 		int curr_start=0;
+// 		if(m[arr[i]] == true){
+// 			m[arr[i]] = false;
+
+// 			int element_at_position = arr[i];
+// 			while(m[element_at_position+1]==true){
+// 				curr_len++;
+// 				m[element_at_position+1] = false;
+// 				element_at_position++;
+// 			}
+
+// 			element_at_position = arr[i];
+// 			curr_start = element_at_position;
+// 			while(m[element_at_position-1]==true){
+// 				m[element_at_position-1]=false;
+// 				curr_start--;
+// 				curr_len++;
+// 				element_at_position--;
+// 			}
+// 		}
+// 		if(curr_len>=max_length){
+// 			max_length = curr_len;
+// 			start = curr_start;
+// 			pair<int,int>p;
+// 			p.first=start;
+// 			p.second = max_length;
+// 			pairs_vector.push_back(p);
+// 		}
+
+// 		if(max_length==1 && start == arr[size-1]){
+// 			vector<int>temp;
+// 			temp.push_back(arr[0]);
+// 			return temp;
+// 		}
+
+// 		for (int i = 0; i < size; i++) {
+// 			int starting_element = arr[i];
+// 			for (int j = 0; j < pairs_vector.size(); j++) {
+// 				if (starting_element == pairs_vector[j].first && max_length == pairs_vector[j].second) {
+// 					vector<int> temp;
+// 					for (int k = starting_element; k < starting_element + max_length; k++) {
+// 						temp.push_back(k);
+// 					}
+// 					return temp;
+// 				}
+// 			}
+// 		}
+// 	 }
+// }
+
+
+// // upar wala code ye 2 case k liye fail hua h
+// // Sample Input 2 :
+// // 7
+// // 3 7 2 1 9 8 41
+// // Sample Output 2 :
+// // 7 9
+// // Explanation: Sequence should be of consecutive numbers. Here we have 2 sequences with same length i.e. [1, 2, 3] and [7, 8, 9],
+// //  but we should select [7, 8, 9] because the starting point of [7, 8, 9] comes first in input array and therefore, the output will
+// //   be 7 9, as we have to print starting and ending element of the longest consecutive sequence.
+
+// // 13
+// // 2 12 9 16 10 5 3 20 25 11 1 8 
+
+
+
+// Optimized Approc
 // Time:- O(N)
 // Space:- O(N)
 
+
 vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
-	vector<pair<int, int>> pairs_vector;
-	//In Vector first element of each pair is start and second element is the max_length
-	map<int, bool>m;
-	for (int i = 0; i < size; i++) {
-		m[arr[i]] = true;
-	}
-
-	int max_length=0,start=0;
+	unordered_map<int, bool>visitedElements;
+	unordered_map<int, int> elementToIndexMapping;
 	for(int i=0;i<size;i++){
-		int curr_len=1;
-		int curr_start=0;
-		if(m[arr[i]] == true){
-			m[arr[i]] = false;
+		elementToIndexMapping[arr[i]] = i;
 
-			int element_at_position = arr[i];
-			while(m[element_at_position+1]==true){
-				curr_len++;
-				m[element_at_position+1] = false;
-				element_at_position++;
-			}
-
-			element_at_position = arr[i];
-			curr_start = element_at_position;
-			while(m[element_at_position-1]==true){
-				m[element_at_position-1]=false;
-				curr_start--;
-				curr_len++;
-				element_at_position--;
-			}
+		if(visitedElements.count(arr[i]) == 0){
+			visitedElements[arr[i]] = true;
 		}
-		if(curr_len>=max_length){
-			max_length = curr_len;
-			start = curr_start;
-			pair<int,int>p;
-			p.first=start;
-			p.second = max_length;
-			pairs_vector.push_back(p);
-		}
-
-		if(max_length==1 && start == arr[size-1]){
-			vector<int>temp;
-			temp.push_back(arr[0]);
-			return temp;
-		}
-
-		for (int i = 0; i < size; i++) {
-			int starting_element = arr[i];
-			for (int j = 0; j < pairs_vector.size(); j++) {
-				if (starting_element == pairs_vector[j].first && max_length == pairs_vector[j].second) {
-					vector<int> temp;
-					for (int k = starting_element; k < starting_element + max_length; k++) {
-						temp.push_back(k);
-					}
-					return temp;
-				}
-			}
-		}
-
 	}
 
+	vector<int> longestSequence;
+
+	int globalMaxSequenceLength = 1;
+	int globalMinStartIndex = 0;
+
+	for(int i=0;i<size;i++){
+		int num =arr[i];
+		int currentMinStartIndex = i;
+		int count = 0,tempNum = num;
+
+		while(visitedElements.count(tempNum) == 1 && visitedElements[tempNum] == true){
+			visitedElements[tempNum] = false;
+			count++;
+			tempNum++;
+		}
+
+		tempNum = num-1;
+		while(visitedElements.count(tempNum)==1 && visitedElements[tempNum] == true){
+			visitedElements[tempNum] = false;
+			count++;
+			currentMinStartIndex=elementToIndexMapping[tempNum];
+			tempNum--;
+		}
+
+		if(count>globalMaxSequenceLength){
+			globalMaxSequenceLength = count;
+			globalMinStartIndex = currentMinStartIndex;
+		}
+	}
+
+	int globalStartNum = arr[globalMinStartIndex];
+	longestSequence.push_back(globalStartNum);
+	if(globalMaxSequenceLength>1){
+		longestSequence.push_back(globalStartNum+globalMaxSequenceLength-1);
+	}
+	return longestSequence;
 }
 
-// vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
-// 	unordered_map<int, bool>visiedElements;
-// 	unordered_map<int, int> elementToIndexMapping;
 
 
 
