@@ -42,7 +42,7 @@ int maxCrossingSum(int arr[], int l, int m, int h) {
 	return (max(left_sum, right_sum, (left_sum + right_sum)));
 }
 
-int kadane(int * arr, int l, int h) {
+int maxSubArraySum(int * arr, int l, int h) {
 	if (l == h) {
 		return arr[l];
 	}
