@@ -571,60 +571,79 @@ typedef long long ll;
 // 	return ans;
 // }
 
+
+// 2. Approch Using HashMap
+// Time:- O(N)
+// Space:- O(N)
+
 vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
-	unordered_map<int, bool>visiedElements;
-	unordered_map<int, int> elementToIndexMapping;
-
+	vector<pair<int, int>> pairs_vector;
+	//In Vector first element of each pair is start and second element is the max_length
+	map<int, bool>m;
 	for (int i = 0; i < size; i++) {
-		elementToIndexMapping[arr[i]] = i;
-
-		if (visiedElements.count(arr[i]) == 0) {
-			visiedElements[arr[i]] = true;
-		}
+		m[arr[i]] = true;
 	}
-	vector<int> longestSequence;
 
-	int globalMaxSequenceLength = 1;
-	int globalMinStartIndex = 0;
+	int max_length=0,start=0;
+	for(int i=0;i<size;i++){
+		int curr_len=1;
+		int curr_start=0;
+		if(m[arr[i]] == true){
+			m[arr[i]] = false;
 
-	for (int i = 0; i < size; i++) {
-		int num = arr[i];
-		int currentMinStartIndex = i;
-		int count = 0; int tempNum = num;
+			int element_at_position = arr[i];
+			while(m[element_at_position+1]==true){
+				curr_len++;
+				m[element_at_position+1] = false;
+				element_at_position++;
+			}
 
-		//Forward Propagation
-		while (visiedElements.count(tempNum) == 1 && visiedElements[tempNum] == true) {
-			visiedElements[tempNum] = false;
-			count++;
-			tempNum++;
-		}
-
-		//Backward Propagation
-		tempNum = num - 1;
-		while (visiedElements.count(tempNum) == 1 && visiedElements[tempNum] == true) {
-			visiedElements[tempNum] = false;
-			count++;
-			currentMinStartIndex = elementToIndexMapping[tempNum];
-			tempNum--;
-		}
-		if (count > globalMaxSequenceLength) {
-			globalMaxSequenceLength = count;
-			globalMinStartIndex = currentMinStartIndex;
-		}
-		else if (count == globalMaxSequenceLength) {
-			if (currentMinStartIndex < globalMinStartIndex) {
-				globalMinStartIndex = currentMinStartIndex;
+			element_at_position = arr[i];
+			curr_start = element_at_position;
+			while(m[element_at_position-1]==true){
+				m[element_at_position-1]=false;
+				curr_start--;
+				curr_len++;
+				element_at_position--;
 			}
 		}
+		if(curr_len>=max_length){
+			max_length = curr_len;
+			start = curr_start;
+			pair<int,int>p;
+			p.first=start;
+			p.second = max_length;
+			pairs_vector.push_back(p);
+		}
+
+		if(max_length==1 && start == arr[size-1]){
+			vector<int>temp;
+			temp.push_back(arr[0]);
+			return temp;
+		}
+
+		for (int i = 0; i < size; i++) {
+			int starting_element = arr[i];
+			for (int j = 0; j < pairs_vector.size(); j++) {
+				if (starting_element == pairs_vector[j].first && max_length == pairs_vector[j].second) {
+					vector<int> temp;
+					for (int k = starting_element; k < starting_element + max_length; k++) {
+						temp.push_back(k);
+					}
+					return temp;
+				}
+			}
+		}
+
 	}
 
-	int globalStartNum = arr[globalMinStartIndex];
-	longestSequence.push_back(globalStartNum);
-	if (globalMaxSequenceLength > 1) {
-		longestSequence.push_back(globalStartNum + globalMaxSequenceLength - 1);
-	}
-	return longestSequence;
 }
+
+// vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
+// 	unordered_map<int, bool>visiedElements;
+// 	unordered_map<int, int> elementToIndexMapping;
+
+
 
 
 int main() {

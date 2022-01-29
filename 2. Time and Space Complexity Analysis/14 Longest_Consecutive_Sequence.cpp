@@ -146,16 +146,28 @@ vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
 }
 
 /*
+upar wala code ye 2 case k liye fail hua h
+Sample Input 2 :
 7
 3 7 2 1 9 8 41
+Sample Output 2 :
+7 9
+Explanation: Sequence should be of consecutive numbers. Here we have 2 sequences with same length i.e. [1, 2, 3] and [7, 8, 9],
+ but we should select [7, 8, 9] because the starting point of [7, 8, 9] comes first in input array and therefore, the output will
+  be 7 9, as we have to print starting and ending element of the longest consecutive sequence.
+
 13
 2 12 9 16 10 5 3 20 25 11 1 8 6
 */
 
+/*
+Time:- O(N)
+Space:- O(N)
+*/
 
 vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
 	unordered_map<int, bool>visiedElements;
-	unordered_map<int, int>; elementToIndexMapping;
+	unordered_map<int, int>elementToIndexMapping;
 
 	for (int i = 0; i < size; i++) {
 		elementToIndexMapping[arr[i]] = i;
@@ -172,7 +184,7 @@ vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
 	for (int i = 0; i < size; i++) {
 		int num = arr[i];
 		int currentMinStartIndex = i;
-		int count = 0; iint tempNum = num;
+		int count = 0; int tempNum = num;
 
 		//Forward Propagation
 		while (visiedElements.count(tempNum) == 1 && visiedElements[tempNum] == true) {
@@ -208,7 +220,32 @@ vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
 	return longestSequence;
 }
 
+/*
+Time:- O(N)
+Space:- O(N)
+*/
 
+int longestConsecutive(vector<int>& nums) {
+	set<int> hashSet;
+	for (int num : nums) {
+		hashSet.insert(num);
+	}
+
+	int longestStreak = 0;
+	for (int num : hashSet) {
+		if (!hashSet.count(num - 1)) {
+			int currentNum = num;
+			int currentStreak = 1;
+			while (hashSet.count(currentNum + 1)) {
+				currentNum++;
+				currentStreak++;
+			}
+
+			longestStreak = max(currentStreak, longestStreak);
+		}
+	}
+	return longestStreak;
+}
 
 
 #include<bits/stdc++.h>
