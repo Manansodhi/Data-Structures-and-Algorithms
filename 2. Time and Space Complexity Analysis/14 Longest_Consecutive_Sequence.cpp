@@ -48,6 +48,10 @@ Sample Output 3 :
 
 */
 
+
+#include<bits/stdc++.h>
+using namespace std;
+
 /*
 1. Approch Using Sorting
 Time:- O(N log N)
