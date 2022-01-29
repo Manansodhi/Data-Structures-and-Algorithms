@@ -653,59 +653,59 @@ typedef long long ll;
 
 
 
-// Optimized Approc
-// Time:- O(N)
-// Space:- O(N)
+// // Optimized Approc
+// // Time:- O(N)
+// // Space:- O(N)
 
 
-vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
-	unordered_map<int, bool>visitedElements;
-	unordered_map<int, int> elementToIndexMapping;
-	for(int i=0;i<size;i++){
-		elementToIndexMapping[arr[i]] = i;
+// vector<int> Longest_Consecutive_Sequence(int * arr, int size) {
+// 	unordered_map<int, bool>visitedElements;
+// 	unordered_map<int, int> elementToIndexMapping;
+// 	for(int i=0;i<size;i++){
+// 		elementToIndexMapping[arr[i]] = i;
 
-		if(visitedElements.count(arr[i]) == 0){
-			visitedElements[arr[i]] = true;
-		}
-	}
+// 		if(visitedElements.count(arr[i]) == 0){
+// 			visitedElements[arr[i]] = true;
+// 		}
+// 	}
 
-	vector<int> longestSequence;
+// 	vector<int> longestSequence;
 
-	int globalMaxSequenceLength = 1;
-	int globalMinStartIndex = 0;
+// 	int globalMaxSequenceLength = 1;
+// 	int globalMinStartIndex = 0;
 
-	for(int i=0;i<size;i++){
-		int num =arr[i];
-		int currentMinStartIndex = i;
-		int count = 0,tempNum = num;
+// 	for(int i=0;i<size;i++){
+// 		int num =arr[i];
+// 		int currentMinStartIndex = i;
+// 		int count = 0,tempNum = num;
 
-		while(visitedElements.count(tempNum) == 1 && visitedElements[tempNum] == true){
-			visitedElements[tempNum] = false;
-			count++;
-			tempNum++;
-		}
+// 		while(visitedElements.count(tempNum) == 1 && visitedElements[tempNum] == true){
+// 			visitedElements[tempNum] = false;
+// 			count++;
+// 			tempNum++;
+// 		}
 
-		tempNum = num-1;
-		while(visitedElements.count(tempNum)==1 && visitedElements[tempNum] == true){
-			visitedElements[tempNum] = false;
-			count++;
-			currentMinStartIndex=elementToIndexMapping[tempNum];
-			tempNum--;
-		}
+// 		tempNum = num-1;
+// 		while(visitedElements.count(tempNum)==1 && visitedElements[tempNum] == true){
+// 			visitedElements[tempNum] = false;
+// 			count++;
+// 			currentMinStartIndex=elementToIndexMapping[tempNum];
+// 			tempNum--;
+// 		}
 
-		if(count>globalMaxSequenceLength){
-			globalMaxSequenceLength = count;
-			globalMinStartIndex = currentMinStartIndex;
-		}
-	}
+// 		if(count>globalMaxSequenceLength){
+// 			globalMaxSequenceLength = count;
+// 			globalMinStartIndex = currentMinStartIndex;
+// 		}
+// 	}
 
-	int globalStartNum = arr[globalMinStartIndex];
-	longestSequence.push_back(globalStartNum);
-	if(globalMaxSequenceLength>1){
-		longestSequence.push_back(globalStartNum+globalMaxSequenceLength-1);
-	}
-	return longestSequence;
-}
+// 	int globalStartNum = arr[globalMinStartIndex];
+// 	longestSequence.push_back(globalStartNum);
+// 	if(globalMaxSequenceLength>1){
+// 		longestSequence.push_back(globalStartNum+globalMaxSequenceLength-1);
+// 	}
+// 	return longestSequence;
+// }
 
 
 
