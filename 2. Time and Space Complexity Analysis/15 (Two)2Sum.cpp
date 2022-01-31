@@ -17,7 +17,7 @@ Output: [1,2]
 Example 3:
 Input: nums = [3,3], target = 6
 Output: [0,1]
- 
+
 
 Constraints:
 
@@ -39,19 +39,19 @@ using namespace std;
 */
 
 vector<int> TwoSum(vector<int>& nums, int target) {
-    vector<int> res;
-    for (int i = 0; i < nums.size(); ++i) {
-   	 for (int j = i + 1; j < nums.size(); ++j) {
-   		 if (nums[i] + nums[j] == target) {
-   			 res.emplace_back(i);
-   			 res.emplace_back(j);
-   			 break;
-   		 }
-   	 }
-   	 if (res.size() == 2)
-   		 break;
-    }
-    return res;
+	vector<int> res;
+	for (int i = 0; i < nums.size(); ++i) {
+		for (int j = i + 1; j < nums.size(); ++j) {
+			if (nums[i] + nums[j] == target) {
+				res.emplace_back(i);
+				res.emplace_back(j);
+				break;
+			}
+		}
+		if (res.size() == 2)
+			break;
+	}
+	return res;
 }
 
 
@@ -64,22 +64,22 @@ Space Complexity: O(N)
 
 vector<int> TwoSum(vector<int>& nums, int target) {
 
-    vector<int> res;
-    unordered_map<int, int> mp;
+	vector<int> res;
+	unordered_map<int, int> mp;
 
-    for (int i = 0; i < nums.size(); ++i) {
+	for (int i = 0; i < nums.size(); ++i) {
 
-   	 if (mp.find(target - nums[i]) != mp.end()) {
+		if (mp.find(target - nums[i]) != mp.end()) {
 
-   		 res.emplace_back(i);
-   		 res.emplace_back(mp[target - nums[i]]);
-   		 return res;
-   	 }
+			res.emplace_back(i);
+			res.emplace_back(mp[target - nums[i]]);
+			return res;
+		}
 
-   	 mp[nums[i]] = i;
-    }
+		mp[nums[i]] = i;
+	}
 
-    return res;
+	return res;
 }
 
 

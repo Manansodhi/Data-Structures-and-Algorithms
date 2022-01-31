@@ -6,7 +6,7 @@ a, b, c, and d are distinct.
 nums[a] + nums[b] + nums[c] + nums[d] == target
 You may return the answer in any order.
 
- 
+
 
 Example 1:
 
@@ -16,7 +16,7 @@ Example 2:
 
 Input: nums = [2,2,2,2,2], target = 8
 Output: [[2,2,2,2]]
- 
+
 
 Constraints:
 
