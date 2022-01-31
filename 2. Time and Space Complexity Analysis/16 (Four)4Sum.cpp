@@ -46,20 +46,20 @@ vector<vector<int>> FourSum(vector<int>& nums, int target) {
 			for (int k = j + 1; k < n; k++) {
 				int x = (long long) target - (long long) nums[i] - (long long) nums[j] - (long long) nums[k];
 
-				if(binary_search(nums.begin()+k+1,nums.end(),x)){
+				if (binary_search(nums.begin() + k + 1, nums.end(), x)) {
 					vector<int> v;
 					v.emplace_back(nums[i]);
 					v.emplace_back(nums[j]);
 					v.emplace_back(nums[k]);
 					v.emplace_back(x);
-					sort(v.begin(),v.end());
+					sort(v.begin(), v.end());
 					sv.insert(v);
 				}
 			}
 		}
 	}
 
-	vector<vector<int>> res(sv.begin(),sv.end());
+	vector<vector<int>> res(sv.begin(), sv.end());
 	return res;
 }
 
@@ -67,39 +67,39 @@ vector<vector<int>> FourSum(vector<int>& nums, int target) {
 /*
 Optimized Approach
 Time Complexity: O(N³)
-Space Complexity: O(1)
-Over here we will fix two-pointers and then find the remaining two elements using two pointer technique as the array will be 
+Space Complexity: O(M * 4), where M is the number of quads
+Over here we will fix two-pointers and then find the remaining two elements using two pointer technique as the array will be
 sorted at first
 */
 
 
-vector<vector<int>> fourSum(vector<int>& num, int target){
+vector<vector<int>> fourSum(vector<int>& num, int target) {
 	vector<vector<int>> res;
 
-	if(num.empty()){
+	if (num.empty()) {
 		return res;
 	}
 
 	int n = num.size();
-	sort(num.begin(),num.end());
+	sort(num.begin(), num.end());
 
-	for(int i = 0; i<n;i++){
-		for(int j =i+1;j<n;j++){
-			int target_2 = target - num[i]-num[j];
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n; j++) {
+			int target_2 = target - num[i] - num[j];
 
-			int left = j+1;
-			int right = n-1;
+			int left = j + 1;
+			int right = n - 1;
 
-			while(left<right){
-				int two_sum = num[left]+num[right];
-				if(two_sum < target_2){
+			while (left < right) {
+				int two_sum = num[left] + num[right];
+				if (two_sum < target_2) {
 					left++;
 				}
-				else if(two_sum >target_2){
+				else if (two_sum > target_2) {
 					right--;
 				}
-				else{
-					vector<int> quadruplet(4,0);
+				else {
+					vector<int> quadruplet(4, 0);
 					quadruplet[0] = num[i];
 					quadruplet[1] = num[j];
 					quadruplet[2] = num[left];
@@ -107,20 +107,20 @@ vector<vector<int>> fourSum(vector<int>& num, int target){
 					res.emplace_back(quadruplet);
 
 
-					while(left<right && num[left] == quadruplet[2])
+					while (left < right && num[left] == quadruplet[2])
 						++left;
 
 
-					while(left<right && num[left] == quadruplet[3])
+					while (left < right && num[left] == quadruplet[3])
 						--right;
 
 				}
 			}
 
-			while(j+1 < n && num[j+1] == num[j])
+			while (j + 1 < n && num[j + 1] == num[j])
 				++j;
 		}
-		while(i+1<n && num[i+1] == num[i])
+		while (i + 1 < n && num[i + 1] == num[i])
 			++i;
 	}
 
