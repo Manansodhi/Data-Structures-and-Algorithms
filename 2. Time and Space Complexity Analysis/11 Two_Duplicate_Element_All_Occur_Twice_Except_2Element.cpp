@@ -33,7 +33,7 @@ SPACE :- O(1)
 */
 
 
-#include<bits/stdc++.h>
+#include"bits/stdc++.h"
 using namespace std;
 
 
@@ -77,7 +77,7 @@ void Two_Duplicate_Element(int * arr, int size) {
 		   karega. toh elemet ka XOR ans[1] m store ho jayega (ans[1] ^= arr[i]). toh jo dono 3 hoge voh ans ke 1 partition 
 		   m jayege or sath sath m jo bhi element partition m ayega uska sath m XOR bhi hota rahega or same number ek dusre 
 		   ko cancel bhi karte rahege*/
-		
+
 		ans[hasBitSet(arr[i], k)] ^= arr[i];
 	}
 
