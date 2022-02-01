@@ -20,12 +20,13 @@ come under this Multiset B
 
 ALL != 0 (will have Kth bit turned on to 1 )
 ALL = x^y (two elements which occurs only once & also only one of x ,y will have Kth bit turned ON. both x and y cannnot have
-Kth bit turned ON (=1)). 4 -> 100, 1 -> 001 in this on 1 has its right most bit turned on .And when we partioned the array in
+Kth bit turned ON (=1)). 4 -> 100, 1 -> 001 in this only 1 has its right most bit turned on .And when we partioned the array in
 a & b then x may go in set A or set B it can go in only one set and y(2nd element that occur once) will go in another set to
 which x has gone and after that the problem turned to finding 1 duplicate element in array. x and y will be in different
 parition. since all elements were occuring in duplicates. All elements will still present in duplicates in parition a & b.
-becoz duplicate elem,ents have same right most bit. Now we can find the XOR of parition A and parition B they will give x & y
+becoz duplicate elements have same right most bit. Now we can find the XOR of parition A and parition B they will give x & y
 respectively
+
 TIME :- O(N)
 SPACE :- O(1)
 
@@ -36,10 +37,11 @@ SPACE :- O(1)
 using namespace std;
 
 
-//This "hasBitSet" function is used to find right most bit which is 1 . if it is not present then while loop will increment the
-//value of k to find the position of right most bit. In this we are doing the left sift by the value of k to find the right
-//most bit(turned On bit(=1)) and then doing and(&) operation with ALL(XOR of 2 unique number) so that we can partition the
-//element which have same right most bit same and but them in same partition
+/*This "hasBitSet" function is used to find right most bit which is 1 . if it is not present then while loop will increment the
+value of k to find the position of right most bit. In this we are doing the left sift by the value of k to find the right
+most bit(turned On bit(=1)) and then doing and(&) operation with ALL(XOR of 2 unique number) so that we can partition the
+element which have same right most bit and put them in one paritition and other number which doesnot have same right most
+bit we put them in another paritition*/
 
 bool hasBitSet(int n, int x) {
 	int tem = n & (1 << x);
@@ -68,12 +70,14 @@ void Two_Duplicate_Element(int * arr, int size) {
 	for (int i = 0; i < size; i++) {
 		/*"hasBitSet(arr[i], k)" es se bacically ham kya kar rahe h ki Element ka phele right most bit nikal rahe h by (1<<k)
 		   esme hame jo position choose kari thi right most bit usko left sift kar diya or fir AND(&) operation se pata chal
-		   ki agar voh dono same h toh hasBitSet() 1 return karega or voh ans[1] m chala jayega element nahi toh ans[0] m
-		   jayega voh element or sath hi sath XOR operation bhi hoti rahegi har element ki. jase element 6 ->110 and
-		   k = 0 (becoz ALL = 4^1= 5=101 toh right most bit 0 position per hi milgayi) h toh "hasBitSet(arr[i], k)"
-		   => hasBitSet(6, 0) => n&(1<<k) => (6&(1<<0))=> (6&1) => (110 & 001)=> 2!=0 toh ye return karega 1. ans[1] ^= arr[i]
-		   toh jo dono 6 hoge voh ans ke 1 partition m jayege or sath sath m jo bhi element partition m ayega uska sath m XOR
-		   bhi hota rahega */
+		   ki agar voh dono same h toh hasBitSet() => 1 return karega or sath m XOR operation bhi hoti rahegi har element ki. 
+		   or uska result specific paritition m store ho jayega jis parition se belong karta huaga voh element .
+		   jase element 3 ->011 and k = 0 (becoz ALL = 4^1= 5=101 toh right most bit 0 position per hi milgayi h toh)
+		   hasBitSet(arr[i], k) =>hasBitSet(3, 0) =>n&(1<<k) =>(3&(1<<0))=> (3&1) =>(011 & 001)=(001)=>1!=0 toh ye 1 return 
+		   karega. toh elemet ka XOR ans[1] m store ho jayega (ans[1] ^= arr[i]). toh jo dono 3 hoge voh ans ke 1 partition 
+		   m jayege or sath sath m jo bhi element partition m ayega uska sath m XOR bhi hota rahega or same number ek dusre 
+		   ko cancel bhi karte rahege*/
+		
 		ans[hasBitSet(arr[i], k)] ^= arr[i];
 	}
 
