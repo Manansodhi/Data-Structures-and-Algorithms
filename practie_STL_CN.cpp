@@ -1,57 +1,66 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<string>
+#include<utility>
+#include<set>
+#include<unordered_map>
 using namespace std;
 
-int maximumUniqueSubarray(int * nums, int size) {
-		if (size == 0) {
-			return 0;
-		}
-		int n = size;
-		int i(0), j(0);
-		vector<int> cnt (0);
-		cnt[nums[0]]++;
-		int ans = nums[0];
-		int ans2=0;
-		while (j != n - 1) {
-			if (cnt[nums[j + 1]] == 0) {
-				j++;
-				cnt[nums[j]]++;
-				//ans+=num[j];
-				ans = max(ans, ans+nums[j]);
-				//ans2=ans;
-			}
-			else {
-				cnt[nums[i]]--;
-				ans = ans - nums[i];
-				i++	;
-			}
-		}
-		return ans;
-	}
+
 
 int main() {
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif
-int t;
-cin>>t;
+// 	//Pair
 
-	while (t--) {
-		int size;
-		cin >> size;
-		int arr[size];
-		for (int i = 0; i < size; i++) {
-			cin >> arr[i];
-		}
+// 	pair<int, char> p;
+// 	p = make_pair(2, 'b');
+// 	pair<int, char> p2(1, 'a');
+// 	cout << p.fi " << p2.second << endl;
+// rst << " " << p.second << endl;
+// 	cout << p2.first << "
 
-		int ans =maximumUniqueSubarray(arr,size);
-		cout<< ans<< endl;
-		//vector<int> ans = Longest_Consecutive_Sequence(arr, size);
-		// for (auto i = ans.begin(); i != ans.end(); ++i) {
-		// 	cout << *i << " ";
-		// }
-		// cout << endl;
-		//delete[] arr;
+// 	//Set
+
+// 	set<int> s;
+// 	int arr[] = {1, 2, 3, 4, 5, 6, 5};
+
+// 	for (int i = 0; i < 7; i++) {
+// 		s.insert(arr[i]);
+// 	}
+
+// 	set<int>::iterator it;
+
+// 	for (it = s.begin(); it != s.end(); it++) {
+// 		cout << *it << endl;
+// 	}
+
+// 	if (s.find(7) == s.end()) {
+// 		cout << "Element not found" << endl;
+// 	} else {
+// 		cout << "Element found" << endl;
+// 	}
+
+
+	// Map
+
+	int arr[] = {1, 2, 3, 4, 5, 6, 5};
+	unordered_map<int, int> m;
+
+	for (int i = 0; i < 7; i++) {
+		m[arr[i]] = m[arr[i]] + 1;
+	}
+
+	unordered_map<int, int>::iterator it;
+	for (it = m.begin(); it != m.end(); it++) {
+		cout << it->first << " :" << it->second << endl;
+	}
+	cout << endl;
+	m.erase(1);
+	for (it = m.begin(); it != m.end(); it++) {
+		cout << it->first << " :" << it->second << endl;
 	}
 
 
