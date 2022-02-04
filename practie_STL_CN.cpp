@@ -5,52 +5,106 @@
 #include<set>
 #include<unordered_map>
 #include<bits/stdc++.h>
+#include <sstream>
 typedef long long ll;
 using namespace std;
 
-char getChar(int i) {
-	return (char)(i + 97);
+// char getChar(int i) {
+// 	return (char)(i + 97);
+// }
+
+// void printPalindromicString(string s) {
+// 	map<char, vector<int> > indexesMap;
+// 	for (int i = 0; i < s.length(); i++) {
+// 		indexesMap[s[i]].push_back(i + 1);
+// 	}
+
+// 	int odd_count_freq = 0;
+// 	for (int i = 0; i < 26; i++) {
+// 		if ((indexesMap[getChar(i)].size()) % 2 != 0) {
+// 			odd_count_freq++;
+// 		}
+// 	}
+
+// 	if (odd_count_freq >= 2) {
+// 		cout << "-1";
+// 		return;
+// 	}
+
+// 	int ans[s.length()];
+// 	int start = 0, end = s.length() - 1;
+// 	for (int i = 0; i < 26; i++) {
+// 		char curr_char = getChar(i);
+// 		for (int j = 0; j < indexesMap[curr_char].size(); j += 2) {
+// 			if ((indexesMap[curr_char].size() - j) == 1) {
+// 				ans[s.length() / 2] = indexesMap[curr_char][j];
+// 				continue;
+// 			}
+// 			ans[start] = indexesMap[curr_char][j];
+// 			ans[end] = indexesMap[curr_char][j + 1];
+// 			start++;
+// 			end--;
+// 		}
+// 	}
+
+// 	for (int i = 0; i < s.length(); i++) {
+// 		cout << ans[i] << " ";
+// 	}
+// }
+
+
+//Count no of words in string
+int countWords(string str) {
+	//breaking input into word using stringStream
+	stringstream s(str); // Used for breaking words
+	string word; //to store indivdual words
+	int count = 0 ;
+	while (s >> word) {
+		// s >> word -> reading string(word) from stringstream object(s)
+		count++;
+		//cout<<count<<endl;
+	}
+	return count;
 }
 
-void printPalindromicString(string s) {
-	map<char, vector<int> > indexesMap;
-	for (int i = 0; i < s.length(); i++) {
-		indexesMap[s[i]].push_back(i + 1);
-	}
 
-	int odd_count_freq = 0;
-	for (int i = 0; i < 26; i++) {
-		if ((indexesMap[getChar(i)].size()) % 2 != 0) {
-			odd_count_freq++;
-		}
+void PrintFrequency(string str){
+	//each word is mapped to its frequency
+	map<string,int> freq;
+	stringstream ss(str); // ss -> object of stringstream str -> input string
+	string words;
+	while(ss>>words){
+		//Extracting word by word from stream object ss into words(string) till end
+		freq[words]++;
 	}
-
-	if (odd_count_freq >= 2) {
-		cout << "-1";
-		return;
-	}
-
-	int ans[s.length()];
-	int start = 0, end = s.length() - 1;
-	for (int i = 0; i < 26; i++) {
-		char curr_char = getChar(i);
-		for (int j = 0; j < indexesMap[curr_char].size(); j += 2) {
-			if ((indexesMap[curr_char].size() - j) == 1) {
-				ans[s.length() / 2] = indexesMap[curr_char][j];
-				continue;
-			}
-			ans[start] = indexesMap[curr_char][j];
-			ans[end] = indexesMap[curr_char][j + 1];
-			start++;
-			end--;
-		}
-	}
-
-	for (int i = 0; i < s.length(); i++) {
-		cout << ans[i] << " ";
+	for(auto i:freq){
+		cout<<i.first <<":"<<i.second<<endl;
 	}
 }
 
+
+string removeSpace(string str)
+{
+	stringstream ss;
+	string temp;
+
+	// Storing the whole string into string stream
+	ss << str;
+
+	// Making the string empty
+	str = "";
+
+	// Running loop till end of stream
+	while (!ss.eof()) {
+
+		// Extracting word by word from stream
+		ss >> temp;
+
+		// Concatenating in the string to be returned
+		str = str + temp;
+	}
+	return str;
+}
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -138,12 +192,19 @@ int main() {
 // 	}
 
 
-//PERMUTATION & PALINDROMIC STRING
-	string s;
-	cin >> s;
-	printPalindromicString(s);
-	cout << endl;
+// //PERMUTATION & PALINDROMIC STRING
+// 	string s;
+// 	cin >> s;
+// 	printPalindromicString(s);
+// 	cout << endl;
 
+
+	string s ;
+	// cin >> s; wiil not worl becoz will not take input after space
+	getline(cin,s);
+	//cout << countWords(s) << endl;
+	//PrintFrequency(s);
+	cout<<removeSpace(s)<<endl;
 
 	return 0;
 }
