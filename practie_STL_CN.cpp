@@ -8,6 +8,48 @@
 typedef long long ll;
 using namespace std;
 
+char getChar(int i) {
+	return (char)(i + 97);
+}
+
+void printPalindromicString(string s) {
+	map<char, vector<int> > indexesMap;
+	for (int i = 0; i < s.length(); i++) {
+		indexesMap[s[i]].push_back(i + 1);
+	}
+
+	int odd_count_freq = 0;
+	for (int i = 0; i < 26; i++) {
+		if ((indexesMap[getChar(i)].size()) % 2 != 0) {
+			odd_count_freq++;
+		}
+	}
+
+	if (odd_count_freq >= 2) {
+		cout << "-1";
+		return;
+	}
+
+	int ans[s.length()];
+	int start = 0, end = s.length() - 1;
+	for (int i = 0; i < 26; i++) {
+		char curr_char = getChar(i);
+		for (int j = 0; j < indexesMap[curr_char].size(); j += 2) {
+			if ((indexesMap[curr_char].size() - j) == 1) {
+				ans[s.length() / 2] = indexesMap[curr_char][j];
+				continue;
+			}
+			ans[start] = indexesMap[curr_char][j];
+			ans[end] = indexesMap[curr_char][j + 1];
+			start++;
+			end--;
+		}
+	}
+
+	for (int i = 0; i < s.length(); i++) {
+		cout << ans[i] << " ";
+	}
+}
 
 
 int main() {
@@ -65,35 +107,43 @@ int main() {
 	// 	cout << it->first << " :" << it->second << endl;
 	// }
 
-//HUSSIAN SET
+// //HUSSIAN SET
 
-	int n, m;
-	cin >> n >> m;
-	ll arr[n];
-	for (int i = 0; i < n; i++) {
-		cin >> arr[i];
-	}
-	sort(arr, arr + n);
-	int count_m = 0, end_p = n - 1;
-	queue< ll > q;
+// 	int n, m;
+// 	cin >> n >> m;
+// 	ll arr[n];
+// 	for (int i = 0; i < n; i++) {
+// 		cin >> arr[i];
+// 	}
+// 	sort(arr, arr + n);
+// 	int count_m = 0, end_p = n - 1;
+// 	queue< ll > q;
 
-	while (m--) {
-		int curr_m;
-		cin >> curr_m;
-		ll ans;
-		for (; count_m < curr_m; count_m++) {
-			if(end_p>=0 &&(q.empty() ||(arr[end_p]>=q.front()))){
-				ans=arr[end_p];
-				end_p--;
-			}
-			else{
-				ans=q.front();
-				q.pop();
-			}
-			q.push(ans/2);
-		}
-		cout<<ans <<endl;
-	}
+// 	while (m--) {
+// 		int curr_m;
+// 		cin >> curr_m;
+// 		ll ans;
+// 		for (; count_m < curr_m; count_m++) {
+// 			if(end_p>=0 &&(q.empty() ||(arr[end_p]>=q.front()))){
+// 				ans=arr[end_p];
+// 				end_p--;
+// 			}
+// 			else{
+// 				ans=q.front();
+// 				q.pop();
+// 			}
+// 			q.push(ans/2);
+// 		}
+// 		cout<<ans <<endl;
+// 	}
+
+
+//PERMUTATION & PALINDROMIC STRING
+	string s;
+	cin >> s;
+	printPalindromicString(s);
+	cout << endl;
+
 
 	return 0;
 }

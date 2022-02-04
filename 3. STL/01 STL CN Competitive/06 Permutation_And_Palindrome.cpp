@@ -14,15 +14,14 @@ void PrintPalindromeString(string s){
     }
 
     int odd_freq_count = 0;
-    for (int i = 0; i < 26; i++){
-        // ye loop uske liye chalya h ki jo hmare map jitne bhi character h max 26 m se koi bhi
+    for (int i = 0; i < 26; i++){//ye wala loop constant time lega becoz fixed time chalega N per dependent nahi h
+        // ye loop uske liye chalya h ki jo hmare map m jitne bhi character h max 26 m se koi bhi
         // ho sakta h toh har character per ja kar odd_frequency_count nikal rahe h 
         if ((indexesMap[getchar(i)]).size() % 2 != 0 ){
-            //esme kya ho raha h ki jase ye loop har 26 ki character ki liye chalega becoz string 
-            //m koi se bhi character ho skte h purre 26 charcter m se
-            // toh loop jab chala i=o ke liye getchar(0) -> a la kar dega fir indexMap[a].size() 
-            //us character 'a' ki frequency nikalegi uske indexes ki agar voh  odd hua toh fir 
-            //usko increment kardge 
+            /*esme kya ho raha h ki jase ye loop har 26 ki character ki liye chalega becoz string m koi se bhi character ho 
+            skte h purre 26 charcter m se toh loop jab chala i=0 ke liye getchar(0) -> a la kar dega fir indexMap[a].size() 
+            us character 'a' ki frequency nikalegi uske indexes ki agar voh  odd hua toh fir usko increment kardge 
+            */
             odd_freq_count ++;
         }
     }
