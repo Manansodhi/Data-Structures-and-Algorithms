@@ -5,6 +5,7 @@
 #include<set>
 #include<unordered_map>
 #include<bits/stdc++.h>
+typedef long long ll;
 using namespace std;
 
 
@@ -64,10 +65,35 @@ int main() {
 	// 	cout << it->first << " :" << it->second << endl;
 	// }
 
+//HUSSIAN SET
 
+	int n, m;
+	cin >> n >> m;
+	ll arr[n];
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	sort(arr, arr + n);
+	int count_m = 0, end_p = n - 1;
+	queue< ll > q;
 
-
-#includE<bits/stdc++.h>
+	while (m--) {
+		int curr_m;
+		cin >> curr_m;
+		ll ans;
+		for (; count_m < curr_m; count_m++) {
+			if(end_p>=0 &&(q.empty() ||(arr[end_p]>=q.front()))){
+				ans=arr[end_p];
+				end_p--;
+			}
+			else{
+				ans=q.front();
+				q.pop();
+			}
+			q.push(ans/2);
+		}
+		cout<<ans <<endl;
+	}
 
 	return 0;
 }
