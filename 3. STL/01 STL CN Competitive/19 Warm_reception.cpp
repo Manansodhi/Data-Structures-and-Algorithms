@@ -36,42 +36,113 @@ Explanation:
 #include<bits/stdc++.h>
 using namespace std;
 
-struct triplets{
-    int st;
-    int et;
-    int diff;
+class detail
+{
+public:
+    int time;
+    bool status;
+    
 };
-bool sort_according_to_time_difference(triplets t1, triplets t2){
-    return t1.diff > t2.diff;
-}
-bool sort_according_to_starting_time(triplets t1, triplets t2){
-	return (t1.st>t2.st);
-}
-bool sort_according_to_end_time(triplets t1, triplets t2){
-	return (t1.et>t2.et);
+
+
+bool mysort(detail a, detail b){
+    return(a.time < b.time);
 }
 
 
- int main(){
+int main(){
+    int n;
+    cin>>n;
+    //Arrival
+    vector<detail> people;
+    for (int i = 0; i < n; ++i)
+    {
+        int temp_time;
+        cin>>temp_time;
+        detail temp;
+        temp.time = temp_time;
+        temp.status = 1;
+        people.push_back(temp);
+    }
+
+//Departure
+    for (int i = 0; i < n; ++i)
+    {
+        int temp_time;
+        cin>>temp_time;
+        detail temp;
+        temp.time = temp_time;
+        temp.status = 0;
+        people.push_back(temp);
+    }
+
+//Sorting
+
+    sort(people.begin(), people.end(), mysort);
+    
+
+    int ans = 0;
+    int count = 0;
+
+    vector<detail> :: iterator it = people.begin();
+
+    for (int i = 0; i < people.size(); ++i)
+    {
+        if (people.at(i).status == 1)
+        {
+            count++;
+        }else{
+            count--;
+        }
+        ans = max(ans, count);
+    }
+
+    cout << ans << '\n';
+
+
+    return 0 ; 
+
+
+
+}
+
+
+int main()
+{
     #ifndef ONLINE_JUDGE
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
-    #endif    
+    #endif 
     int n;
-    cin >> n;
-    vector<int> arrival;
-    vector<int> departure;
-    for(int i=0;i<n;i++){
-        int element;
-        cin >> element;
-        arrival.push_back(element);
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
     }
 
-    for(int i=0; i<n; i++){
-		int element;
-		cin>>element;
-		departure.push_back(element);
-	}
-
-    sort(dep, dept+n);
- }
+    int dep[n];
+    
+    for(int i=0;i<n;i++)
+    {
+        cin>>dep[i];                                
+    }
+    
+    sort(arr,arr+n);
+    sort(dep,dep+n);
+    int i=1,j=0chairsNeeded=0,ans=0;
+    while(i<n && j<n){
+        if(arr[i]<=dep[j]){
+            chairsNeeded++;
+            i++;
+            ans=max(ans,chairsNeeded);
+        }
+        else{
+            j++;
+            chairsNeeded--;
+        }
+    }
+    
+    cout<<ans<<'\n';
+    return 0;
+}

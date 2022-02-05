@@ -28,6 +28,43 @@ abcde
 #include<bits/stdc++.h>
 using namespace std;
 
+// Tine complexity: 0(N) 
+// Space complexity: 0(1)
+
+
+string uniqueChar(string str) {
+    string answer;
+    unordered_setcchar> charset;
+
+    for (char ch: str){
+        if (charset.find(ch)==charset.end()){ 
+            answer.push back(ch);
+            charset.insert(ch);
+        }
+    }        
+    return answer;
+}
+
+
+//2
+string uniqueChar(string str){
+    string s;
+    unordered_map<char, int>m;
+    for (int i = 0; i < str.size(); i++){
+        m[str[i]]++;
+    }
+    for (int i = 0; i < str.size(); i++){
+        if (m[str[i]] >=1){
+            s+=str[i];
+            m.erase(str[i]);
+         
+        }
+    }
+return s;
+}
+
+
+
 int main(){
     #ifndef ONLINE_JUDGE
     freopen("input.txt","r",stdin);
