@@ -40,41 +40,41 @@ using namespace std;
 
 
 //template + iterator + Camparator
-class Book {
-public:
-	string name;
-	int price;
+// class Book {
+// public:
+// 	string name;
+// 	int price;
 
-	Book() {
+// 	Book() {
 
-	}
+// 	}
 
-	Book(string name, int price) {
-		this->name = name;
-		this->price = price;
-	}
-};
+// 	Book(string name, int price) {
+// 		this->name = name;
+// 		this->price = price;
+// 	}
+// };
 
-template<class forwardIterator, class T, class Compare>
-forwardIterator search(forwardIterator start, forwardIterator end, T key, Compare cmp){
-	while(start != end){
-		if(cmp(*start,key)){
-			return start;
-		}
-		start++;
-	}
-	return end;
-}
+// template<class forwardIterator, class T, class Compare>
+// forwardIterator search(forwardIterator start, forwardIterator end, T key, Compare cmp){
+// 	while(start != end){
+// 		if(cmp(*start,key)){
+// 			return start;
+// 		}
+// 		start++;
+// 	}
+// 	return end;
+// }
 
-class BookCampare{
-public:
-	bool operator()(Book A, Book B){
-		if(A.name == B.name){
-			return true;
-		}
-		return false;
-	}
-};
+// class BookCampare{
+// public:
+// 	bool operator()(Book A, Book B){
+// 		if(A.name == B.name){
+// 			return true;
+// 		}
+// 		return false;
+// 	}
+// };
 
 
 int main() {
@@ -108,24 +108,24 @@ int main() {
 	// 	cout<<*it<<endl;
 	// }
 
-	Book b1("C++",100);
-	Book b2("Java",200);
-	Book b3("Python",300);
+	// Book b1("C++",100);
+	// Book b2("Java",200);
+	// Book b3("Python",300);
 
-	list<Book>l;
-	l.push_back(b1);
-	l.push_back(b2);
-	l.push_back(b3);
+	// list<Book>l;
+	// l.push_back(b1);
+	// l.push_back(b2);
+	// l.push_back(b3);
 
-	Book booktofind("C++",150);
-	BookCampare cmp;
-	auto it = search(l.begin(),l.end(),booktofind,cmp);
-	if(it!=l.end()){
-		cout<<"Bookk Found in libaray"<<endl;
-	}
-	else{
-		cout<<"Book Not found in libaray"<< endl;
-	}
+	// Book booktofind("C++",150);
+	// BookCampare cmp;
+	// auto it = search(l.begin(),l.end(),booktofind,cmp);
+	// if(it!=l.end()){
+	// 	cout<<"Bookk Found in libaray"<<endl;
+	// }
+	// else{
+	// 	cout<<"Book Not found in libaray"<< endl;
+	// }
 
 
 	return 0;
