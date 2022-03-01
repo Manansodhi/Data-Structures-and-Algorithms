@@ -41,6 +41,7 @@ int main() {
     bubble_sort(a, n, compare);
 
     rotate(a, a + 2, a + n);
+    //rotate(array, rotateFrom, rotateTill)
 
     //When we want to generate next lexiographic bigger number
     next_permutation(a, a + n);
