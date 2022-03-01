@@ -41,14 +41,14 @@ int main() {
     bubble_sort(a, n, compare);
 
     rotate(a, a + 2, a + n);
- 
+
     //When we want to generate next lexiographic bigger number
     next_permutation(a, a + n);
     for (int i = 0; i < n; i++) {
         cout << a[i] << " ";
     }
     cout << endl;
-    
+
     reverse(a + 2, a + n);
 
 
@@ -58,5 +58,5 @@ int main() {
     cout << endl;
 
 
-return 0;
+    return 0;
 }
