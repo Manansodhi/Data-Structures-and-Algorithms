@@ -59,7 +59,7 @@ int main() {
     // if we want to find the lower_bound of 41 then it will return next greater element then 41 that is 50
     //and it's index is 5 and upper bound will also be 5 and ub-lb will be zero becoz it is not present in
     //array
-    
+
     return 0;
 
 }
