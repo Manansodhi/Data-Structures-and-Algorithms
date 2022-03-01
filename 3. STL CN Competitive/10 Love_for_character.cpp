@@ -23,7 +23,7 @@ Sample output:
 
 3 2 0
 */
-#include<bits/stdc++.h>
+#include"bits/stdc++.h"
 using namespace std;
 
 
