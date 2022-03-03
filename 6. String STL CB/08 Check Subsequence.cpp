@@ -2,7 +2,7 @@
 using namespace std;
 
 /*
-INPUT :- 
+INPUT :-
 NOTE-> No spaces in between
 codingminutes   length=M
 cines			length=N
@@ -10,6 +10,10 @@ cines			length=N
 OUTPUT:-
 yes
 
+Naive
+TIME:- O(2^N * N) for Generating all subset and some more time for matching if any string matches from subset
+
+Optimized
 TIME:- O(M+N)
 SPACE:- O(1)
 
@@ -17,18 +21,18 @@ SPACE:- O(1)
 
 */
 
-bool checkSubsequence(string s1,string s2){
-	int m = s1.length(),n=s2.length();
-	int j=n;
-	for(int i=m;i>=0;i--){
-		if(s1[i] == s2[j]){
+bool checkSubsequence(string s1, string s2) {
+	int m = s1.length(), n = s2.length();
+	int j = n;
+	for (int i = m; i >= 0; i--) {
+		if (s1[i] == s2[j]) {
 			j--;
 		}
 	}
-	if(j==-1){
+	if (j == -1) {
 		return true;
 	}
-	else{
+	else {
 		return false;
 	}
 }
@@ -40,9 +44,9 @@ int main() {
 	freopen("output.txt", "w", stdout);
 #endif
 
-	string s1,s2;
-	cin>>s1>>s2;
-	cout<<checkSubsequence(s1,s2)<<endl;
+	string s1, s2;
+	cin >> s1 >> s2;
+	cout << checkSubsequence(s1, s2) << endl;
 
 	return 0;
 }
