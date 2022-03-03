@@ -1,12 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
+/*
+input:
+We are learning about STL strings. STL string claa is quite powerfull
+STL
+ouput:
+22 , 35
 
-vector<int>stringSearch(string s, string word){
+TIME:- O(n^2)
+SPACE:- O(1)
+
+*/
+vector<int>stringSearch(string s, string word) {
 	vector<int>result;
 	int index = s.find(word);
-	while(index != -1){
+	while (index != -1) {
 		result.push_back(index);
-		index = s.find(word,index+1);
+		index = s.find(word, index + 1);
 	}
 	return result;
 }
@@ -18,14 +28,14 @@ int main() {
 #endif
 
 	string s;
-	getline(cin,s);
+	getline(cin, s);
 	string word;
-	getline(cin,word);
-	vector<int> ans = stringSearch(s,word);
-	for(auto v:ans){
-		cout << v<<",";
+	getline(cin, word);
+	vector<int> ans = stringSearch(s, word);
+	for (auto v : ans) {
+		cout << v << ",";
 	}
-	cout<<endl;
+	cout << endl;
 
 
 
