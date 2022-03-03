@@ -231,20 +231,47 @@ using namespace std;
 // }
 
 
-bool checkSubsequence(string s1,string s2){
-	int m = s1.length(),n=s2.length();
-	int j=n;
-	for(int i=m;i>=0;i--){
-		if(s1[i] == s2[j]){
-			j--;
-		}
+// bool checkSubsequence(string s1,string s2){
+// 	int m = s1.length(),n=s2.length();
+// 	int j=n;
+// 	for(int i=m;i>=0;i--){
+// 		if(s1[i] == s2[j]){
+// 			j--;
+// 		}
+// 	}
+// 	if(j==-1){
+// 		return true;
+// 	}
+// 	else{
+// 		return false;
+// 	}
+// }
+
+
+
+void Subsequence(string s,string o,vector<string> &v){
+	//base case
+	if(s.size() == 0){
+		v.push_back(o);
+		return;
 	}
-	if(j==-1){
-		return true;
+
+	//Recursive case
+	char ch = s[0];
+	string reduced_input = s.substr(1);
+
+	//includes
+	Subsequence(reduced_input,o+ch,v);
+
+	//excludes
+	Subsequence(reduced_input,o,v);
+}
+
+bool compare(string s1, string s2){
+	if(s1.length()== s2.length()){
+		return s1<s2;
 	}
-	else{
-		return false;
-	}
+	return s1.length() < s2.length();
 }
 
 
@@ -575,9 +602,22 @@ int main() {
 	// cout << s;
 
 
-	string s1,s2;
-	cin>>s1>>s2;
-	cout<<checkSubsequence(s1,s2)<<endl;
+	// string s1,s2;
+	// cin>>s1>>s2;
+	// cout<<checkSubsequence(s1,s2)<<endl;
+
+
+	string s;
+	cin >> s;
+	vector<string> v;
+	string output = " ";
+	Subsequence(s, output, v);
+	sort(v.begin(), v.end(), compare);
+	for (auto it : v) {
+		cout << it << ",";
+	}
+	cout << endl;
+
 
 
 	return 0;

@@ -1,1 +1,1 @@
-1
+ , a, b, c, ab, ac, bc, abc,
