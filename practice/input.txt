@@ -1,4 +1,1 @@
-3
-apple
-mango
-bannana
+hello world sam

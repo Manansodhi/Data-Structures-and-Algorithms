@@ -147,7 +147,7 @@ using namespace std;
 
 // bool compare (string a, string b){
 // 	//if 2 strings are equal in length then sort in lexixographic order (means string of greater length will
-// come at top and between equal length strings one smaller in lexicographic order will come first ) 
+// come at top and between equal length strings one smaller in lexicographic order will come first )
 // 	if(a.length() == b.length()){
 // 		return a<b;
 // 		//overloading "<" to compare strings based on lexicographic order
@@ -157,56 +157,78 @@ using namespace std;
 
 
 
-//instead we pass array(char*) of delimeter we accept single character that will be delimiter
-char *mystrtok(char*str, char delim) {
-//string str and single char as delimeter
+// //instead we pass array(char*) of delimeter we accept single character that will be delimiter
+// char *mystrtok(char*str, char delim) {
+// //string str and single char as delimeter
 
-	/*we are making multiple function call to extract token each time for this we have to maintain variable which will maintain
-	that how much string is tokenized and from where it should give next token for this we have to maintain static variable
-	(to maintain how many token you have returned till now)
-	static input pointer. state of static variable is intialized only once in function call and in every subsequent call it will
-	have same state as in previous function call
-	*/
-	static char *input = NULL;
+// 	we are making multiple function call to extract token each time for this we have to maintain variable which will maintain
+// 	that how much string is tokenized and from where it should give next token for this we have to maintain static variable
+// 	(to maintain how many token you have returned till now)
+// 	static input pointer. state of static variable is intialized only once in function call and in every subsequent call it will
+// 	have same state as in previous function call
+
+// 	static char *input = NULL;
 
 
-	//input will point to the starting position of string if string str is not NULL
-	if (str != NULL) {
-		input = str;
+// 	//input will point to the starting position of string if string str is not NULL
+// 	if (str != NULL) {
+// 		input = str;
+// 	}
+
+// 	//Base case. After the final token has been returned
+// 	if (input == NULL) {
+// 		return NULL;
+// 	}
+
+
+// 	/*
+// 	when designing  strtok() we have to store the entire string inside function and for storing we will take dynamic array
+// 	becoz it will exist even after function call is over. we will create new array of same length of string each time becoz whole
+// 	 string may be one token also +1 for null character which we will add for last token
+// 	*/
+
+// 	char *output = new char[strlen(input) + 1];
+// 	int i = 0;
+// 	for (; input[i] != '\0'; i++) {
+// 		if (input[i] != delim) {
+// 			output[i] = input[i];//copying the string in output array untill delimeter
+// 		}
+// 		else {
+// 			output[i] = '\0';
+// 			input = input + i + 1; //to change the location of input pointer after first token is copied in output array
+// 			return output;
+// 		}
+// 	}
+// 	/*corner case: For very last token there might may not be space at the end so four loop will get over so we put '\0' at the
+// 	 end explicity*/
+// 	output[i] = '\0';
+// 	input = NULL;
+// 	return output;
+
+// }
+
+void space20(char* s) {
+	int countSpace = 0, additionalSpace = 0;
+	for (int itr = 0; s[itr] != '\0'; itr++) {
+		if (s[itr] == ' ') {
+			countSpace++;
+		}
 	}
-
-	//Base case. After the final token has been returned
-	if (input == NULL) {
-		return NULL;
-	}
-
-
-	/*
-	when designing  strtok() we have to store the entire string inside function and for storing we will take dynamic array
-	becoz it will exist even after function call is over. we will create new array of same length of string each time becoz whole
-	 string may be one token also +1 for null character which we will add for last token
-	*/
-
-	char *output = new char[strlen(input) + 1];
-	int i = 0;
-	for (; input[i] != '\0'; i++) {
-		if (input[i] != delim) {
-			output[i] = input[i];//copying the string in output array untill delimeter
+	additionalSpace = (3 * countSpace) - countSpace;
+	s[strlen(s) + additionalSpace] = '\0';
+	for (int itr = strlen(s) - 1 + additionalSpace, j = strlen(s) - 1; j >= 0; j--) {
+		if (s[j] == ' ') {
+			s[itr] = '0';
+			s[itr - 1] = '2';
+			s[itr - 2] = '%';
+			itr -= 3;
 		}
 		else {
-			output[i] = '\0';
-			input = input + i + 1; //to change the location of input pointer after first token is copied in output array
-			return output;
-		}		
+			s[itr] = s[j];
+			itr--;
+		}
 	}
-	/*corner case: For very last token there might may not be space at the end so four loop will get over so we put '\0' at the
-	 end explicity*/
-	output[i] = '\0';
-	input = NULL;
-	return output;
-
 }
-
 
 
 
@@ -261,111 +283,111 @@ int main() {
 	// }
 
 	// ALGORITHM
-    // int arr[] = {1, 10, 11, 9, 100};
-    // int n = sizeof(arr) / sizeof(int);
-    // int key = 13;
+	// int arr[] = {1, 10, 11, 9, 100};
+	// int n = sizeof(arr) / sizeof(int);
+	// int key = 13;
 
-    // //Find Function
-    // // when key is not present in the array find fumc will return the pointer to the last position of array
-    // auto it = find(arr, arr + n, key); //find function returns pointer to that location
-    // cout << it << endl; // this will return the addres of key
+	// //Find Function
+	// // when key is not present in the array find fumc will return the pointer to the last position of array
+	// auto it = find(arr, arr + n, key); //find function returns pointer to that location
+	// cout << it << endl; // this will return the addres of key
 
-    // //by subracting the starting element address with cyrrent element address we will get the number of
-    // //elements between element
-    // int index = it - arr;
-    // cout << index << endl;
-    // if (index == n) {
-    //     cout << key << " Not found" << endl;
-    // }
-    // else {
-    //     cout << key << " Present at index " << index << endl;
-    // }
-
-
-
-    // //BINARY SEACRH  Time :- O(Log N)
-    // int arr[] = {20, 30, 40, 40, 40, 50, 100};
-    // int n = sizeof(arr) / sizeof(int);
-    // int key = 30;
-    // bool present = binary_search(arr, arr + n, key); //binary_search() will return either true/false
-    // if (present) {
-    //     cout << "presemt" << endl;
-    // }
-    // else {
-    //     cout << "absent!" << endl;
-    // }
+	// //by subracting the starting element address with cyrrent element address we will get the number of
+	// //elements between element
+	// int index = it - arr;
+	// cout << index << endl;
+	// if (index == n) {
+	//     cout << key << " Not found" << endl;
+	// }
+	// else {
+	//     cout << key << " Present at index " << index << endl;
+	// }
 
 
-    // //upper_bound()   lower_bound()  function to get index of element
-    // int arr[] = {20, 30, 40, 40, 40, 50, 100};
-    // int n = sizeof(arr) / sizeof(int);
-    // int key = 40;
 
-    // //int * lb becoz lower_bound() will return address
-    // // it will return the address of first element >= key
-    // auto lb = lower_bound(arr, arr + n, 40);
-    // cout << (lb - arr) << endl; //2
+	// //BINARY SEACRH  Time :- O(Log N)
+	// int arr[] = {20, 30, 40, 40, 40, 50, 100};
+	// int n = sizeof(arr) / sizeof(int);
+	// int key = 30;
+	// bool present = binary_search(arr, arr + n, key); //binary_search() will return either true/false
+	// if (present) {
+	//     cout << "presemt" << endl;
+	// }
+	// else {
+	//     cout << "absent!" << endl;
+	// }
 
-    // // it will return the address of first element > key
-    // auto ub = upper_bound(arr, arr + n, 40);
-    // cout << (ub - arr) << endl; //5
 
-    // //Upper_bound - lower_bound -> gives the frequency of element
-    // // if we want to find the frequency of element in sorted array we do that by subtracting ub-lb
-    // cout << "occurance frequency of 40 is " << (ub - lb) << endl;
+	// //upper_bound()   lower_bound()  function to get index of element
+	// int arr[] = {20, 30, 40, 40, 40, 50, 100};
+	// int n = sizeof(arr) / sizeof(int);
+	// int key = 40;
 
-    // // if we want to find the lower_bound of 41 then it will return next greater element then 41 that is 50
-    // //and it's index is 5 and upper bound will also be 5 and ub-lb will be zero becoz it is not present in
-    // //array
+	// //int * lb becoz lower_bound() will return address
+	// // it will return the address of first element >= key
+	// auto lb = lower_bound(arr, arr + n, 40);
+	// cout << (lb - arr) << endl; //2
+
+	// // it will return the address of first element > key
+	// auto ub = upper_bound(arr, arr + n, 40);
+	// cout << (ub - arr) << endl; //5
+
+	// //Upper_bound - lower_bound -> gives the frequency of element
+	// // if we want to find the frequency of element in sorted array we do that by subtracting ub-lb
+	// cout << "occurance frequency of 40 is " << (ub - lb) << endl;
+
+	// // if we want to find the lower_bound of 41 then it will return next greater element then 41 that is 50
+	// //and it's index is 5 and upper bound will also be 5 and ub-lb will be zero becoz it is not present in
+	// //array
 
 
 	// int n, key;
- //    cin >> n;
- //    int a[1000];
- //    for (int i = 0; i < n; i++) {
- //        cin >> a[i];
- //    }
+//    cin >> n;
+//    int a[1000];
+//    for (int i = 0; i < n; i++) {
+//        cin >> a[i];
+//    }
 
- //    bubble_sort(a,n,compare);
- //    for (int i = 0; i < n; i++) {
- //        cout << a[i] << " ";
- //    }
- //    cout << endl;
+//    bubble_sort(a,n,compare);
+//    for (int i = 0; i < n; i++) {
+//        cout << a[i] << " ";
+//    }
+//    cout << endl;
 
- //    rotate(a, a + 2, a + n);
+//    rotate(a, a + 2, a + n);
 
- //    for (int i = 0; i < n; i++) {
- //        cout << a[i] << " ";
- //    }
- //    cout << endl;
+//    for (int i = 0; i < n; i++) {
+//        cout << a[i] << " ";
+//    }
+//    cout << endl;
 
- //    //When we want to generate next lexiographic bigger number
- //    next_permutation(a, a + n);
- //    for (int i = 0; i < n; i++) {
- //        cout << a[i] << " ";
- //    }
- //    cout << endl;
+//    //When we want to generate next lexiographic bigger number
+//    next_permutation(a, a + n);
+//    for (int i = 0; i < n; i++) {
+//        cout << a[i] << " ";
+//    }
+//    cout << endl;
 
- //    reverse(a + 2, a + n);
+//    reverse(a + 2, a + n);
 
 
- //    for (int i = 0; i < n; i++) {
- //        cout << a[i] << " ";
- //    }
- //    cout << endl;
+//    for (int i = 0; i < n; i++) {
+//        cout << a[i] << " ";
+//    }
+//    cout << endl;
 
 
 //INDIAN MONEY COIN CHANGE
 	// int coins[] = {1, 2, 5, 10, 20, 50, 100, 200, 500, 2000};
- //    int n = sizeof(coins) / sizeof(int);
- //    int money = 208;
- //    while(money>0){
- //    	int lb = lower_bound(coins, coins+n, money, compare)-coins -1;
- //    	int m = coins[lb];
- //    	money -= m;
- //    	cout<<m<<" ";     
- //    }
- //    cout << endl;
+//    int n = sizeof(coins) / sizeof(int);
+//    int money = 208;
+//    while(money>0){
+//    	int lb = lower_bound(coins, coins+n, money, compare)-coins -1;
+//    	int m = coins[lb];
+//    	money -= m;
+//    	cout<<m<<" ";
+//    }
+//    cout << endl;
 
 
 
@@ -498,40 +520,41 @@ int main() {
 
 	/*String Tokenization used to break string into list of token
 	Internally
-	char * strtok(char * s, char * delimeter) -> returns character pointer, accept char array, abd also accept 
+	char * strtok(char * s, char * delimeter) -> returns character pointer, accept char array, abd also accept
 	array of delimeter(about which we want to break the string)
-	returns a token on each subsequent call 
+	returns a token on each subsequent call
 	on the first call function should be passed with string argument for 's'
 	on subsequent calls we should pass the string argument aw null
 
 	*/
-	char s[100] = "Today is a rainy day";
+	//char s[100] = "Today is a rainy day";
 	// char *ptr = strtok(s," ");
 	// cout<<ptr<<endl; // will get the first word
 
 	// // ptr = strtok(s," ");//call again
 	// // cout <<ptr <<endl;// will again get the first string
 
-	// ptr points to the first token in the string but when we want to get the next token of the string we will 
-	// pass "NULL" nstead of string s when we pass Null strtok() maintains the static array that stores the state of 
+	// ptr points to the first token in the string but when we want to get the next token of the string we will
+	// pass "NULL" nstead of string s when we pass Null strtok() maintains the static array that stores the state of
 	// sting(means adter first call with string s it knows that it has covered "today" and jumps to next)
 
 	// ptr = strtok(NULL," ");//call again
 	// cout <<ptr <<endl;
 	// ptr = strtok(NULL," ");//call again
 	// cout <<ptr <<endl;
- 
-	char *ptr = mystrtok(s, ' ');
-	cout << ptr << endl;
 
-	while(ptr!=NULL){
-		ptr=mystrtok(NULL,' ');
-		cout<<ptr<<endl;
-	}
+	// char *ptr = mystrtok(s, ' ');
+	// cout << ptr << endl;
 
-
+	// while(ptr!=NULL){
+	// 	ptr=mystrtok(NULL,' ');
+	// 	cout<<ptr<<endl;
+	// }
 
 
-
+	char s[1000];
+	cin.getline(s, 1000);
+	space20(s);
+	cout << s;
 	return 0;
 }
