@@ -9,7 +9,7 @@ int main() {
 
 	/*String Tokenization used to break string into list of token
 	Internally
-	char * strtok(char * s, char * delimeter) -> returns character pointer, accept char array, also accept array of 
+	char * strtok(char * s, char * delimeter) -> returns character pointer, accept char array, also accept array of
 	delimeter(about which we want to break the string)
 	1.returns a token on each subsequent call
 	2.on the first call function should be passed with string argument for 's'
@@ -17,6 +17,7 @@ int main() {
 
 	*/
 
+	char s[100] = "Today is a rainy day";
 	char *ptr = strtok(s, " ");
 	cout << ptr << endl; // will get the first word
 
@@ -24,7 +25,7 @@ int main() {
 	cout << ptr << endl; // will again get the first string
 
 	/*ptr points to the first token in the string but when we want to get the next token of the string. we will
-	pass "NULL" instead of string s when we pass Null in strtok(NULL,' ') maintains the static array that stores the 
+	pass "NULL" instead of string s when we pass Null in strtok(NULL,' ') maintains the static array that stores the
 	state of string(means after first call with string s it knows that it has covered "today" and jumps to next token )*/
 
 	ptr = strtok(Null, " "); //call again
@@ -34,9 +35,9 @@ int main() {
 	char *ptr = strtok(s, " ");
 	cout << ptr << endl;
 
-	while(ptr!=NULL){
-		ptr=strtok(NULL," ");
-		cout<<ptr<<endl;
+	while (ptr != NULL) {
+		ptr = strtok(NULL, " ");
+		cout << ptr << endl;
 	}
 
 
