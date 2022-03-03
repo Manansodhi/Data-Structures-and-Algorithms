@@ -2,6 +2,15 @@
 using namespace std;
 
 
+/*
+input:- hello world sam
+output:- hello%20world%20sam
+
+time:- O(length of string)
+space:- O(1)
+
+*/
+
 void space20(char* s) {
 	int countSpace = 0, additionalSpace = 0;
 	for (int itr = 0; s[itr] != '\0'; itr++) {
