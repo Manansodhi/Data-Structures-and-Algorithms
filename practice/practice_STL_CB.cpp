@@ -207,26 +207,43 @@ using namespace std;
 
 // }
 
-void space20(char* s) {
-	int countSpace = 0, additionalSpace = 0;
-	for (int itr = 0; s[itr] != '\0'; itr++) {
-		if (s[itr] == ' ') {
-			countSpace++;
+// void space20(char* s) {
+// 	int countSpace = 0, additionalSpace = 0;
+// 	for (int itr = 0; s[itr] != '\0'; itr++) {
+// 		if (s[itr] == ' ') {
+// 			countSpace++;
+// 		}
+// 	}
+// 	additionalSpace = (3 * countSpace) - countSpace;
+// 	s[strlen(s) + additionalSpace] = '\0';
+// 	for (int itr = strlen(s) - 1 + additionalSpace, j = strlen(s) - 1; j >= 0; j--) {
+// 		if (s[j] == ' ') {
+// 			s[itr] = '0';
+// 			s[itr - 1] = '2';
+// 			s[itr - 2] = '%';
+// 			itr -= 3;
+// 		}
+// 		else {
+// 			s[itr] = s[j];
+// 			itr--;
+// 		}
+// 	}
+// }
+
+
+bool checkSubsequence(string s1,string s2){
+	int m = s1.length(),n=s2.length();
+	int j=n;
+	for(int i=m;i>=0;i--){
+		if(s1[i] == s2[j]){
+			j--;
 		}
 	}
-	additionalSpace = (3 * countSpace) - countSpace;
-	s[strlen(s) + additionalSpace] = '\0';
-	for (int itr = strlen(s) - 1 + additionalSpace, j = strlen(s) - 1; j >= 0; j--) {
-		if (s[j] == ' ') {
-			s[itr] = '0';
-			s[itr - 1] = '2';
-			s[itr - 2] = '%';
-			itr -= 3;
-		}
-		else {
-			s[itr] = s[j];
-			itr--;
-		}
+	if(j==-1){
+		return true;
+	}
+	else{
+		return false;
 	}
 }
 
@@ -552,9 +569,17 @@ int main() {
 	// }
 
 
-	char s[1000];
-	cin.getline(s, 1000);
-	space20(s);
-	cout << s;
+	// char s[1000];
+	// cin.getline(s, 1000);
+	// space20(s);
+	// cout << s;
+
+
+	string s1,s2;
+	cin>>s1>>s2;
+	cout<<checkSubsequence(s1,s2)<<endl;
+
+
 	return 0;
+
 }
