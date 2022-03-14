@@ -12,68 +12,168 @@ DRAWBACK :- direct access not possible
 */
 
 
-template<typename T>
-class Stack {
-	queue<T> q1, q2; // 2 objects of queue. q1 is non-empty and q2 is empty queue
+// template<typename T>
+// class Stack {
+// 	queue<T> q1, q2; // 2 objects of queue. q1 is non-empty and q2 is empty queue
 
-	public:
-	void push(T x){
-		q1.push(x);
-	} 
+// 	public:
+// 	void push(T x){
+// 		q1.push(x);
+// 	} 
 
-	void pop(){
-		//pop from stack means -> remove the last element from q1(which is pushedlast in stack/queue q1).
-		//for this we have to move first n-1 elements in q2 from q1 and last element is the popped element
-		//after copying first n-1 elements in q2. now q1 will be empty so we interchange there name (swap(q1,q2))
-		//after interchanging there name now q1 is non-empty and q2 is empty queue
+// 	void pop(){
+// 		//pop from stack means -> remove the last element from q1(which is pushedlast in stack/queue q1).
+// 		//for this we have to move first n-1 elements in q2 from q1 and last element is the popped element
+// 		//after copying first n-1 elements in q2. now q1 will be empty so we interchange there name (swap(q1,q2))
+// 		//after interchanging there name now q1 is non-empty and q2 is empty queue
 
-		//Base condition
-		if(q1.empty()){
-			return;
-		}   
+// 		//Base condition
+// 		if(q1.empty()){
+// 			return;
+// 		}   
 
-		// copying n-1 elements of q1 to q
-		while(q1.size() > 1){
-			T element = q1.front();
-			q2.push(element);
-			q1.pop();
+// 		// copying n-1 elements of q1 to q
+// 		while(q1.size() > 1){
+// 			T element = q1.front();
+// 			q2.push(element);
+// 			q1.pop();
+// 		}
+// 		q1.pop(); //Removes last elementfrom q1 that we wanted to pop from stack
+
+// 		//Swap the names of q1 and q2 OR swap(q1,q2)
+// 		queue<int> temp = q1;
+// 		q1 = q2;
+// 		q2 = temp;
+// 	}
+
+
+// 	T top(){
+// 		while(q1.size()>1){
+// 			T element = q1.front();
+// 			q2.push(element);
+// 			q1.pop();
+// 		}
+
+// 		//first element in q1
+// 		T element = q1.front();
+// 		q1.pop();
+// 		q2.push(element);
+// 		swap(q1,q2);
+// 		return element;
+// 	}
+
+// 	int size(){
+// 		return q1.size() + q2.size();
+// 	}
+
+// 	bool empty(){
+// 		return size() == 0;
+// 	}
+// };
+
+
+// void reverseString(string str){
+// 	stack<string> st;
+// 	char *s = strtok((char *)str.c_str(), " ");
+// 	// cout<<s<<"->";
+// 	st.push((string)s);
+// 	while (s != NULL){
+// 		s=strtok(NULL," ");
+// 		// cout<<s<<"->";
+// 		st.push((string)s);
+// 	}
+
+// 	// for(auto i:st){
+// 	// 	cout<<i<<"->";
+// 	// }
+// 	cout<<st.size();
+
+// 	// for(int i=0;i<st.size();i++){
+// 	// 	cout<<st.top()<<" ";
+// 	// 	st.pop();
+// 	// }
+// }
+
+
+// void reverseString(string s){
+// 	stack<string> st;
+// 	for(int i =0;i<s.length();i++){
+// 		string word="";
+// 		while(s[i]!=' ' && i<s.length()){
+// 			word+=s[i];
+// 			i++;
+// 		}
+// 		st.push(word);
+// 	}
+
+// 	while(!st.empty()){
+// 		cout<<st.top()<<" ";
+// 		st.pop();
+// 	}
+// 	cout<<endl;
+// }
+
+
+// void insertAtBottom(stack<int> &st, int ele){
+// 	if(st.empty()){
+// 		st.push(ele);
+// 		return;
+// 	}
+// 	int top_ele=st.top();
+// 	st.pop();
+// 	insertAtBottom(st,ele);
+// 	st.push(top_ele);
+// }
+
+// void reverse(stack<int> &st){
+// 	//Base case
+// 	if(st.empty()){
+// 		return;
+// 	}
+
+// 	int ele = st.top();
+// 	st.pop();
+// 	reverse(st);
+// 	insertAtBottom(st,ele);
+// }
+
+
+int prefixEvaluation(string s){
+	stack<int>st;
+	// In prefix evaluation we always start from right to left
+	for(int i=s.length()-1;i>=0;i--){
+		if(s[i]>='0' && s[i]<='9'){
+			st.push(s[i]-'0');
+			// we are subtracting '0' becoz it is in asci we want to convert it to integer value 
 		}
-		q1.pop(); //Removes last elementfrom q1 that we wanted to pop from stack
+		else{
+			int op1=st.top();
+			st.pop();
+			int op2=st.top();
+			st.pop();
 
-		//Swap the names of q1 and q2 OR swap(q1,q2)
-		queue<int> temp = q1;
-		q1 = q2;
-		q2 = temp;
-	}
+			switch (s[i]){
+				case '+': 
+					st.push(op1+op2);
+					break;
+				case '-': 
+					st.push(op1-op2);
+					break;
+				case '*': 
+					st.push(op1*op2);
+					break;
+				case '/': 
+					st.push(op1/op2);
+					break;
+				case '^': 
+					st.push(pow(op1,op2));
+					break;	
 
-
-	T top(){
-		while(q1.size()>1){
-			T element = q1.front();
-			q2.push(element);
-			q1.pop();
+			}
 		}
-
-		//first element in q1
-		T element = q1.front();
-		q1.pop();
-		q2.push(element);
-		swap(q1,q2);
-		return element;
 	}
-
-	int size(){
-		return q1.size() + q2.size();
-	}
-
-	bool empty(){
-		return size() == 0;
-	}
-};
-
-
-
-
+	return st.top();
+}
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -221,17 +321,40 @@ int main() {
 	// cout<<endl;
 
 
-	Stack <int> s;
-	s.push(1);
-	s.push(2);
-	s.push(3);
+	// Stack <int> s;
+	// s.push(1);
+	// s.push(2);
+	// s.push(3);
 
-	while(!s.empty()){
-		cout<<s.top()<<" ";
-		s.pop();
-	}
+	// while(!s.empty()){
+	// 	cout<<s.top()<<" ";
+	// 	s.pop();
+	// }
 
 
+	// string s="hey , how are you doing?";
+	// reverseString(s);
+	
+
+	// stack<int>s;
+	// s.push(10);
+	// s.push(20);
+	// s.push(30);
+	// s.push(40);
+	// s.push(50);
+
+	
+
+	// reverse(s);
+	// cout<<"Stack After Reversing: ";
+	// while(!s.empty()){
+	// 	cout<<s.top()<<", ";
+	// 	s.pop();
+	// } cout<<endl;
+
+
+
+	cout<< prefixEvaluation("-+7*45+20");
 
 
 	return 0;
