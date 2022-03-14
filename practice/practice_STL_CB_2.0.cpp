@@ -138,42 +138,145 @@ DRAWBACK :- direct access not possible
 // }
 
 
-int prefixEvaluation(string s){
-	stack<int>st;
-	// In prefix evaluation we always start from right to left
-	for(int i=s.length()-1;i>=0;i--){
-		if(s[i]>='0' && s[i]<='9'){
-			st.push(s[i]-'0');
-			// we are subtracting '0' becoz it is in asci we want to convert it to integer value 
+// int prefixEvaluation(string s){
+// 	stack<int>st;
+// 	// In prefix evaluation we always start from right to left
+// 	for(int i=s.length()-1;i>=0;i--){
+// 		if(s[i]>='0' && s[i]<='9'){
+// 			st.push(s[i]-'0');
+// 			// we are subtracting '0' becoz it is in asci we want to convert it to integer value 
+// 		}
+// 		else{
+// 			int op1=st.top();
+// 			st.pop();
+// 			int op2=st.top();
+// 			st.pop();
+
+// 			switch (s[i]){
+// 				case '+': 
+// 					st.push(op1+op2);
+// 					break;
+// 				case '-': 
+// 					st.push(op1-op2);
+// 					break;
+// 				case '*': 
+// 					st.push(op1*op2);
+// 					break;
+// 				case '/': 
+// 					st.push(op1/op2);
+// 					break;
+// 				case '^': 
+// 					st.push(pow(op1,op2));
+// 					break;	
+
+// 			}
+// 		}
+// 	}
+// 	return st.top();
+// }
+
+
+// int precedence(char c){
+// 	if(c=='^')
+// 		return 3;
+// 	else if(c=='*' || c=='/')
+// 		return 2;
+// 	else if(c=='+' || c=='-')
+// 		return 1;
+// 	else
+// 		return -1;
+// 	//for Opening bracket
+// }
+
+
+// string infixTopostfix(string s){
+// 	stack<char>st;
+// 	string res;
+// 	for(int i=0;i<s.length();i++){
+// 		if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')){
+// 			res+=s[i];
+// 		}
+// 		else if(s[i]=='('){
+// 			st.push(s[i]);
+// 		}
+// 		else if(s[i] == ')'){
+// 			while(!st.empty() && st.top()!='('){
+// 				res+=st.top();
+// 				st.pop();
+// 			}
+// 			//for remaining opening bracket
+// 			if(!st.empty()){
+// 				st.pop();
+// 			} 
+// 		}
+// 		else{
+// 			while(!st.empty() && precedence(st.top())>precedence(s[i])){
+// 				res+=st.top();
+// 				st.pop();
+// 			}
+// 			st.push(s[i]);
+// 		}
+// 	}
+// 	while(!st.empty()){
+// 		res+=st.top();
+// 		st.pop();
+// 	}
+// 	return res;
+// }
+
+
+int precedence(char c){
+	if(c=='^')
+		return 3;
+	else if(c=='*' || c=='/')
+		return 2;
+	else if(c=='+' || c=='-')
+		return 1;
+	else
+		return -1;
+	//for Opening bracket
+}
+
+
+string infixToprefix(string s){
+	stack<char>st;
+	string res;
+	reverse(s.begin(),s.end());
+	for(int i=0;i<s.length();i++){
+		if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')){
+			res+=s[i];
+		}
+		else if(s[i]==')'){
+			st.push(s[i]);
+		}
+		else if(s[i] == '('){
+			while(!st.empty() && st.top()!=')'){
+				res+=st.top();
+				st.pop();
+			}
+			//for remaining opening bracket
+			if(!st.empty()){
+				st.pop();
+			} 
 		}
 		else{
-			int op1=st.top();
-			st.pop();
-			int op2=st.top();
-			st.pop();
-
-			switch (s[i]){
-				case '+': 
-					st.push(op1+op2);
-					break;
-				case '-': 
-					st.push(op1-op2);
-					break;
-				case '*': 
-					st.push(op1*op2);
-					break;
-				case '/': 
-					st.push(op1/op2);
-					break;
-				case '^': 
-					st.push(pow(op1,op2));
-					break;	
-
+			while(!st.empty() && precedence(st.top())>precedence(s[i])){
+				res+=st.top();
+				st.pop();
 			}
+			st.push(s[i]);
 		}
 	}
-	return st.top();
+	while(!st.empty()){
+		res+=st.top();
+		st.pop();
+	}
+
+	reverse(res.begin(), res.end());
+	return res;
 }
+
+
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -354,8 +457,9 @@ int main() {
 
 
 
-	cout<< prefixEvaluation("-+7*45+20");
-
+	// cout<< prefixEvaluation("-+7*45+20");
+	cout <<infixToprefix( "(a-b/c)*(a/k-l)" ) ;
+	cout<<endl;
 
 	return 0;
 
