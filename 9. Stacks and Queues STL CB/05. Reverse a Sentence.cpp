@@ -2,22 +2,6 @@
 using namespace std;
 
 
-// void reverseString(string s){
-// 	stack<string>st;
-// 	char *s = strtok((char *)str.c_str(), " ");
-// 	st.push(s);
-// 	while (s != NULL){
-// 		s=strtok(NULL," ");
-// 		st.push(s);
-// 	}
-
-// 	for(int i=0;i<st.size;i++){
-// 		cout<<st.top()<<" ";
-// 		st.pop();
-// 	}
-// }
-
-
 void reverseString(string s) {
 	stack<string> st;
 	for (int i = 0; i < s.length(); i++) {
