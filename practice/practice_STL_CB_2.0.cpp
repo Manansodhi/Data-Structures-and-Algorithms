@@ -1,4 +1,6 @@
-#include<bits/stdc++.h>
+// #include<bits/stdc++.h>
+#include<iostream>
+#include "stack.h"
 using namespace std;
 
 /*
@@ -19,7 +21,7 @@ DRAWBACK :- direct access not possible
 // 	public:
 // 	void push(T x){
 // 		q1.push(x);
-// 	} 
+// 	}
 
 // 	void pop(){
 // 		//pop from stack means -> remove the last element from q1(which is pushedlast in stack/queue q1).
@@ -30,7 +32,7 @@ DRAWBACK :- direct access not possible
 // 		//Base condition
 // 		if(q1.empty()){
 // 			return;
-// 		}   
+// 		}
 
 // 		// copying n-1 elements of q1 to q
 // 		while(q1.size() > 1){
@@ -144,7 +146,7 @@ DRAWBACK :- direct access not possible
 // 	for(int i=s.length()-1;i>=0;i--){
 // 		if(s[i]>='0' && s[i]<='9'){
 // 			st.push(s[i]-'0');
-// 			// we are subtracting '0' becoz it is in asci we want to convert it to integer value 
+// 			// we are subtracting '0' becoz it is in asci we want to convert it to integer value
 // 		}
 // 		else{
 // 			int op1=st.top();
@@ -153,21 +155,21 @@ DRAWBACK :- direct access not possible
 // 			st.pop();
 
 // 			switch (s[i]){
-// 				case '+': 
+// 				case '+':
 // 					st.push(op1+op2);
 // 					break;
-// 				case '-': 
+// 				case '-':
 // 					st.push(op1-op2);
 // 					break;
-// 				case '*': 
+// 				case '*':
 // 					st.push(op1*op2);
 // 					break;
-// 				case '/': 
+// 				case '/':
 // 					st.push(op1/op2);
 // 					break;
-// 				case '^': 
+// 				case '^':
 // 					st.push(pow(op1,op2));
-// 					break;	
+// 					break;
 
 // 			}
 // 		}
@@ -207,7 +209,7 @@ DRAWBACK :- direct access not possible
 // 			//for remaining opening bracket
 // 			if(!st.empty()){
 // 				st.pop();
-// 			} 
+// 			}
 // 		}
 // 		else{
 // 			while(!st.empty() && precedence(st.top())>precedence(s[i])){
@@ -225,57 +227,145 @@ DRAWBACK :- direct access not possible
 // }
 
 
-int precedence(char c){
-	if(c=='^')
-		return 3;
-	else if(c=='*' || c=='/')
-		return 2;
-	else if(c=='+' || c=='-')
-		return 1;
-	else
-		return -1;
-	//for Opening bracket
-}
+// int precedence(char c){
+// 	if(c=='^')
+// 		return 3;
+// 	else if(c=='*' || c=='/')
+// 		return 2;
+// 	else if(c=='+' || c=='-')
+// 		return 1;
+// 	else
+// 		return -1;
+// 	//for Opening bracket
+// }
 
 
-string infixToprefix(string s){
-	stack<char>st;
-	string res;
-	reverse(s.begin(),s.end());
-	for(int i=0;i<s.length();i++){
-		if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')){
-			res+=s[i];
-		}
-		else if(s[i]==')'){
-			st.push(s[i]);
-		}
-		else if(s[i] == '('){
-			while(!st.empty() && st.top()!=')'){
-				res+=st.top();
-				st.pop();
-			}
-			//for remaining opening bracket
-			if(!st.empty()){
-				st.pop();
-			} 
-		}
-		else{
-			while(!st.empty() && precedence(st.top())>precedence(s[i])){
-				res+=st.top();
-				st.pop();
-			}
-			st.push(s[i]);
-		}
-	}
-	while(!st.empty()){
-		res+=st.top();
-		st.pop();
-	}
+// string infixToprefix(string s){
+// 	stack<char>st;
+// 	string res;
+// 	reverse(s.begin(),s.end());
+// 	for(int i=0;i<s.length();i++){
+// 		if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')){
+// 			res+=s[i];
+// 		}
+// 		else if(s[i]==')'){
+// 			st.push(s[i]);
+// 		}
+// 		else if(s[i] == '('){
+// 			while(!st.empty() && st.top()!=')'){
+// 				res+=st.top();
+// 				st.pop();
+// 			}
+// 			//for remaining opening bracket
+// 			if(!st.empty()){
+// 				st.pop();
+// 			}
+// 		}
+// 		else{
+// 			while(!st.empty() && precedence(st.top())>precedence(s[i])){
+// 				res+=st.top();
+// 				st.pop();
+// 			}
+// 			st.push(s[i]);
+// 		}
+// 	}
+// 	while(!st.empty()){
+// 		res+=st.top();
+// 		st.pop();
+// 	}
 
-	reverse(res.begin(), res.end());
-	return res;
-}
+// 	reverse(res.begin(), res.end());
+// 	return res;
+// }
 
+
+// template<typename T>
+
+// class Stack {
+// 	T * arr;
+// 	int top;
+// 	int capacity;
+// public:
+// 	Stack() {
+// 		arr = new T[4];
+// 		top=-1;
+// 		capacity=4;
+// 	}
+
+// 	void push(T x){
+// 		// if(top == capacity){
+// 		// 	cout<<"stack overflow"<<endl;
+// 		// 	return;
+// 		// }
+// 		//if array is full we double the size of array and copy the elements in new array
+// 		T * newarr ;
+// 		newarr= new T[2*capacity];
+// 		for(int i=0;i<capacity;i++){
+// 			newarr[i]=arr[i];
+// 		}
+// 		capacity *= 2;
+// 		delete[]arr;
+// 		arr=newarr;
+// 		top++;
+// 		arr[top]=x;
+// 	}
+
+// 	void pop(){
+// 		if(top==-1){
+// 			cout<<"No elements to pop"<<endl;
+// 			return;
+// 		}
+// 		top--;
+// 	}
+
+// 	T TOP_element(){
+// 		if(top==-1){
+// 			cout<<"No element in stack" <<endl;
+// 			return -1;
+// 		}
+// 		return arr[top];
+// 	}
+
+// 	int size(){
+// 		if(top==-1){
+// 			return 0;
+// 		}
+// 		return top;
+// 	}
+
+// 	bool empty(){
+// 		return top==-1;
+// 	}
+
+// };
+
+
+
+
+// int get_max_area(vector<int> a) {
+// 	int n = a.size(), ans = 0, i = 0;
+
+// 	stack<int> st;
+// 	a.push_back(0);  // If any value is left at the end of stack so we don't have to handle that
+
+// 	while ( i < n) {
+// 		while (!st.empty() && a[st.top()] > a[i]) {
+// 			int h = a[st.top()];
+// 			st.pop();
+// 			if (st.empty()) {
+// 				ans = max(ans, h * i);
+// 			}
+// 			else {
+// 				int width = i - st.top() - 1;
+// 				ans = max(ans, h * width);
+// 			}
+
+// 		}
+// 		st.push(i);
+// 		i++;
+// 	}
+// 	return ans;
+// }
 
 
 int main() {
@@ -437,7 +527,7 @@ int main() {
 
 	// string s="hey , how are you doing?";
 	// reverseString(s);
-	
+
 
 	// stack<int>s;
 	// s.push(10);
@@ -446,7 +536,7 @@ int main() {
 	// s.push(40);
 	// s.push(50);
 
-	
+
 
 	// reverse(s);
 	// cout<<"Stack After Reversing: ";
@@ -458,8 +548,32 @@ int main() {
 
 
 	// cout<< prefixEvaluation("-+7*45+20");
-	cout <<infixToprefix( "(a-b/c)*(a/k-l)" ) ;
-	cout<<endl;
+	// cout <<infixToprefix( "(a-b/c)*(a/k-l)" ) ;
+	// cout<<endl;
+
+	// vector<int> a = {6, 2, 5, 4, 5, 1, 6};
+	// cout << get_max_area(a) << endl;
+
+
+	Stack<int> s;
+	s.push(1);
+	s.push(12);
+	s.push(31);
+	s.push(14);
+	s.push(5);
+	cout<<s.empty()<<endl;
+	cout<<s.getsize()<<endl;
+	cout<<s.top()<<endl;
+	cout<<s.pop()<<endl;
+	cout<<s.top()<<endl;
+	cout<<s.pop()<<endl;
+	cout<<s.top()<<endl;
+	cout<<s.pop()<<endl;
+	cout<<s.pop()<<endl;
+	cout<<s.pop()<<endl;
+	cout<<s.pop()<<endl;
+	cout<<s.top()<<endl;
+
 
 	return 0;
 
