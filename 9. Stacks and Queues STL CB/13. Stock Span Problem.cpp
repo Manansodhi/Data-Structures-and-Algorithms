@@ -3,12 +3,12 @@ using namespace std;
 
 //TIME :- O(N)
 
-vector<int> StockSpan(vector<int> prices){
+vector<int> StockSpan(vector<int> prices) {
     vector<int> ans;
     stack<pair<int, int> >st;
-    for (auto price : prices){
+    for (auto price : prices) {
         int days = 1;
-        while (!st.empty() and st.top().first < price){
+        while (!st.empty() and st.top().first < price) {
             days += st.top().second;
             st.pop();
         }
@@ -18,18 +18,18 @@ vector<int> StockSpan(vector<int> prices){
     return ans;
 }
 
-int main(){
+int main() {
     int n;
     cin >> n;
     vector<int> a;
-    for (int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         int num;
         cin >> num;
         a.push_back(num);
     }
     vector<int> result = StockSpan(a);
-    for (auto i : result){
-        cout <<i <<" " ;
+    for (auto i : result) {
+        cout << i << " " ;
     }
     cout << endl;
     return 0;
