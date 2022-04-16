@@ -2,42 +2,42 @@
 using namespace std;
 
 bool isBalanced(string input) {
-	int n=input.size();
+	int n = input.size();
 	stack<char> st;
-	bool ans =true;
-	for(int i=0;i<n;i++){
-		if(input[i]=='{' or input[i]=='[' or input[i]=='('){
+	bool ans = true;
+	for (int i = 0; i < n; i++) {
+		if (input[i] == '{' or input[i] == '[' or input[i] == '(') {
 			st.push(input[i]);
 		}
-		else if(input[i] == ')'){
-			if(!st.empty() and st.top()=='('){
+		else if (input[i] == ')') {
+			if (!st.empty() and st.top() == '(') {
 				st.pop();
 			}
-			else{
-				ans=false;
+			else {
+				ans = false;
 				break;
 			}
 		}
-		else if(input[i] == '}'){
-			if(!st.empty() and st.top()=='{'){
+		else if (input[i] == '}') {
+			if (!st.empty() and st.top() == '{') {
 				st.pop();
 			}
-			else{
-				ans=false;
+			else {
+				ans = false;
 				break;
 			}
 		}
-		else if(input[i] == ']'){
-			if(!st.empty() and st.top()=='['){
+		else if (input[i] == ']') {
+			if (!st.empty() and st.top() == '[') {
 				st.pop();
 			}
-			else{
-				ans=false;
+			else {
+				ans = false;
 				break;
 			}
 		}
 	}
-	if(!st.empty()){
+	if (!st.empty()) {
 		return true;
 	}
 	return false;
