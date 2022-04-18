@@ -67,53 +67,94 @@ using namespace std;
 // }
 
 
-string SimplifyPath(string path){
-	istringstream iss(path);
+// string SimplifyPath(string path){
+// 	istringstream iss(path);
 
-	vector<string> tokens;
-	string token;
-	while(getline(iss, token, '/')){
-		if(token =="." or token==""){
-			continue;
-		}
-		tokens.push_back(token);
+// 	vector<string> tokens;
+// 	string token;
+// 	while(getline(iss, token, '/')){
+// 		if(token =="." or token==""){
+// 			continue;
+// 		}
+// 		tokens.push_back(token);
+// 	}
+
+// 	vector<string> stack;
+// 	if(path[0]=='/'){
+// 		stack.push_back("");
+// 	}
+
+// 	for(string token:tokens){
+// 		if(token == ".."){
+// 			if(stack.size()==0 or stack[stack.size()-1]==".."){
+// 				stack.push_back("..");
+// 			}
+// 			else if(stack[stack.size()-1] != ""){
+// 				stack.pop_back();
+// 			}
+// 		}
+// 		else{
+// 			stack.push_back(token);
+// 		}
+// 	}
+
+// 	//corner case when we have only single element
+// 	if(stack.size()==1 and stack[0]==""){
+// 		return "/";
+// 	}
+
+// 	ostringstream oss;
+// 	int i=0;
+// 	for(auto token:stack){
+// 		if(i!=0){
+// 			oss<< "/";
+// 		}i++;
+// 		oss<<token;
+// 	}
+
+// 	return oss.str();
+
+// }
+
+// class fun {
+// public:
+// 	void operator()() {
+// 		cout << "Having fun inside operator() fun!" << endl;
+// 	}
+// 	void operator()(string s) {
+// 		cout << "Having fun inside operator() fun! with " << s << endl;
+// 	}
+// };
+
+
+// class person{
+// public:
+// 	string name;
+// 	int age;
+// 	person(){
+
+// 	}
+// 	person(string n, int a){
+// 		name=n;
+// 		age=a;
+// 	}
+// };
+
+// class personCompare{
+// public:
+// 	bool operator()(person A, person B){
+// 		cout<<"Comparing " <<A.age <<" with " <<B.age<<endl;
+// 		return A.age< B.age;
+// 	}
+// };
+
+
+void query_point(priority_queue<int,vector<int>,greater<int> > pq){
+	while(!pq.empty()){
+		cout<<pq.top()<<",";
+		pq.pop();
 	}
-
-	vector<string> stack;
-	if(path[0]=='/'){
-		stack.push_back("");
-	}
-
-	for(string token:tokens){
-		if(token == ".."){
-			if(stack.size()==0 or stack[stack.size()-1]==".."){
-				stack.push_back("..");
-			}
-			else if(stack[stack.size()-1] != ""){
-				stack.pop_back();
-			}
-		}
-		else{
-			stack.push_back(token);
-		}
-	}
-
-	//corner case when we have only single element
-	if(stack.size()==1 and stack[0]==""){
-		return "/";
-	}
-
-	ostringstream oss;
-	int i=0;
-	for(auto token:stack){
-		if(i!=0){
-			oss<< "/";
-		}i++;
-		oss<<token;
-	}
-
-	return oss.str();
-
+	cout<<endl;
 }
 
 int main() {
@@ -170,10 +211,78 @@ int main() {
 	// 	cin>>ch;//reading next character
 	// }//end of while loop
 
-    string path = "/../x/y/../z/././w/a///../../c/./";
+    // string path = "/../x/y/../z/././w/a///../../c/./";
 
-    cout << SimplifyPath(path) << endl;
+    // cout << SimplifyPath(path) << endl;
 
+	// priority_queue<int>pq_max; //by default it is max heap means max value has max priority
+	// priority_queue<int, vector<int>, greater<int> > pq_min; //it is min heap;
+
+	// int nElement;
+	// cin>>nElement;
+	// for(int i=1;i<=nElement;i++){
+	// 	int no;cin>>no;
+	// 	pq_max.push(no); //push() takes O(LogN)
+	// 	pq_min.push(no);
+	// }
+
+	// //remove elements from heap
+	// while(!pq_max.empty()){
+	// 	cout<<pq_max.top()<<" ";	//top()-> O(1)
+	// 	pq_max.pop();	//pop()-> O(LogN)
+	// }
+	// cout<<endl;
+
+	// //remove elements from heap
+	// while(!pq_min.empty()){
+	// 	cout<<pq_min.top()<<" ";	//top()-> O(1)
+	// 	pq_min.pop();	//pop()-> O(LogN)
+	// }
+
+
+	// fun f; // f is the object of fun class (constructor call)
+	// f();   //overloaded() operator looks like function call with class object f.
+	// //f is an object but behaves like function call so f is called functors(functional object)
+	// f("C++");
+	
+	// int n;
+	// cin>>n;
+	// priority_queue<person,vector<person>,personCompare>pq;
+	// for(int i=0;i<n;i++){
+	// 	string name;
+	// 	int age;
+	// 	cin>>name>>age;
+	// 	person p(name,age);
+	// 	pq.push(p);
+	// }
+	// int k=3;
+	// for(int i=0;i<k;i++){
+	// 	person p=pq.top();
+	// 	cout<<p.name<<" " <<p.age<<endl;
+	// 	pq.pop();
+	// }
+
+	int key=3;
+	int no, cs=0; //cs-> this will ensure the max limit of the heap size
+	priority_queue<int,vector<int>,greater<int> >pq;
+	while(scanf("%d", &no)!=EOF){
+		if(no==-1){
+			//print the k-largest element as query point has occured from the elements before -1
+			query_point(pq);
+		}
+		else if(cs<key){
+		//means current size of heap is less than k push number from running stream ans increment current size of heap
+			pq.push(no);
+			cs++;
+		}
+		else{
+			if(no>pq.top()){
+				//if number in running stream is greater than the number at the top of heap
+				pq.pop();
+				pq.push(no);
+			}
+		}
+	}
 	return 0;
 
 }
