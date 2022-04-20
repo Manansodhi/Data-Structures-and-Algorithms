@@ -149,13 +149,13 @@ using namespace std;
 // };
 
 
-void query_point(priority_queue<int,vector<int>,greater<int> > pq){
-	while(!pq.empty()){
-		cout<<pq.top()<<",";
-		pq.pop();
-	}
-	cout<<endl;
-}
+// void query_point(priority_queue<int,vector<int>,greater<int> > pq){
+// 	while(!pq.empty()){
+// 		cout<<pq.top()<<",";
+// 		pq.pop();
+// 	}
+// 	cout<<endl;
+// }
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -262,27 +262,122 @@ int main() {
 	// 	pq.pop();
 	// }
 
-	int key=3;
-	int no, cs=0; //cs-> this will ensure the max limit of the heap size
-	priority_queue<int,vector<int>,greater<int> >pq;
-	while(scanf("%d", &no)!=EOF){
-		if(no==-1){
-			//print the k-largest element as query point has occured from the elements before -1
-			query_point(pq);
-		}
-		else if(cs<key){
-		//means current size of heap is less than k push number from running stream ans increment current size of heap
-			pq.push(no);
-			cs++;
-		}
-		else{
-			if(no>pq.top()){
-				//if number in running stream is greater than the number at the top of heap
-				pq.pop();
-				pq.push(no);
-			}
+	// int key=3;
+	// int no, cs=0; //cs-> this will ensure the max limit of the heap size
+	// priority_queue<int,vector<int>,greater<int> >pq;
+	// while(scanf("%d", &no)!=EOF){
+	// 	if(no==-1){
+	// 		//print the k-largest element as query point has occured from the elements before -1
+	// 		query_point(pq);
+	// 	}
+	// 	else if(cs<key){
+	// 	//means current size of heap is less than k push number from running stream ans increment current size of heap
+	// 		pq.push(no);
+	// 		cs++;
+	// 	}
+	// 	else{
+	// 		if(no>pq.top()){
+	// 			//if number in running stream is greater than the number at the top of heap
+	// 			pq.pop();
+	// 			pq.push(no);
+	// 		}
+	// 	}
+	// }
+
+	// priority_queue<int>leftheap; //max Heap
+	// priority_queue<int,vector<int>,greater<int>>rightheap; //min heap
+
+	// int d;
+	// cin>>d;
+	// leftheap.push(d);
+	// float median=d;
+	// cout<<median<<" ";
+	// cin>>d;
+	// while(d!=-1){
+	// 	if(leftheap.size() > rightheap.size()){
+	// 	//as esme size unequal (odd) h heap ka toh jabnew element push karege toh even number of element ho 
+	// 	//jayege toh median average to 2 middle number hoga
+	// 		if(d<median){
+	// 			//eska matlab h ki jo d element h voh leftheap m jana chahiye becoz voh chota h median se bhut
+	// 			//leftheap phele se size m badi h toh rebalancing hogi phele
+	// 			rightheap.push(leftheap.top());
+	// 			leftheap.pop();
+	// 			leftheap.push(d);
+	// 		}
+	// 		else{
+	// 			rightheap.push(d);
+	// 		}
+	// 		median=(leftheap.top()+rightheap.top())/2.0;
+	// 	}
+	// 	else if(leftheap.size()==rightheap.size()){
+	// 		if(d<median){
+	// 			leftheap.push(d);
+	// 			median=leftheap.top();
+	// 		}
+	// 		else{
+	// 			rightheap.push(d);
+	// 			median=rightheap.top();
+	// 		}
+	// 	}
+	// 	else{
+	// 		//leftheap.size()<rightjheap.size()
+	// 		if(d<median){
+	// 			leftheap.push(d);
+	// 		}
+	// 		else{
+	// 			leftheap.push(rightheap.top());
+	// 			rightheap.pop();
+	// 			rightheap.push(d);
+	// 		}
+	// 		median=(leftheap.top()+rightheap.top())/2.0;
+	// 	}
+	// 	cout<<median<<" ";
+	// 	cin>>d;
+	// }
+
+	int k;
+	cin >> k;
+	vector<vector<int> > a(k);
+	for (int i = 0; i < k; i++) {
+		int size;//size of each array
+		cin >> size;
+
+		a[i] = vector<int>(size);
+		for (int j = 0; j < size; j++) {
+			cin >> a[i][j];
 		}
 	}
+
+	vector<int>idx(k, 0);
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> >pq;
+	//ye starting m har array se phele phele element utha liya
+	for (int i = 0; i < k; i++) {
+		pair<int,int>p;
+		p.first=a[i][0];
+		p.second=i;
+		pq.push(p);
+	}
+	vector<int> ans;
+	while (!pq.empty()) {
+		pair<int, int> x = pq.top();
+		pq.pop();
+		ans.push_back(x.first);
+		if (idx[x.second] + 1 < a[x.second].size()) {
+			//ye wala voh case h jab abhi array m element bache hue agar ulta hota toh matlab index wale array
+			//me voh array size bada index store kiya hua jisper ja nahi sakte
+			 pair<int,int>p;
+ 			 p.first=a[x.second][idx[x.second] + 1];
+ 			 p.second=x.second;
+			pq.push(p);
+		}
+		idx[x.second] += 1;
+	}
+
+	for (int i = 0; i < ans.size(); i++) {
+		cout << ans[i] << endl;
+	}
+	cout << endl;
+
 	return 0;
 
 }
