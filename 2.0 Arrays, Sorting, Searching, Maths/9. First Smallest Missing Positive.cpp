@@ -14,27 +14,26 @@ Output: 2
 Example 3:
 Input: nums = [7,8,9,11,12]
 Output: 1
- 
+
 Constraints:
 1 <= nums.length <= 5 * 105
 -231 <= nums[i] <= 231 - 1
 */
-
 
 class Solution {
 public:
     int firstMissingPositive(vector<int> A)
     {
         int n = A.size();
-        for(int i = 0; i < n; ++ i) {
-            while(A[i] >= 1 && A[i] <= n && A[i] != A[A[i]-1])
+        for (int i = 0; i < n; ++ i) {
+            while (A[i] >= 1 && A[i] <= n && A[i] != A[A[i] - 1])
                 swap(A[i], A[A[i] - 1]);
         }
-        
-        for(int i = 0; i < n; ++ i)
-            if(A[i] != i + 1)
+
+        for (int i = 0; i < n; ++ i)
+            if (A[i] != i + 1)
                 return i + 1;
-        
+
         return n + 1;
     }
 };
