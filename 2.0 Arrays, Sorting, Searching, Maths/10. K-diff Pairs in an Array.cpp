@@ -23,7 +23,7 @@ Example 3:
 Input: nums = [1,3,1,5,4], k = 0
 Output: 1
 Explanation: There is one 0-diff pair in the array, (1, 1).
- 
+
 Constraints:
 1 <= nums.length <= 104
 -107 <= nums[i] <= 107
@@ -31,22 +31,22 @@ Constraints:
 */
 
 
-using hashmap = unordered_map<int,int>;
+using hashmap = unordered_map<int, int>;
 class Solution {
 public:
-    int findPairs(vector<int>& nums, int k){
-      hashmap cnt;
-      for (int x:nums){
-        cnt[x]++;
-      }
-      int ans=0;
-      for(auto p:cnt){
-        int x=p.first;
-        if(cnt.find(x+k)==cnt.end()){
-          continue;
-        }
-        ans+=(k==0)?cnt[x+k]>=2:cnt[x+k]>=1;
-      }
-      return ans;
+  int findPairs(vector<int>& nums, int k) {
+    hashmap cnt;
+    for (int x : nums) {
+      cnt[x]++;
     }
+    int ans = 0;
+    for (auto p : cnt) {
+      int x = p.first;
+      if (cnt.find(x + k) == cnt.end()) {
+        continue;
+      }
+      ans += (k == 0) ? cnt[x + k] >= 2 : cnt[x + k] >= 1;
+    }
+    return ans;
+  }
 };
