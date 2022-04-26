@@ -16,22 +16,22 @@ Input: num = 1
 
 Output: 0
 Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
- 
+
 Constraints:
 1 <= num < 231
 */
 
 class Solution {
 public:
-    int findComplement(int n) {
-      if(n==0)return 1;
-      long long ans=0,mult=1;
-      while(n){
-        int curBit=n%2;
-        n=n/2;
-        ans+=mult*(1-curBit);
-        mult*=2;
-      }
-      return ans;
+  int findComplement(int n) {
+    if (n == 0)return 1;
+    long long ans = 0, mult = 1;
+    while (n) {
+      int curBit = n % 2;
+      n = n / 2;
+      ans += mult * (1 - curBit);
+      mult *= 2;
     }
+    return ans;
+  }
 };
