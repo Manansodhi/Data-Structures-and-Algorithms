@@ -1,9 +1,0 @@
-1
-1
-2
-Size: 2
-0
-Size: 3
-ghi is present
-Size: 2
-ghi is being erased
