@@ -16,7 +16,7 @@ int main() {
 	map<int, int>freq;
 	for (int i = 0; i < n; i++) {
 		int presentSize = freq.size();
-		if (freq[a[i]] == 0 && presentSize == k)phili bar aya h ye element (distinct element)
+		if (freq[a[i]] == 0 && presentSize == k)//phili bar aya h ye element (distinct element)
 			break;
 		freq[a[i]]++;
 	}
