@@ -157,13 +157,36 @@ using namespace std;
 // 	cout<<endl;
 // }
 
+int TimesSortedArrayRotated(int arr[],int n){
+	int start=0,end=n-1;
+    while(start<=end){
+      int mid=start+(end-start)/2;
+      int prev = (mid - 1 + n) % n;
+      int next = (mid + 1) % n;
+
+      if(arr[mid]<=arr[prev] && arr[mid]<=arr[next])
+      	return mid;
+      else if(arr[mid]<=arr[end])
+      	end=mid-1;
+      else if(arr[mid]>=arr[start])
+      	start=mid+1;
+      
+    }
+    return 0;
+}
+
+
+
 int main() {
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif
 
-
+	int arr[] = { 11,12,15,18, 2, 3, 6, 8, 10};
+	int n = sizeof(arr) / sizeof(arr[0]);
+	cout<<TimesSortedArrayRotated(arr,n)<<endl;
+	
 	// string s = "{a+(b+c)+([d+e]*f))}+k+((a+b+c)+[d])";
 	// //{a+(b+c)+([d+e]*f))}+k
 
@@ -380,41 +403,41 @@ int main() {
 
 
 
-	unordered_map<string,int>ourMap;
+	// unordered_map<string,int>ourMap;
 
-	//insert
-	pair<string,int>p ("abc", 1);
-	ourMap.insert(p);
+	// //insert
+	// pair<string,int>p ("abc", 1);
+	// ourMap.insert(p);
 
-	ourMap["def"] = 2;
+	// ourMap["def"] = 2;
 
-	//find or Access
+	// //find or Access
 
-	cout<<ourMap["abc"]<<endl;
-	cout<<ourMap.at("abc")<<endl;
-	cout<<ourMap["def"]<<endl;
+	// cout<<ourMap["abc"]<<endl;
+	// cout<<ourMap.at("abc")<<endl;
+	// cout<<ourMap["def"]<<endl;
 
-	cout<<"Size: " <<ourMap.size()<<endl;
-	//This will show error
-	//cout<<ourMap.at("ghi")<<endl;
-	cout<<ourMap["ghi"]<<endl;
-	cout<<"Size: " <<ourMap.size()<<endl;
+	// cout<<"Size: " <<ourMap.size()<<endl;
+	// //This will show error
+	// //cout<<ourMap.at("ghi")<<endl;
+	// cout<<ourMap["ghi"]<<endl;
+	// cout<<"Size: " <<ourMap.size()<<endl;
 
 
-	//check presence
-	if(ourMap.count("ghi")>0){
-		cout<<"ghi is present" << endl;
-	}
+	// //check presence
+	// if(ourMap.count("ghi")>0){
+	// 	cout<<"ghi is present" << endl;
+	// }
 
-	//erase
-	ourMap.erase("ghi");
-	cout<<"Size: " <<ourMap.size()<<endl;
-	if(ourMap.count("ghi")>0){
-		cout<<"ghi is present" << endl;
-	}
-	else{
-		cout<<"ghi is being erased"<<endl;
-	}
+	// //erase
+	// ourMap.erase("ghi");
+	// cout<<"Size: " <<ourMap.size()<<endl;
+	// if(ourMap.count("ghi")>0){
+	// 	cout<<"ghi is present" << endl;
+	// }
+	// else{
+	// 	cout<<"ghi is being erased"<<endl;
+	// }
 	
 
 	return 0;
