@@ -1,3 +1,4 @@
+
 //Ceil of Element in a Sorted Array
 
 int ceilOfElement(int arr[], int n, int ele) {
