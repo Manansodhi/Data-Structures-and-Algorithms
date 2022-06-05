@@ -71,3 +71,38 @@ public:
     return res;
   }
 };
+
+//2nd method
+
+#include <algorithm>
+#include <bits/stdc++.h>
+class Solution {
+public:
+  int F_Occ(vector<int>&nums, int target){\
+    int n = nums.size();
+    int idx = lower_bound(nums.begin(),nums.end(),target)-nums.begin();
+      ;
+    if(idx!=n && nums[idx]==target){
+      return idx;
+    }                             
+    return -1;
+  }
+  
+  int L_Occ(vector<int>&nums, int target){
+    int n = nums.size();
+    int idx = upper_bound(nums.begin(),nums.end(),target)-nums.begin();
+    idx--;
+    if(idx>=0 && nums[idx]==target){
+      return idx;
+    }
+    return -1;
+  }
+    vector<int> searchRange(vector<int>& nums, int target) {
+      vector<int>res;
+      int F_Occurence = F_Occ(nums,target);
+      int L_Occurence = L_Occ(nums,target);
+      res.push_back(F_Occurence);
+      res.push_back(L_Occurence);
+      return res;
+    }
+};
