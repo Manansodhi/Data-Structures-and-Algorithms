@@ -1,24 +1,7 @@
 //13. Next Alphabetical Element
 
-char nextGreatestLetter(vector<char>& letters, char target) {
-	int n = letters.size();
-	int l = 0, h = n - 1, m;
-	char ans = letters[0];
-	while (l <= h)
-	{
-		m = l + (h - l) / 2;
-		int val = letters[m] - 'a';
-		if (val > target - 'a')
-		{
-			ans = letters[m];
-			h = m - 1;
-		}
-		else l = m + 1;
-	}
-	return ans;
-}
 
-int nextAlphabeticalElement(char arr[], int n, char target) {
+int nextalphabet(char arr[], int n, char target) {
 	if (target == arr[n - 1])
 		return 0;
 	if (target > arr[n - 1])
@@ -38,22 +21,7 @@ int nextAlphabeticalElement(char arr[], int n, char target) {
 	}
 	return res;
 }
-char nextChar(char arr[], int n, char key) {
-	int start = 0, end = n - 1, mid;
-	char res = '0';
 
-	while (start <= end) {
-		mid = start + (end - start) / 2;
-		if (arr[mid] > key) {
-			res = arr[mid];
-			end = mid - 1;
-		}
-		else {
-			start = mid + 1;
-		}
-	}
-	return res;
-}
 
 int main()
 {
@@ -69,4 +37,49 @@ int main()
 	else
 		cout << arr[nextalphabet(arr, n, ch)];
 	return 0;
+}
+
+
+/*744. Find Smallest Letter Greater Than Target
+
+Given a characters array letters that is sorted in non-decreasing order and a character target, return the smallest
+character in the array that is larger than target.
+Note that the letters wrap around.
+For example, if target == 'z' and letters == ['a', 'b'], the answer is 'a'.
+
+Example 1:
+Input: letters = ["c","f","j"], target = "a"
+Output: "c"
+
+Example 2:
+Input: letters = ["c","f","j"], target = "c"
+Output: "f"
+
+Example 3:
+Input: letters = ["c","f","j"], target = "d"
+Output: "f"
+
+Constraints:
+2 <= letters.length <= 104
+letters[i] is a lowercase English letter.
+letters is sorted in non-decreasing order.
+letters contains at least two different characters.
+target is a lowercase English letter.*/
+
+char nextGreatestLetter(vector<char>& letters, char target) {
+	int n = letters.size();
+	int l = 0, h = n - 1, m;
+	char ans = letters[0];
+	while (l <= h)
+	{
+		m = l + (h - l) / 2;
+		int val = letters[m] - 'a';
+		if (val > target - 'a')
+		{
+			ans = letters[m];
+			h = m - 1;
+		}
+		else l = m + 1;
+	}
+	return ans;
 }
