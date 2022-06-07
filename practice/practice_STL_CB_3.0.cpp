@@ -157,25 +157,173 @@ using namespace std;
 // 	cout<<endl;
 // }
 
-int TimesSortedArrayRotated(int arr[],int n){
-	int start=0,end=n-1;
-    while(start<=end){
-      int mid=start+(end-start)/2;
-      int prev = (mid - 1 + n) % n;
-      int next = (mid + 1) % n;
 
-      if(arr[mid]<=arr[prev] && arr[mid]<=arr[next])
-      	return mid;
-      else if(arr[mid]<=arr[end])
-      	end=mid-1;
-      else if(arr[mid]>=arr[start])
-      	start=mid+1;
-      
-    }
-    return 0;
+
+int SearchNearlySortedArray(int arr[], int n,int ele){
+	int start=0,end=n-1;
+	while(start<=end){
+		int mid=start+(end-start)/2;
+		if(arr[mid]==ele)
+			return mid;
+		if(mid-1>=start && arr[mid-1]==ele)
+			return mid-1;
+		if(mid+1<=end && arr[mid+1]==ele)
+			return mid+1;
+		else if(arr[mid]>=ele)
+			end=mid-2;
+		else
+			start=mid+2;
+	}
+	return 0;
+}
+
+int floorOfElement(int arr[],int n,int ele){
+	int start = 0, end = n - 1;
+	int res;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		if (arr[mid] == ele)
+			return arr[mid];
+		if (arr[mid] <= ele){
+			res=arr[mid];
+			start = mid + 1;
+		}
+		else if (arr[mid] >= ele)
+			end = mid - 1;
+	}
+	return res;
+}
+
+int ceilOfElement(int arr[], int n, int ele) {
+	int start = 0, end = n - 1;
+	int res;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		if (arr[mid] == ele)
+			return arr[mid];
+		if (arr[mid] <= ele) {
+			start = mid + 1;
+		}
+		else if (arr[mid] >= ele) {
+			res = arr[mid];
+			end = mid - 1;
+		}
+	}
+	return res;
 }
 
 
+int minDiffElement(int arr[], int key, int n) {
+	int start = 0, end = n - 1;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		if (arr[mid] == key) {
+			return arr[mid];
+		}
+		else if (arr[mid] >= key) {
+			end = mid - 1;
+		}
+		else {
+			start = mid + 1;
+		}
+	}
+	int left_neighnour = arr[end], right_neighbour = arr[start];
+	if (abs(left_neighnour - key) > abs(right_neighbour - key)) {
+		return right_neighbour;
+	}
+	return left_neighnour;
+}
+
+int TimesSortedArrayRotated(int arr[], int n) {
+	int start = 0, end = n - 1;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		int prev=(mid+n-1)%n;
+		int next=(mid+1)%n;
+		if(arr[mid]<arr[next] && arr[mid]<arr[prev]){
+			return mid;
+		}
+		else if(arr[mid]<arr[end]){
+			end=mid-1;
+		}
+		else{
+			start = mid+1;
+		}
+	}
+	return 0;
+}
+
+int binarysearch(int arr[], int n, int ele) {
+	int start = 0, end = n-1;
+	int mid = start+((end-start)/2);
+	while(start<=end){
+		if (arr[mid]==ele){
+		return mid;
+		}
+		else if(arr[mid]>ele){
+			end=mid-1;
+		}
+		else{
+			start=mid+1;
+		}
+	}
+	return -1;
+}
+
+int binarysearchReverseSorted(int arr[], int n , int ele){
+	int start=0, end=n-1;
+	int mid = start+((end-start)/2);
+	while(start<=end){
+		if(arr[mid]==ele){
+		return mid;
+		}
+		else if (arr[mid]>ele){
+		start=mid+1;
+		}
+		else{
+			end=mid-1;
+		}
+	}
+	return -1;
+}
+
+int firstOccurence(vector<int>&nums, int target){
+	int n=nums.size();
+	int start=0, end=n-1,firstOccur=-1;
+	int mid = start+((end-start)/2);
+	while(start<=end){
+		if(nums[mid]==target){
+			firstOccur=mid;
+			end=mid-1;
+		}
+		else if(nums[mid]>target){
+			end=mid-1;
+		}
+		else{
+			start=mid+1;
+		}
+	}
+	return firstOccur;
+}
+
+int lastOccurence(vector<int>&nums, int target){
+	int n=nums.size();
+	int start=0, end=n-1,lastOccur=-1;
+	int mid = start+((end-start)/2);
+	while(start<=end){
+		if(nums[mid]==target){
+			lastOccur=mid;
+			start=mid+1;
+		}
+		else if(nums[mid]>target){
+			end=mid-1;
+		}
+		else{
+			start=mid+1;
+		}
+	}
+	return lastOccur;
+}
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -183,10 +331,14 @@ int main() {
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int arr[] = { 11,12,15,18, 2, 3, 6, 8, 10};
+	int arr[] = {12,15,18,2,5,6,8,11};
+	//int arr[] = {1,2,3,4,5,6,7,8,9};
+	//int arr[] = {100,20,30,14,5};
 	int n = sizeof(arr) / sizeof(arr[0]);
+	int ele=3;
 	cout<<TimesSortedArrayRotated(arr,n)<<endl;
-	
+	//cout<<binarysearch(arr,n,20)<<endl;
+	//cout<<binarysearchReverseSorted(arr,n,2+0)<<endl;
 	// string s = "{a+(b+c)+([d+e]*f))}+k+((a+b+c)+[d])";
 	// //{a+(b+c)+([d+e]*f))}+k
 
