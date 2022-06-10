@@ -325,18 +325,144 @@ int lastOccurence(vector<int>&nums, int target){
 	return lastOccur;
 }
 
+int firstOccur(int arr[], int start, int end,int key){
+	int mid = start+(end-start)/2,res=-1;
+	if(arr[mid]==key){
+		res=mid;
+		end=mid-1;
+	}
+	else{
+		start=mid+1;
+	}
+	return res;
+}
+
+
+int firstPosition(int arr[],int key){
+	int start=0,end=1;
+	while(arr[end]<key){
+		start=end;
+		end=end*2;
+	}
+	return firstOccur(arr,start,end,key);
+}
+
+int maxInarr(int arr[],int n){
+	int max=INT_MIN;
+	for(int i=0;i<n;i++){
+		if(arr[i]>max)
+			max=arr[i];
+	}
+	return max;
+}
+
+int SumOfElementOfArray(int arr[], int n){
+	int sum=0;
+	for(int i=0;i<n;i++){
+		sum+=arr[i];
+	}
+	return sum;
+}
+
+bool isValid(int arr[], int n, int k, int mx){
+	int student=1,sum=0;
+	for(int i=0;i<n;i++){
+		sum+=arr[i];
+		if(sum>mx){
+			student++;
+			sum=arr[i];
+		}
+		if(student>k){
+			return false;
+		}
+	}
+	return true;
+}
+
+int allocateMinPages(int arr[], int n, int k){
+	if(n<k){
+		return -1;
+	}
+	int start=maxInarr(arr,n), end = SumOfElementOfArray(arr,n), res = -1;
+	while(start<=end){
+		int mid=start+(end-start)/2;
+		if(isValid(arr,n,k,mid)){
+			res=mid;
+			end=mid-1;
+		}
+		else
+			start=mid+1;
+	}
+	return res;
+}
+
+
+bool isvalid(vector<int>&nests, int birds, int mx){
+	int BirdsRequired=1,last_location=nests[0],noOfNests=nests.size();
+	for(int i=1;i<=noOfNests-1;i++){
+		int current_location = nests[i];
+		if(current_location-last_location>=mx){
+			BirdsRequired++;
+			last_location=current_location;
+		}
+
+		if(BirdsRequired>birds){
+			return false;
+		}
+	}
+	return true;
+}
+
+int angeryBirds(vector<int>&nests, int birds){
+
+	int n = nests.size();
+	int result = -1;
+	int start = 0,end = nests[n-1]-nests[0];
+
+	if (n < birds)
+    return -1;
+
+	while(start<=end){
+		int mid = start+(end-start)/2;
+		cout<<"1 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
+		if(isvalid(nests,birds,mid)){
+			cout<<"2 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
+			result=mid;
+			start=mid+1;
+			cout<<"2.1 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
+		}
+		else{
+			end=mid-1;
+			cout<<"3 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
+		}
+	}
+	return result;
+}
+
 int main() {
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int arr[] = {12,15,18,2,5,6,8,11};
+	//int arr[] = {12,15,18,2,5,6,8,11};
 	//int arr[] = {1,2,3,4,5,6,7,8,9};
-	//int arr[] = {100,20,30,14,5};
+	int arr[] = {10,20,30,40};
 	int n = sizeof(arr) / sizeof(arr[0]);
-	int ele=3;
-	cout<<TimesSortedArrayRotated(arr,n)<<endl;
+	// int ele=3;
+	//cout<<TimesSortedArrayRotated(arr,n)<<endl;
+	//cout<<allocateMinPages(arr,n,2)<<endl;
+
+	int birds=3;
+	vector<int> nests{1,2,4,8,9};
+	cout<<angeryBirds(nests,birds)<<endl;
+	// int arr[] = {0,0,0,0,0,0,1,1,1,1,1,1,};
+ //    int ans = firstPosition(arr, 1);
+ //    if (ans==-1)
+ //        cout << "Element not found";
+ //    else
+ //        cout << "Element found at index " << ans;
+ //    return 0;
 	//cout<<binarysearch(arr,n,20)<<endl;
 	//cout<<binarysearchReverseSorted(arr,n,2+0)<<endl;
 	// string s = "{a+(b+c)+([d+e]*f))}+k+((a+b+c)+[d])";
