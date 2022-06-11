@@ -1,0 +1,87 @@
+/*
+A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.
+Given a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].
+You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
+You must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.
+
+Input: mat = [[1,4],[3,2]]
+Output: [0,1]
+Explanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.
+
+Input: mat = [[10,20,15],[21,30,14],[7,16,32]]
+Output: [1,1]
+Explanation: Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers.
+ 
+
+Constraints:
+m == mat.length
+n == mat[i].length
+1 <= m, n <= 500
+1 <= mat[i][j] <= 105
+No two adjacent cells are equal.
+*/
+
+
+
+
+class Solution {
+    
+   public int[] findPeakGrid(int[][] mat) {
+   		int startRow = 0;
+	    int endRow = mat.length-1;
+
+
+	    while(endRow >= startRow) {
+	        int middleRow = startRow + (endRow - startRow)/2;
+	       
+            //System.out.println("startRow : "+startRow+"   endRow : "+endRow+"  middleRow:"+middleRow);
+            
+	        // will get max element position for that row
+	        int rowmax = maxRowElementPosition(mat[middleRow], mat[middleRow].length-1);
+
+	        // middle row is the first row
+	        if (middleRow == 0) {
+	            if (mat[middleRow][rowmax] > mat[middleRow + 1][rowmax]) {
+	                return new int[]{middleRow, rowmax};
+	            }
+	        }
+	        
+	        //middle row is the last row
+	        if (middleRow == mat.length - 1) {
+	            if (mat[middleRow][rowmax] > mat[middleRow - 1][rowmax]) {
+	                return new int[]{middleRow, rowmax};
+	            }
+	        }
+
+	        //  checking max element of the row with it's upper and lower row
+	        if (mat[middleRow][rowmax] > mat[middleRow + 1][rowmax] && mat[middleRow][rowmax] > mat[middleRow - 1][rowmax]) {
+	            return new int[]{middleRow, rowmax};
+	        }
+	        
+	        // if max is lesser than next rows same column element, will move startRow to the nextRow
+	        if (mat[middleRow][rowmax] < mat[middleRow + 1][rowmax]) {
+	            startRow = middleRow+1;
+	        } else {                             // otherwise move the endRow to current row -1
+	            endRow = middleRow -1;
+	        }
+	    }
+	    
+	    // we didn't find peak element in matrix
+	    return new int[]{-1, -1};
+
+	}
+    
+	private int maxRowElementPosition(int[] arr, int end) {
+	    int max = 0;
+
+
+	    for ( int i = 0; i <= end; i++){
+	        if (arr[i] > arr[max]){
+	            max = i;
+	        }
+	    }
+
+	    return max;
+	}
+    
+}
