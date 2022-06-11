@@ -72,3 +72,37 @@ public:
     }
 
 };
+
+//Jada achi approch chota code and basic Binary Seacrh approch ki hame konsa half eliminate karna h
+//2nd Approch esme hum kya kar rahe h ki  hum voh half of array nikal rahe h jo eliminate
+//karna h jis se har step m problem half ho jayegi
+
+int searchRotatedSortedArray(int arr[], int n, int x){
+  int low=0, high=n-1;
+  while(low<=high){
+    int mid=(high+low)/2;
+
+    if(arr[mid]==x)return mid;
+
+    //if left part is sorted
+    if(arr[mid]>=arr[low]){
+      //either it lies on the left part or not
+      if(x>=arr[low] && x<=arr[mid]){
+        high=mid-1;
+      }
+      else{
+        low=mid+1;
+      }
+    }
+    //right part is sorted
+    else{
+      if(x>=arr[mid] && x<=arr[high]){
+        low=mid+1;
+      }
+      else{
+        high=mid-1;
+      }
+    }
+  }
+  return -1;
+}
