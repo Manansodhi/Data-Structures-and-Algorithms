@@ -402,15 +402,16 @@ bool isvalid(vector<int>&nests, int birds, int mx){
 	for(int i=1;i<=noOfNests-1;i++){
 		int current_location = nests[i];
 		if(current_location-last_location>=mx){
+			cout<<"        B"<<i<<" current_location-last_location: "<<current_location-last_location<<endl;
 			BirdsRequired++;
 			last_location=current_location;
 		}
 
-		if(BirdsRequired>birds){
-			return false;
+		if(BirdsRequired==birds){
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 int angeryBirds(vector<int>&nests, int birds){
