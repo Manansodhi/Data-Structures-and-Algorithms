@@ -103,3 +103,26 @@ int knapsack(vector<int> weight, vector<int> value, int n, int bagWT)
     }
     return prev[bagWT];
 }
+
+//Single 1-D array SPACE OPTIMIZATION
+int knapsack(vector<int> weight, vector<int> value, int n, int bagWT) 
+{    
+    vector<int> prev(bagWT+1,0);
+    
+    //base case
+    for(int W = weight[0]; W<=bagWT; W++)
+        prev[W] = value[0];
+        //dp[idx][bagWT] for every idx=0 and when wt[0]<=bagWT means last item bag m tabhi ayegi jab badWT ki capacity jada hoga weight item se agar bag ki capacity kam h toh usko bag m nahi dal sakte
+    
+    for(int idx=1; idx<n; idx++){
+        for(int W = bagWT; W>=0; W--){
+            int notPick = 0 + prev[W];
+            int pick = -1e8;
+            if(weight[idx] <= W){
+                pick = value[idx] + prev[W-weight[idx]];
+            }
+         prev[W] = max(pick, notPick);
+        }
+    }
+    return prev[bagWT];
+}
