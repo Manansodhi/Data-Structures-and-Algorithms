@@ -159,33 +159,33 @@ using namespace std;
 
 
 
-int SearchNearlySortedArray(int arr[], int n,int ele){
-	int start=0,end=n-1;
-	while(start<=end){
-		int mid=start+(end-start)/2;
-		if(arr[mid]==ele)
+int SearchNearlySortedArray(int arr[], int n, int ele) {
+	int start = 0, end = n - 1;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		if (arr[mid] == ele)
 			return mid;
-		if(mid-1>=start && arr[mid-1]==ele)
-			return mid-1;
-		if(mid+1<=end && arr[mid+1]==ele)
-			return mid+1;
-		else if(arr[mid]>=ele)
-			end=mid-2;
+		if (mid - 1 >= start && arr[mid - 1] == ele)
+			return mid - 1;
+		if (mid + 1 <= end && arr[mid + 1] == ele)
+			return mid + 1;
+		else if (arr[mid] >= ele)
+			end = mid - 2;
 		else
-			start=mid+2;
+			start = mid + 2;
 	}
 	return 0;
 }
 
-int floorOfElement(int arr[],int n,int ele){
+int floorOfElement(int arr[], int n, int ele) {
 	int start = 0, end = n - 1;
 	int res;
 	while (start <= end) {
 		int mid = start + (end - start) / 2;
 		if (arr[mid] == ele)
 			return arr[mid];
-		if (arr[mid] <= ele){
-			res=arr[mid];
+		if (arr[mid] <= ele) {
+			res = arr[mid];
 			start = mid + 1;
 		}
 		else if (arr[mid] >= ele)
@@ -238,203 +238,203 @@ int TimesSortedArrayRotated(int arr[], int n) {
 	int start = 0, end = n - 1;
 	while (start <= end) {
 		int mid = start + (end - start) / 2;
-		int prev=(mid+n-1)%n;
-		int next=(mid+1)%n;
-		if(arr[mid]<arr[next] && arr[mid]<arr[prev]){
+		int prev = (mid + n - 1) % n;
+		int next = (mid + 1) % n;
+		if (arr[mid] < arr[next] && arr[mid] < arr[prev]) {
 			return mid;
 		}
-		else if(arr[mid]<arr[end]){
-			end=mid-1;
+		else if (arr[mid] < arr[end]) {
+			end = mid - 1;
 		}
-		else{
-			start = mid+1;
+		else {
+			start = mid + 1;
 		}
 	}
 	return 0;
 }
 
 int binarysearch(int arr[], int n, int ele) {
-	int start = 0, end = n-1;
-	int mid = start+((end-start)/2);
-	while(start<=end){
-		if (arr[mid]==ele){
-		return mid;
+	int start = 0, end = n - 1;
+	int mid = start + ((end - start) / 2);
+	while (start <= end) {
+		if (arr[mid] == ele) {
+			return mid;
 		}
-		else if(arr[mid]>ele){
-			end=mid-1;
+		else if (arr[mid] > ele) {
+			end = mid - 1;
 		}
-		else{
-			start=mid+1;
-		}
-	}
-	return -1;
-}
-
-int binarysearchReverseSorted(int arr[], int n , int ele){
-	int start=0, end=n-1;
-	int mid = start+((end-start)/2);
-	while(start<=end){
-		if(arr[mid]==ele){
-		return mid;
-		}
-		else if (arr[mid]>ele){
-		start=mid+1;
-		}
-		else{
-			end=mid-1;
+		else {
+			start = mid + 1;
 		}
 	}
 	return -1;
 }
 
-int firstOccurence(vector<int>&nums, int target){
-	int n=nums.size();
-	int start=0, end=n-1,firstOccur=-1;
-	int mid = start+((end-start)/2);
-	while(start<=end){
-		if(nums[mid]==target){
-			firstOccur=mid;
-			end=mid-1;
+int binarysearchReverseSorted(int arr[], int n , int ele) {
+	int start = 0, end = n - 1;
+	int mid = start + ((end - start) / 2);
+	while (start <= end) {
+		if (arr[mid] == ele) {
+			return mid;
 		}
-		else if(nums[mid]>target){
-			end=mid-1;
+		else if (arr[mid] > ele) {
+			start = mid + 1;
 		}
-		else{
-			start=mid+1;
+		else {
+			end = mid - 1;
+		}
+	}
+	return -1;
+}
+
+int firstOccurence(vector<int>&nums, int target) {
+	int n = nums.size();
+	int start = 0, end = n - 1, firstOccur = -1;
+	int mid = start + ((end - start) / 2);
+	while (start <= end) {
+		if (nums[mid] == target) {
+			firstOccur = mid;
+			end = mid - 1;
+		}
+		else if (nums[mid] > target) {
+			end = mid - 1;
+		}
+		else {
+			start = mid + 1;
 		}
 	}
 	return firstOccur;
 }
 
-int lastOccurence(vector<int>&nums, int target){
-	int n=nums.size();
-	int start=0, end=n-1,lastOccur=-1;
-	int mid = start+((end-start)/2);
-	while(start<=end){
-		if(nums[mid]==target){
-			lastOccur=mid;
-			start=mid+1;
+int lastOccurence(vector<int>&nums, int target) {
+	int n = nums.size();
+	int start = 0, end = n - 1, lastOccur = -1;
+	int mid = start + ((end - start) / 2);
+	while (start <= end) {
+		if (nums[mid] == target) {
+			lastOccur = mid;
+			start = mid + 1;
 		}
-		else if(nums[mid]>target){
-			end=mid-1;
+		else if (nums[mid] > target) {
+			end = mid - 1;
 		}
-		else{
-			start=mid+1;
+		else {
+			start = mid + 1;
 		}
 	}
 	return lastOccur;
 }
 
-int firstOccur(int arr[], int start, int end,int key){
-	int mid = start+(end-start)/2,res=-1;
-	if(arr[mid]==key){
-		res=mid;
-		end=mid-1;
+int firstOccur(int arr[], int start, int end, int key) {
+	int mid = start + (end - start) / 2, res = -1;
+	if (arr[mid] == key) {
+		res = mid;
+		end = mid - 1;
 	}
-	else{
-		start=mid+1;
+	else {
+		start = mid + 1;
 	}
 	return res;
 }
 
 
-int firstPosition(int arr[],int key){
-	int start=0,end=1;
-	while(arr[end]<key){
-		start=end;
-		end=end*2;
+int firstPosition(int arr[], int key) {
+	int start = 0, end = 1;
+	while (arr[end] < key) {
+		start = end;
+		end = end * 2;
 	}
-	return firstOccur(arr,start,end,key);
+	return firstOccur(arr, start, end, key);
 }
 
-int maxInarr(int arr[],int n){
-	int max=INT_MIN;
-	for(int i=0;i<n;i++){
-		if(arr[i]>max)
-			max=arr[i];
+int maxInarr(int arr[], int n) {
+	int max = INT_MIN;
+	for (int i = 0; i < n; i++) {
+		if (arr[i] > max)
+			max = arr[i];
 	}
 	return max;
 }
 
-int SumOfElementOfArray(int arr[], int n){
-	int sum=0;
-	for(int i=0;i<n;i++){
-		sum+=arr[i];
+int SumOfElementOfArray(int arr[], int n) {
+	int sum = 0;
+	for (int i = 0; i < n; i++) {
+		sum += arr[i];
 	}
 	return sum;
 }
 
-bool isValid(int arr[], int n, int k, int mx){
-	int student=1,sum=0;
-	for(int i=0;i<n;i++){
-		sum+=arr[i];
-		if(sum>mx){
+bool isValid(int arr[], int n, int k, int mx) {
+	int student = 1, sum = 0;
+	for (int i = 0; i < n; i++) {
+		sum += arr[i];
+		if (sum > mx) {
 			student++;
-			sum=arr[i];
+			sum = arr[i];
 		}
-		if(student>k){
+		if (student > k) {
 			return false;
 		}
-	}
+	}ś
 	return true;
 }
 
-int allocateMinPages(int arr[], int n, int k){
-	if(n<k){
+int allocateMinPages(int arr[], int n, int k) {
+	if (n < k) {
 		return -1;
 	}
-	int start=maxInarr(arr,n), end = SumOfElementOfArray(arr,n), res = -1;
-	while(start<=end){
-		int mid=start+(end-start)/2;
-		if(isValid(arr,n,k,mid)){
-			res=mid;
-			end=mid-1;
+	int start = maxInarr(arr, n), end = SumOfElementOfArray(arr, n), res = -1;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		if (isValid(arr, n, k, mid)) {
+			res = mid;
+			end = mid - 1;
 		}
 		else
-			start=mid+1;
+			start = mid + 1;
 	}
 	return res;
 }
 
 
-bool isvalid(vector<int>&nests, int birds, int mx){
-	int BirdsRequired=1,last_location=nests[0],noOfNests=nests.size();
-	for(int i=1;i<=noOfNests-1;i++){
+bool isvalid(vector<int>&nests, int birds, int mx) {
+	int BirdsRequired = 1, last_location = nests[0], noOfNests = nests.size();
+	for (int i = 1; i <= noOfNests - 1; i++) {
 		int current_location = nests[i];
-		if(current_location-last_location>=mx){
-			cout<<"        B"<<i<<" current_location-last_location: "<<current_location-last_location<<endl;
+		if (current_location - last_location >= mx) {
+			cout << "        B" << i << " current_location-last_location: " << current_location - last_location << endl;
 			BirdsRequired++;
-			last_location=current_location;
+			last_location = current_location;
 		}
 
-		if(BirdsRequired==birds){
+		if (BirdsRequired == birds) {
 			return true;
 		}
 	}
 	return false;
 }
 
-int angeryBirds(vector<int>&nests, int birds){
+int angeryBirds(vector<int>&nests, int birds) {
 
 	int n = nests.size();
 	int result = -1;
-	int start = 0,end = nests[n-1]-nests[0];
+	int start = 0, end = nests[n - 1] - nests[0];
 
 	if (n < birds)
-    return -1;
+		return -1;
 
-	while(start<=end){
-		int mid = start+(end-start)/2;
-		cout<<"1 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
-		if(isvalid(nests,birds,mid)){
-			cout<<"2 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
-			result=mid;
-			start=mid+1;
-			cout<<"2.1 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		cout << "1 Mid: " << mid << " Start: " << start << " End: " << end << endl;
+		if (isvalid(nests, birds, mid)) {
+			cout << "2 Mid: " << mid << " Start: " << start << " End: " << end << endl;
+			result = mid;
+			start = mid + 1;
+			cout << "2.1 Mid: " << mid << " Start: " << start << " End: " << end << endl;
 		}
-		else{
-			end=mid-1;
-			cout<<"3 Mid: "<<mid<<" Start: "<<start<<" End: "<<end<<endl;
+		else {
+			end = mid - 1;
+			cout << "3 Mid: " << mid << " Start: " << start << " End: " << end << endl;
 		}
 	}
 	return result;
@@ -448,22 +448,22 @@ int main() {
 
 	//int arr[] = {12,15,18,2,5,6,8,11};
 	//int arr[] = {1,2,3,4,5,6,7,8,9};
-	int arr[] = {10,20,30,40};
+	int arr[] = {10, 20, 30, 40};
 	int n = sizeof(arr) / sizeof(arr[0]);
 	// int ele=3;
 	//cout<<TimesSortedArrayRotated(arr,n)<<endl;
 	//cout<<allocateMinPages(arr,n,2)<<endl;
 
-	int birds=3;
-	vector<int> nests{1,2,4,8,9};
-	cout<<angeryBirds(nests,birds)<<endl;
+	int birds = 3;
+	vector<int> nests{1, 2, 4, 8, 9};
+	cout << angeryBirds(nests, birds) << endl;
 	// int arr[] = {0,0,0,0,0,0,1,1,1,1,1,1,};
- //    int ans = firstPosition(arr, 1);
- //    if (ans==-1)
- //        cout << "Element not found";
- //    else
- //        cout << "Element found at index " << ans;
- //    return 0;
+//    int ans = firstPosition(arr, 1);
+//    if (ans==-1)
+//        cout << "Element not found";
+//    else
+//        cout << "Element found at index " << ans;
+//    return 0;
 	//cout<<binarysearch(arr,n,20)<<endl;
 	//cout<<binarysearchReverseSorted(arr,n,2+0)<<endl;
 	// string s = "{a+(b+c)+([d+e]*f))}+k+((a+b+c)+[d])";
@@ -477,7 +477,7 @@ int main() {
 	// }
 
 	// string s = "())";
-	
+
 	// cout << longeestValidParantheses(s) << endl;
 
 
@@ -490,14 +490,14 @@ int main() {
 	// while(ch!= '.'){
 	// 	//reading stream of character untill "."
 	// 	q.push(ch);
-	// 	freq[ch-'a']++; 
-	// 	//storing frequency of each alphabet at its same position in english language like c-a=2 so freq of c will be 
+	// 	freq[ch-'a']++;
+	// 	//storing frequency of each alphabet at its same position in english language like c-a=2 so freq of c will be
 	// 	//stored at 2nd index by incrementing each time
 
 	// 	//query -> Now removing all chars from front of queue which have frequency greater than 1
 
 	// 	while(!q.empty()){
-	// 		int idx=q.front()-'a';  
+	// 		int idx=q.front()-'a';
 	// 		//finding index of alphabet by subtracting from 'a' to check the freq of that character
 	// 		if(freq[idx]>1){
 	// 			q.pop();
@@ -513,9 +513,9 @@ int main() {
 	// 	cin>>ch;//reading next character
 	// }//end of while loop
 
-    // string path = "/../x/y/../z/././w/a///../../c/./";
+	// string path = "/../x/y/../z/././w/a///../../c/./";
 
-    // cout << SimplifyPath(path) << endl;
+	// cout << SimplifyPath(path) << endl;
 
 	// priority_queue<int>pq_max; //by default it is max heap means max value has max priority
 	// priority_queue<int, vector<int>, greater<int> > pq_min; //it is min heap;
@@ -546,7 +546,7 @@ int main() {
 	// f();   //overloaded() operator looks like function call with class object f.
 	// //f is an object but behaves like function call so f is called functors(functional object)
 	// f("C++");
-	
+
 	// int n;
 	// cin>>n;
 	// priority_queue<person,vector<person>,personCompare>pq;
@@ -597,7 +597,7 @@ int main() {
 	// cin>>d;
 	// while(d!=-1){
 	// 	if(leftheap.size() > rightheap.size()){
-	// 	//as esme size unequal (odd) h heap ka toh jabnew element push karege toh even number of element ho 
+	// 	//as esme size unequal (odd) h heap ka toh jabnew element push karege toh even number of element ho
 	// 	//jayege toh median average to 2 middle number hoga
 	// 		if(d<median){
 	// 			//eska matlab h ki jo d element h voh leftheap m jana chahiye becoz voh chota h median se bhut
@@ -668,8 +668,8 @@ int main() {
 	// 		//ye wala voh case h jab abhi array m element bache hue agar ulta hota toh matlab index wale array
 	// 		//me voh array size bada index store kiya hua jisper ja nahi sakte
 	// 		 pair<int,int>p;
- // 			 p.first=a[x.second][idx[x.second] + 1];
- // 			 p.second=x.second;
+// 			 p.first=a[x.second][idx[x.second] + 1];
+// 			 p.second=x.second;
 	// 		pq.push(p);
 	// 	}
 	// 	idx[x.second] += 1;
@@ -717,7 +717,7 @@ int main() {
 	// else{
 	// 	cout<<"ghi is being erased"<<endl;
 	// }
-	
+
 
 	return 0;
 
