@@ -1,7 +1,10 @@
 /*
 0 1 Knapsack
 
-A thief is robbing a store and can carry a maximal weight of W into his knapsack. There are N items and the ith item weighs wi and is of value vi. Considering the constraints of the maximum weight that a knapsack can carry, you have to find and return the maximum value that a thief can generate by stealing items.
+A thief is robbing a store and can carry a maximal weight of W into his knapsack. There are
+ N items and the ith item weighs wi and is of value vi. Considering the constraints of the 
+ maximum weight that a knapsack can carry, you have to find and return the maximum value that 
+ a thief can generate by stealing items.
 
 Constraints:
 1 <= T <= 10
@@ -88,7 +91,9 @@ int knapsack(vector<int> weight, vector<int> value, int n, int bagWT)
     //base case
     for(int W = weight[0]; W<=bagWT; W++)
         prev[W] = value[0];
-        //dp[idx][bagWT] for every idx=0 and when wt[0]<=bagWT means last item bag m tabhi ayegi jab badWT ki capacity jada hoga weight item se agar bag ki capacity kam h toh usko bag m nahi dal sakte
+        //dp[idx][bagWT] for every idx=0 and when wt[0]<=bagWT means last item bag m tabhi 
+        //ayegi jab badWT ki capacity jada hoga weight item se agar bag ki capacity kam h toh
+        //usko bag m nahi dal sakte
     
     for(int idx=1; idx<n; idx++){
         for(int W=0; W<=bagWT;W++){
@@ -112,7 +117,9 @@ int knapsack(vector<int> weight, vector<int> value, int n, int bagWT)
     //base case
     for(int W = weight[0]; W<=bagWT; W++)
         prev[W] = value[0];
-        //dp[idx][bagWT] for every idx=0 and when wt[0]<=bagWT means last item bag m tabhi ayegi jab badWT ki capacity jada hoga weight item se agar bag ki capacity kam h toh usko bag m nahi dal sakte
+        //dp[idx][bagWT] for every idx=0 and when wt[0]<=bagWT means last item bag m tabhi 
+        // ayegi jab badWT ki capacity jada hoga weight item se agar bag ki capacity kam h toh 
+        // usko bag m nahi dal sakte
     
     for(int idx=1; idx<n; idx++){
         for(int W = bagWT; W>=0; W--){
