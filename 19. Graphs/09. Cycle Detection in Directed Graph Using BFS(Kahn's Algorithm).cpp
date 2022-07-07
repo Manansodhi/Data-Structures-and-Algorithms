@@ -26,7 +26,7 @@ bool isCyclic(int n,vector<int> adj[]){
 		}
 	}
 
-	//if we are able to generate topo sort then coun will be equal to n topo generated means 
+	//if we are able to generate topo sort then count will be equal to n topo generated means 
 	//it DAG(directed Acyclic graph) so graphi not cyclic and return false
 	if(count==n)
 		return false;
