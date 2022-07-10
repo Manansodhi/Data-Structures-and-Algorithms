@@ -49,8 +49,8 @@ using namespace std;
 
 
 
-//OPTIMIZED APPROCH
-//Using priority Queue to find minimum element in log N instead of using for loop
+// OPTIMIZED APPROCH
+// Using priority Queue to find minimum element in log N instead of using for loop
 int main(){
 	int N,m;
 	cin>>N>>m;
