@@ -1,6 +1,5 @@
 /*
 1277. Count Square Submatrices with All Ones
-
 Given a m * n matrix of ones and zeros, return how many square submatrices have all ones.
 
 Example 1:
@@ -11,7 +10,6 @@ Input: matrix =
   [0,1,1,1]
 ]
 Output: 15
-
 Explanation: 
 There are 10 squares of side 1.
 There are 4 squares of side 2.
@@ -26,7 +24,6 @@ Input: matrix =
   [1,1,0]
 ]
 Output: 7
-
 Explanation: 
 There are 6 squares of side 1.  
 There is 1 square of side 2. 
