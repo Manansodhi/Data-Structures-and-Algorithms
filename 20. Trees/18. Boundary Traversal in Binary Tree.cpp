@@ -28,32 +28,7 @@ For the second test case, we have 1 as the root node. 2, 3 as the left boundary 
 leaf node. We don't have any right boundaries.
 
 
-/************************************************************
-
-    Following is the Binary Tree node structure:
-    
-    template <typename T>
-    class TreeNode {
-        public :
-        T data;
-        TreeNode<T> *left;
-        TreeNode<T> *right;
-
-        TreeNode(T data) {
-            this -> data = data;
-            left = NULL;
-            right = NULL;
-        }
-
-        ~TreeNode() {
-            if(left)
-                delete left;
-            if(right)
-                delete right;
-        }
-    };
-
-************************************************************/
+*/
 
 bool isleaf(TreeNode<int>* root){
     return !root->left && !root->right;
