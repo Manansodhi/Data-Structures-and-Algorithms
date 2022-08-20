@@ -15,4 +15,6 @@ int palindrone(int i, string s){
 
 int main(){
 	return palindrone(0,str);
-}
+} 
+
+
