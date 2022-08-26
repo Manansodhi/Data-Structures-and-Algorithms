@@ -69,7 +69,7 @@ bool PrintSubSequence(int idx, int sum, int curr_sum, int arr[], int n, vector<i
 	if(PrintSubSequence(idx+1,sum,curr_sum,arr,n,ds) == true)
 		return true;
 
-	return false; 
+	return false;
 }
 
 
